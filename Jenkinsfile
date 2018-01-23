@@ -14,9 +14,7 @@ node {
             if(f){
             def sourceDir = "$workspace\\$f"
             def destinationDir = "c:\\$f"
-            (new AntBuilder().copy(todir: destinationDir) {
-                    fileset(dir: sourceDir)
-                })
+            FileUtils.copyDirectory(File sourceDir, File destinationDir)
             }else{
                 echo "ningun scriptportlet se ha modificado"
             }
