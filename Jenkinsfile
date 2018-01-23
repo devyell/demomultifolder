@@ -3,10 +3,10 @@ pipeline {
   stages {
     stage('build') {
       environment {
-        COMMIT = ${bat 'git log --name-status -1 --oneline'}
+        COMMIT = (bat 'git log --name-status -1 --oneline')
       }
       steps {
-        bat 'echo  %COMMIT%'
+        bat 'echo env.COMMIT'
       }
     }
   }
