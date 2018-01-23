@@ -8,6 +8,7 @@ node {
             def gitEcho= bat returnStdout: true, script: 'git log --name-status -3'
             echo 'I only execute on the master branch'
            def workspace = pwd()
+            echo workspace
            new File(workspace).eachDir() { dir ->  
                     echo dir.getName()
             }  
