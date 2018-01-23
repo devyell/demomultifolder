@@ -12,11 +12,11 @@ node {
             command = "copy $workspace\\$f c:\\$f"
             echo command
             if(f){
-            String sourceDir = " $workspace\\$f"
-            String destinationDir = "c:\\$f"
-            new AntBuilder().copy(todir: destinationDir) {
-            fileset(dir: sourceDir)
-                }
+            def sourceDir = "$workspace\\$f"
+            def destinationDir = "c:\\$f"
+            (new AntBuilder().copy(todir: destinationDir) {
+                    fileset(dir: sourceDir)
+                })
             }else{
                 echo "ningun scriptportlet se ha modificado"
             }
