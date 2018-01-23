@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       environment {
-        commit = 'env.GIT_COMMIT'
+        commit = '${GIT_COMMIT}'
       }
       steps {
         bat 'echo commit'
@@ -11,6 +11,6 @@ pipeline {
     }
   }
   environment {
-    commit = 'env.GIT_COMMIT'
+    commit = '${GIT_COMMIT}'
   }
 }
