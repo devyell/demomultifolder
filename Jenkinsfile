@@ -9,14 +9,14 @@ node {
            def workspace = pwd()
            def changes= gitEcho.tokenize('\n').findAll { (it.startsWith('M') || it.startsWith('A'))}
            def f=folderModified(workspace,changes)
-             command = "copy $workspace\\$f c:\\$f"
+            command = "copy $workspace\\$f c:\\$f"
             echo command
             if(f){
-            proc = command.execute()
-            proc.consumeProcessOutput(sout, serr)
-            proc.waitForOrKill(3000)
-            println "out> $sout err> $serr"
-                
+            String sourceDir = " $workspace\\$f"
+            String destinationDir = "c:\\$f"
+            new AntBuilder().copy(todir: destinationDir) {
+            fileset(dir: sourceDir)
+                }
             }else{
                 echo "ningun scriptportlet se ha modificado"
             }
