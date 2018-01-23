@@ -9,7 +9,7 @@ node {
            def workspace = pwd()
            def changes= gitEcho.tokenize('\n').findAll { (it.startsWith('M') || it.startsWith('A'))}
            def f=folderModified(workspace,changes)
-            bat copy f c:\\f
+            bat script: 'copy ${f} c://${f}'
         } else {
             echo 'I execute elsewhere'
         }
