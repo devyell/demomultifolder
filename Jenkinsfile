@@ -1,13 +1,9 @@
-pipeline {
-  agent any
-  stages {
+node {
     stage('build') {
-      environment {
-        COMMIT = (bat 'git log --name-status -1 --oneline')
-      }
-      steps {
-        bat 'echo env.COMMIT'
-      }
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
+        }
     }
-  }
 }
