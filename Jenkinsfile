@@ -6,7 +6,7 @@ pipeline {
         commit = '${GIT_COMMIT}'
       }
       steps {
-        bat 'echo commit'
+        bat 'echo env.commit'
       }
     }
   }
