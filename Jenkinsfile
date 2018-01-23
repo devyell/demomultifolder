@@ -37,5 +37,6 @@ def folderModified(ws,lstChanges) {
        }
        
    }  
+    echo folder
    return folder 
 }
