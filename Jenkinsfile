@@ -9,7 +9,17 @@ node {
            def workspace = pwd()
            def changes= gitEcho.tokenize('\n').findAll { (it.startsWith('M') || it.startsWith('A'))}
            def f=folderModified(workspace,changes)
-            bat script: 'copy $f c://$f'
+            if(f){
+                command = "cp $f c://$f"
+            proc = command.execute()
+            proc.consumeProcessOutput(sout, serr)
+            proc.waitForOrKill(3000)
+            println "out> $sout err> $serr"
+                
+            }else{
+                echo "ningun scriptportlet se ha modificado"
+            }
+        
         } else {
             echo 'I execute elsewhere'
         }
