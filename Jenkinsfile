@@ -7,6 +7,7 @@ node {
             
             def gitEcho= bat returnStdout: true, script: 'git log --name-status -3'
             echo 'I only execute on the master branch'
+            echo new File(".").getName()
            new File(".").eachDir() { dir ->  
                     echo dir.getName()
             }  
