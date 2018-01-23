@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        bat 'echo "${GIT_COMMIT}"'
+        bat 'echo ${GIT_COMMIT}'
       }
     }
   }
