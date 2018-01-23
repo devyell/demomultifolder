@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        bat 'echo env.COMMIT_MESSAGE'
+        bat 'echo "${GIT_COMMIT}"'
       }
     }
   }
