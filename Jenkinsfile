@@ -6,7 +6,7 @@ pipeline {
         commit = bat 'git log --name-status -1 --oneline'
       }
       steps {
-        bat 'echo %commit%'
+        bat 'echo ${commit}'
       }
     }
   }
