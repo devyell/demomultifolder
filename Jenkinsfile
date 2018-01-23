@@ -1,6 +1,6 @@
 node {
     stage('checkout'){
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '5f1f1f52-bc95-4ce0-a419-7be7b1f8d6b4', url: 'https://github.com/devyell/demomultifolder.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '5f1f1f52-bc95-4ce0-a419-7be7b1f8d6b4', url: 'https://github.com/devyell/demomultifolder.git']]])
     }
     stage('build') {
         if (env.BRANCH_NAME == 'master') {
@@ -8,7 +8,8 @@ node {
            def gitEcho= bat returnStdout: true, script: 'git log --name-status -1'
            def workspace = pwd()
            def changes= gitEcho.tokenize('\n').findAll { (it.startsWith('M') || it.startsWith('A'))}
-           folderModified(workspace,changes)
+           def f=folderModified(workspace,changes)
+            bat copy f c:\\f
         } else {
             echo 'I execute elsewhere'
         }
@@ -21,10 +22,11 @@ def folderModified(ws,lstChanges) {
    new File(ws).eachDir() { dir ->  
        lstChanges.each{
            if(it.contains(dir.getName())){
-                echo dir.getName()
+                folder=dir.getName()
            }
        }
        
-            }  
+   }  
+    folder
  
 }
