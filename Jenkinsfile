@@ -20,7 +20,7 @@ def folderModified(ws,lstChanges) {
     def folder=''
    new File(ws).eachDir() { dir ->  
        lstChanges.each{
-           if(${it}.contains(dir.getName())){
+           if(it.contains(dir.getName())){
                 echo dir.getName()
            }
        }
