@@ -33,6 +33,8 @@ def folderModified(ws,lstChanges) {
        lstChanges.each{
            if(it.contains(dir.getName())){
                 folder=dir.getName()
+               echo dir.getName()
+                echo folder
            }
        }
        
