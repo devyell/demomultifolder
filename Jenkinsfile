@@ -7,8 +7,8 @@ node {
             
             def gitEcho= bat returnStdout: true, script: 'git log --name-status -3'
             echo 'I only execute on the master branch'
-            echo new File().getPath()
-           new File(".").eachDir() { dir ->  
+           def workspace = pwd()
+           new File(workspace).eachDir() { dir ->  
                     echo dir.getName()
             }  
             println gitEcho.tokenize('\n').findAll { it.startsWith('M') }
