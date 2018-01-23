@@ -1,0 +1,22 @@
+<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Tope de Consumo/Modal - Transaccion Existosa"]</h3>
+<p>
+    [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Tope de Consumo/Modal - Transaccion Existosa"]
+    <br>&nbsp;
+</p>
+
+<p><a href="#" class="bt bt-red" id="btcambiotopeaceptar">Regresar</a></p>
+<script>
+$(document).ready(function(e) {
+    $('#btcambiotopeaceptar').click(function(e){
+         e.preventDefault();
+         var href='/wps/myportal/miclaro/corporativo/cambiartopeconsumo';
+	   $(location).attr('href', href);
+		 
+    });
+    $('.popup .btclose, .popup .bg').click(function(){
+         var href='/wps/myportal/miclaro/corporativo/cambiartopeconsumo';
+	   $(location).attr('href', href);
+		 
+    });
+});
+</script>

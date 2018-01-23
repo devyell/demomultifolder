@@ -1,0 +1,113 @@
+2016-12-09 10:57:13 -- Script Portlet command line version: 1.3
+
+2016-12-09 10:57:13 -- Home folder: C:\IBM_WPS_BATCH\sp_cmdln
+
+2016-12-09 10:57:13 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_80\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_80
+
+2016-12-09 10:57:13 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerConsultasServiciosContratadosTV
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.64:10039
+	wcmContentName = MiClaroConsumerConsultasServiciosContratadosTV
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2016-12-09 10:57:13 -- Begin content push to Portal.
+
+2016-12-09 10:57:13 -- Push URL: POST http://9.6.109.64:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2016-12-09 10:57:13 -- Virtual Portal ID: null
+
+2016-12-09 10:57:13 -- Project ID: null
+
+2016-12-09 10:57:13 -- WCM content ID: null
+
+2016-12-09 10:57:13 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerConsultasServiciosContratadosTV
+
+2016-12-09 10:57:13 -- WCM Content Title: null
+
+2016-12-09 10:57:13 -- Main HTML file: index.html
+
+2016-12-09 10:57:13 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-3426819944963721419.zip
+	(6948 bytes in 6 files)
+
+	angular/app.js
+	angular/controller/appController.js
+	angular/service/appService.js
+	angular/view/appView.html
+	assets/js/util.js
+	index.html
+
+2016-12-09 10:57:20 -- Response status: HTTP/1.1 200 OK
+
+2016-12-09 10:57:20 -- Content-Type: application/json
+
+2016-12-09 10:57:20 -- Effective charset of body: UTF-8
+
+2016-12-09 10:57:20 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/appView.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/util.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/appService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/appController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2016-12-09 10:57:20 -- Target authentication state: SUCCESS
+
+2016-12-09 10:57:20 -- Target authentication scheme: BASIC
+
+2016-12-09 10:57:20 -- Target authentication credentials: [principal: wpsadmin]
+
+2016-12-09 10:57:20 -- Content push was successful.
+
+2016-12-09 10:57:20 -- End content push to Portal.
+

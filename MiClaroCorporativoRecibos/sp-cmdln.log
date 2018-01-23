@@ -1,0 +1,107 @@
+2017-01-16 15:50:36 -- Script Portlet command line version: 1.3
+
+2017-01-16 15:50:36 -- Home folder: C:\IBM_PORTLET_BATCH\sp_cmdln
+
+2017-01-16 15:50:36 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-01-16 15:50:36 -- Effective configuration properties:
+
+	contentRoot = MiClaroCorporativoRecibos
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroCorporativoRecibos
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-01-16 15:50:36 -- Begin content push to Portal.
+
+2017-01-16 15:50:36 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-01-16 15:50:36 -- Virtual Portal ID: null
+
+2017-01-16 15:50:36 -- Project ID: null
+
+2017-01-16 15:50:36 -- WCM content ID: null
+
+2017-01-16 15:50:36 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroCorporativoRecibos
+
+2017-01-16 15:50:36 -- WCM Content Title: null
+
+2017-01-16 15:50:36 -- Main HTML file: index.html
+
+2017-01-16 15:50:36 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-8704933084587244058.zip
+	(1814 bytes in 5 files)
+
+	angular/app.js
+	angular/controller/appController.js
+	angular/service/appService.js
+	angular/view/appView.html
+	index.html
+
+2017-01-16 15:50:43 -- Response status: HTTP/1.1 200 OK
+
+2017-01-16 15:50:43 -- Content-Type: application/json
+
+2017-01-16 15:50:43 -- Effective charset of body: UTF-8
+
+2017-01-16 15:50:43 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/appView.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/appService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/appController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-01-16 15:50:43 -- Target authentication state: SUCCESS
+
+2017-01-16 15:50:43 -- Target authentication scheme: BASIC
+
+2017-01-16 15:50:43 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-01-16 15:50:43 -- Content push was successful.
+
+2017-01-16 15:50:43 -- End content push to Portal.
+

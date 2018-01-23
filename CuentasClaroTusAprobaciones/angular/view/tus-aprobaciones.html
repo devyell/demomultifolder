@@ -1,0 +1,98 @@
+<div class="body" style="margin-top: 100px;">
+    <h2>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Listado SEC"]</h2>
+    <p ng-show="mostrarListaSec">[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Listado SEC"]</p>
+    <div class="">
+        <div class="table list" ng-show="mostrarListaSec">
+            <div class="row rowSec whitebg">
+                <div class="col col50 no-mobile"><strong>Resumen de solicitud</strong></div>
+                <div class="col col20 no-mobile"><strong>Fecha</strong></div>
+                <div class="col col30 no-mobile"><strong>Acciones</strong></div>
+            </div>
+            <div class="row rowSec" ng-repeat="lista in listaSec" ng-model="lista" ng-class="{'greybg': $even , 'whitebg': $odd} ">
+                <span class="col stbl on-mobile" style="color: #706f82;"><strong>Resumen de solicitud</strong><br></span>
+                <div class="col col50">Número de SEC: {{lista.numeroSEC}}
+                    <br>{{lista.descripcion}}
+                    <br>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Disclaimer SEC"]</div>
+                <span class="col stbl on-mobile"><strong>Fecha</strong><br></span>
+                <div class="col col20">{{lista.fecha | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                <span class="col stbl on-mobile"><strong>Acciones</strong><br></span>
+                <div class="col col30">
+                    <button type="button" class="bt2 bt-blue" ng-click="aprobarSec(lista)">Aprobar</button>&nbsp;
+                    <button type="button" class="bt2 bt-grey no-mobile" ng-click="rechazarSec(lista)">X</button>
+                    <button type="button" class="bt2 bt-rechazar txtunderline on-mobile" ng-click="rechazarSec(lista)">Rechazar</button>
+                    <button type="button" class="bt2 bt-docs txtunderline" ng-click="verDocumentos(lista)">Ver Documentos</button>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div ng-show="mostrarSinSec">
+            <p>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Mensaje sin SEC pendientes FORM"]</p>
+        </div>
+        <div class="col50" ng-show="errorListaSec">
+            <p class="error-server" style="text-align: center;">
+                <strong>{{mensaje_upps_titulo}}</strong>
+                <br> {{mensaje_upps_descripcion01}}
+                <br>{{mensaje_upps_descripcion02}}
+                <br>
+                <a href="/wps/myportal/cuentasclaro/tusaprobaciones/" ng-click=""><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+            </p>
+        </div>
+        <p>&nbsp;</p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br class="both" />
+</div>
+<div class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <div class="content" ng-show="loader">
+            <div id="exito"><img class="gifloader" src="/wpstheme/miclaro/img/loader.gif"></div>
+        </div>
+        <div ng-show="mostrarSinSecPop" style="text-align: center;">
+            <p id="sinSecId">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Mensaje sin SEC pendientes POPUP"]</p>
+            <a href="" class="bt bt-blue-ok" ng-click="closePopUp()">Ok</a>
+        </div>
+        <div class="col50 errorPop" ng-show="errorPop">
+            <p class="error-server" style="text-align: center;">
+                <strong>{{mensaje_upps_titulo}}</strong>
+                <br> {{mensaje_upps_descripcion01}}
+                <br>{{mensaje_upps_descripcion02}}
+                <br>
+            </p>
+            <a href="" ng-click="closePopUp()" class="bt bt-red" ng-click="">Ok</a>
+        </div>
+        <div class="popAprobado" ng-show="mostartAceptarSec">
+            <p style="font-weight: bold;">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Solicitud Aprobada"]</p>
+            <p>{{popDescripcionSec}}</p>
+            <a href="/wps/myportal/cuentasclaro/tusaprobaciones/" class="bt bt-blue-ok" ng-click="">Ok</a>
+        </div>
+        <div class="popRechazado" ng-show="mostartRechazarSec">
+            <p style="font-weight: bold;color: #d42b1e;">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Solicitud Rechazada"]</p>
+            <p>{{popDescripcionSecRechazar}}</p>
+            <a href="/wps/myportal/cuentasclaro/tusaprobaciones/" class="bt bt-blue-ok" ng-click="">Ok</a>
+        </div>
+        <div class="popDocs" ng-show="mostrarListaDocs">
+            <p style="font-weight: bold;">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/SEC/Listado Documentos"]</p>
+            <div class="divDocs" ng-show="listaDocuments">
+                <p class="pDocsList" ng-repeat="doc in listaDocs" ng-model="doc" ng-click="verDoc(doc)">{{doc.nombreArchivo}}</p>
+            </div>
+            <div ng-show="errorListaDocumeto">
+                <p class="error-server" style="text-align: center;">
+                    <strong>{{mensaje_upps_titulo}}</strong>
+                    <br> {{mensaje_upps_descripcion01}}
+                    <br>{{mensaje_upps_descripcion02}}
+                    <br>
+                </p>
+            </div>
+            <div ng-show="sinDocuments">
+                <p>La SEC no cuenta con documentos adjuntos</p>
+            </div>
+            <br>
+            <a href="" class="bt bt-blue-ok" ng-click="closePopUp()">Ok</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,280 @@
+<div class="tabs-home tabs-clean">
+    <div class="tab-content noborder">
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Tope de Consumo/Cambio Tope de Consumo"]</h3>
+        <div class="detail clearfix no-mobile">
+            <div class="filter-lista">
+                <span><label class="radio checked" id="idCambiarTopeSimple"><input type="radio" name="filtrotipo" value="cambiar-tope-simple" ng-click="cambioTopeConsume('S');$event.stopPropagation()"></label> Sólo una línea</span>
+                <span><label class="radio"  id="idCambiarTopeMasivo"><input type="radio" name="filtrotipo" value="cambiar-tope-masivo" ng-click="cambioTopeConsume('M');$event.stopPropagation()"></label> Varias líneas o masivo</span>
+            </div>
+        </div>
+        <div class="result-lista" id="resultCambiarTopeSimple">
+            <h4 class="tit-border">Busque una línea:</h4>
+            <form method="post" class="form-filter clearfix" ng-submit="buscarAutoComplete();$event.stopPropagation()">
+                <div class="col33">
+                    <div class="input search">
+                        <input type="text" name="Autocomplete" id="Autocomplete" data-holder="Línea" data-valid="required">
+                        <button type="button" class="bt bt-search" id="btbuscarlineatope" ng-click="buscarAutoComplete(); $event.stopPropagation()"></button>
+                    </div>
+                </div>
+            </form>
+            <img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" id="loaderBolsa">
+            <div class="step-change-bolsa" id="idBolsaMinutos">
+                <h4 class="tit-border">Selecciona la bolsa de minutos a modificar</h4>
+                <form method="post" class="form-filter edit-pull clearfix" id="idBolsa">
+                    <div class="col50">
+                        <div class="pull pulldate" id="wpsBolsa">
+                            <div style="cursor: text">{{SeleccionarBolsa}}{{selectBolsa.nombreBolsa}}</div>
+                            <select name="ipull" ng-model="selectBolsa" ng-change="changeBolsa();" ng-options="bolsa as bolsa.nombreBolsa for bolsa in listaObtenerBolsasMinutos ">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col50">
+                        <table class="table-min">
+                            <tr>
+                                <td>
+                                    Bolsa Contratada:
+                                    <br> Saldo de la Bolsa:
+                                </td>
+                                <td>
+                                    {{selectBolsa.bolsaContratada}}
+                                    <br> {{selectBolsa.saldoBolsa}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <br>
+                <h4 class="tit-border">Detalle de Consumo de línea</h4>
+                <div id="detalleConsumoSimple">
+                    <table class="table shadow">
+                        <tr>
+                            <td>Tope de Consumo de {{movil}}</td>
+                            <td width="120">{{detalleConsumoBolsaMinutos.topeConsumo}} </td>
+                        </tr>
+                        <tr>
+                            <td>Consumo Actual</td>
+                            <td>{{detalleConsumoBolsaMinutos.consumoActual}} </td>
+                        </tr>
+                        <tr>
+                            <td>Saldo Actual</td>
+                            <td>{{detalleConsumoBolsaMinutos.saldoActual}} </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h4 class="tit-border">Modificar el límite de consumo de la línea.</h4>
+                    <p>Por ejemplo: Si la línea tiene un tope de 100 y desea agregarle 10,el nuevo tope de consumo deberá ser 110
+                        <br>&nbsp;</p>
+                    <div class="msgerror" id="msgErroSimple" style="display: none;color:#d52b1e">{{topeConsumo_error}}</div>
+                    <div class="msgerror" id="msgErroSimpleEntero" style="display: none;color:#d52b1e">El número ingresado debe ser un número entero, sin decimales</div>
+                    <form method="post" action="#" id="frCambiarTopeMasivo">
+                        <table width="100%">
+                            <tr>
+                                <td width="200">Nuevo tope de consumo:</td>
+                                <td colspan="2">
+                                    <div class="input" id='idnuevotope'>
+                                        <input type="text" name="inuevotope" ng-model="nuevoTopeConsumo" id="inuevotope" data-valid="required">
+                                    </div>
+                                </td>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="200">Tipo de Ajuste:</td>
+                                <td width="60" class="csel" align="center">
+                                    <label class="radio checked" id="TopeSimpleAjuste">
+                                        <input type="radio" name="tipoajuste" id="tipoajustepermanente" value="1" ng-click="tipoAjuste('P')">
+                                    </label>
+                                </td>
+                                <td class="cleft">
+                                    <p>
+                                        <label for="tipoajustepermanente"><strong>Permanente</strong>
+                                            <br>Se aplicará a partir del siguiente ciclo,
+                                            <br>y permanecerá para los demás.</label>
+                                    </p>
+                                </td>
+                                <td width="60" class="csel" align="center">
+                                    <label class="radio" id="TopeMasivoAjuste">
+                                        <input type="radio" name="tipoajuste" value="2" id="tipoajustetemporal" ng-click="tipoAjuste('T')">
+                                    </label>
+                                </td>
+                                <td class="cleft">
+                                    <p>
+                                        <label for="tipoajustetemporal"><strong>Temporal</strong>
+                                            <br>Sólo se aplicará en este ciclo.</label>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>&nbsp;</p>
+                        <div class="compra-bts">
+                            <button type="button" class="bt bt-red" id="btcontinuartope" ng-click="continuarSimple()">Continuar</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="sinTopeConsumo">
+                    <div class="resume box clearfix">
+                        <div class="mensajeOhh">
+                            <p class="error-server" style="text-align: center;">
+                                !Ohh no! Al parecer no tiene una bolsa de minutos
+                                <br> Comuniquese con un asesor para solicitarla.</p>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;" ng-show="flagServiciosMovil == -1" id="flagServiciosMovil">
+                <div class="resume box clearfix">
+                    <p class="error-server" style="padding-bottom: 20px; text-align: center;">
+                        <strong>{{upps}}</strong>
+                        <br> {{mensaje1}}
+                        <br>{{mensaje3}}{{mensaje5}}
+                        <br>
+                        <a href="" ng-click="resfrezcarSimple()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                </div>
+            </div>
+            <div style="text-align: center;" ng-show="flagSinConsumos" id="flagSinConsumos">
+                <div class="resume box clearfix">
+                    <div class="mensajeOhh">
+                        <p class="error-server" style="text-align: center;">
+                            !Ohh no! Al parecer no tiene una bolsa contratada.
+                            <br> Comuniquese con un asesor para solicitarla.</p>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div id="cambiarTpoMasivo">
+            <div class="result-lista" id="resultCambiarTopeMasivo">
+                <div class="msgerror" id="msgErrorFile" style="display: none;color:#d52b1e">Debe seleccionar un archivo</div>
+                <div class="msgerror" id="msgErrorformato" style="display: none;color:#d52b1e">El documento no cumple con el formato. Por favor verifique que no existan lineas en blanco o topes de consumo en cero (0)</div>
+                <h4 class="tit-border">Selecciona un recibo a modificar:</h4>
+                <img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" id="loaderTopeMasivo">
+                <form method="post" class="form-filter clearfix" id="cuentaRecibo">
+                    <div class="col33">
+                        <div class="pull pulldate" id="wpsCuenta">
+                            <div style="cursor: text">{{selectCuenta.nombreAlias}}</div>
+                            <select name="ipull" ng-model="selectCuenta" ng-change="changeCuenta();" ng-options="cuenta as cuenta.nombreAlias for cuenta in listaCuenta ">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col33">
+                        <div class="pull pulldate" id="wpsRecibo">
+                            <div style="cursor: text">{{selectRecibo.nombreAlias}}</div>
+                            <select name="ipull" ng-model="selectRecibo" ng-change="changeRecibo();" ng-options="recibo as recibo.nombreAlias for recibo in listaRecibo ">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" id="loaderBolsaMasivo">
+                <div id='idBolsaMasivo' style="display: none;">
+                    <h4 class="tit-border">Selecciona una bolsa de minutos o soles a modificar</h4>
+                    <form method="post" class="form-filter clearfix">
+                        <div class="col50">
+                            <div class="pull pulldate" id="wpsBolsaM">
+                                <div style="cursor: text">{{SeleccionarBolsa}}{{selectBolsa.nombreBolsa}}</div>
+                                <select name="ipull" ng-model="selectBolsa" ng-change="changeBolsaM();" ng-options="bolsa as bolsa.nombreBolsa for bolsa in listaObtenerBolsasMinutos ">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col50">
+                            <table class="table-min">
+                                <tr>
+                                    <td>
+                                        Bolsa Contratada:
+                                        <br> Saldo de la Bolsa:
+                                    </td>
+                                    <td>
+                                        {{selectBolsa.bolsaContratada}}
+                                        <br> {{selectBolsa.saldoBolsa}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                    <br>
+                    <h4 class="tit-border">Ingrese el archivo para modificar los topes:</h4>
+                    <form method="post" action="#" id="frCambiarTopeMasivo">
+                        <table width="100%">
+                            <tr>
+                                <td width="200">
+                                    Archivo:
+                                    <br>
+                                    <a class="linkred" title="<p class='center'>Formato del archivo<br>&nbsp;<br><img src='/wpstheme/miclaro/img/img-formato-excel.png' /></p>">Formato de archivo</a>
+                                </td>
+                                <td align="right">
+                                    <div class="fileinput" id="idFile">
+                                        <input type="file" id="ifileexcel" name="ifileexcel" accept=".xls,.xlsx" data-holder="Seleccionar archivo" data-valid="required">
+                                        <label for="ifileexcel">Seleccionar archivo</label>
+                                    </div>
+                                    <label for="ifileexcel" class="bt bt-red bt-file">Seleccionar</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>&nbsp;</p>
+                        <div class="compra-bts">
+                            <button type="button" class="bt bt-red" id="btcontinuartope" ng-click="continuarMasivo()">Continuar</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- 
+        ############################################
+        ######## No tiene servicios de fijo ########
+        ############################################-->
+                <div ng-show="flagServiciosFijo == 0 || flagServiciosMovil == 2">
+                    <div class="resume box clearfix">
+                        <div class="col100">
+                            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]</h3>
+                            <p>
+                                [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]
+                                <br> &nbsp;
+                            </p>
+                            <p>
+                                <a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;" ng-show="flagServiciosMovilMasivo == -1" id="flagServiciosMovilMasivo">
+                    <div class="resume box clearfix">
+                        <p class="error-server" style="padding-bottom: 20px; text-align: center;">
+                            <strong>{{upps}}</strong>
+                            <br> {{mensaje1}}
+                            <br>{{mensaje3}}{{mensaje5}}
+                            <br>
+                            <a href="" ng-click="cambioTopeConsume('M')"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                    </div>
+                </div>
+                <div style="text-align: center;" ng-show="flagSinConsumosMasivo" id="flagSinConsumosMasivo">
+                    <div class="resume box clearfix">
+                        <p class="error-server" style="text-align: center;">
+                            !Ohh no! Al parecer no tiene una bolsa contratada.
+                            <br> Comuniquese con un asesor para solicitarla.</p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;" ng-show="errorServiciosMovil == -1">
+            <div class="resume box clearfix">
+                <div class="col100">
+                    <h3>{{error_titulo}}</h3>
+                    <p>
+                        {{error_descripcion01}}
+                        <br /> {{error_descripcion02}}
+                        <br />
+                        <br />
+                        <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.tooltip-inner {
+    max-width: 296px;
+}
+</style>

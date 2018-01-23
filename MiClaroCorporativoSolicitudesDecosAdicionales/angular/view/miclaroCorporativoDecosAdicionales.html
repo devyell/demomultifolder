@@ -1,0 +1,314 @@
+<div class="tabs-home tabs-clean" id="decosPage" style="display: none;">
+    <div class="tab-content noborder" ng-show="(flagServiciosTV == 2 || flagServiciosTV == 3) && ErrorFlagTV == 0 && servPrincipalError == 0 && listaServiciosFlag == 0 && listaDireccionesFlag == 0" >
+        <div class="change-type on-mobile-switch" ng-show="showSwitch">
+            <label>Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label for="itype1"><span>Corporativo</span></label>
+        </div>
+        <div class="change-type on-mobile">
+            <br>&nbsp;
+            <br>
+            <label for="itype1">Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype" class="switch-checkbox" id="itype1" checked data-residencial="corporativo-residencial-decos-adicionales.html" data-corporativo="corporativo-corporativo-decos-adicionales.html">
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label><span>Corporativo</span></label>
+        </div>
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+        <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]
+            <br>&nbsp;</p>
+        <div class="detail clearfix">
+            <h4 class="tit-border">Seleccione la línea</h4>
+            <form method="post" class="form-filter">
+                <div class="col33">
+                    <div class="pull pulldate">
+                        <div>{{selectedIdDireccion.nombreAlias}}</div>
+                        <select name="ifacturacion" ng-model="selectedIdDireccion" ng-options="direcciones.nombreAlias for direcciones in listaDirecciones" ng-change="cambioDireccion()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col33">
+                    <div class="pull pulldate">
+                        <div>{{servicio.ProductoServicioResponse.nombreAlias}}</div>
+                        <select name="iservicio" ng-model="servicio" ng-options="servicio.ProductoServicioResponse.nombreAlias for servicio in listServiciosMoviles" ng-change="cambioServicio()">
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="resume box clearfix">
+            <div class="col50">
+                <p><span class="type">&nbsp;</span></p>
+                <div class="pull pullservicio disabled">
+                    <div>{{servicio.ProductoServicioResponse.nombreAlias}}</div>
+                    <select name="iservicio">
+                        <option value="1" selected></option>
+                    </select>
+                </div>
+                <p>{{selectedIdDireccion.nombreAlias}}
+                    <br>
+                </p>
+            </div>
+        </div>
+        <div class="detail table-decos" ng-show="flagListaDecos == 0">
+            <div class="no-mobile">
+                <form method="post" action="">
+                    <h4 class="tit-border">
+                                Selecciona la cantidad de decos a solicitar:
+                                <div class="info">Tienes {{infoDecos.cantidadDecosTotales}} decos. Recuerda que el límite de decos es {{infoDecos.cantidadMaximaDecosPosibles}}</div>
+                            </h4>
+                    <div ng-repeat="deco in listaDecos">
+                        <table class="table-plan">
+                            <tr>
+                                <td width="124">
+                                    <div class="img-paquete" ng-click="mostrarDeco(deco.idTipoDeco, deco.nombreDeco)" ng-style="setImg(deco.idTipoDeco)" style="cursor: pointer;" data-deco="basico"></div>
+                                </td>
+                                <td><strong class="service">{{deco.nombreDeco}}</strong></td>
+                                <td>
+                                    <p>{{deco.descripcion}}</p>
+                                </td>
+                                <td width="120"><span class="price-deco">{{deco.simboloMoneda}} {{deco.precio}}</span></td>
+                                <td width="140">
+                                    <div class="pull">
+                                        <div>{{cantidadSelect.id}}</div>
+                                        <select ng-model="cantidadSelect" ng-options="rsCantidad.id for rsCantidad in lsCantidad" ng-change="agregarCanasta(deco.idTipoDeco, cantidadSelect.id, servicio, selectedIdDireccion.nombreAlias, deco, $index)">
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                    <div class="div-bts">
+                        <button type="button" ng-click="miClaroHomeCtr.mostrarConfirmacion()" disabled="disabled" class="bt bt-red bt-contratar bt-disabled buttonDecos">Contratar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="on-mobile">
+                <form method="post" action="">
+                    <h4 class="tit-border">
+                                Selecciona la cantidad de decos a solicitar:
+                            </h4>
+                    <div class="info-red">Tienes 3 decos. Recuerda que el límite de decos es 5</div>
+                    <div ng-repeat="deco in listaDecos">
+                        <table class="table-plan">
+                            <tr>
+                                <td>
+                                    <strong class="service">{{deco.nombreDeco}}</strong> Precio Mensual: <span class="price-deco">{{deco.simboloMoneda}} {{deco.precio}}</span>
+                                    <p>{{deco.descripcion}}</p>
+                                    <div class="cantidad">
+                                        Cantidad:
+                                        <div class="pull">
+                                            <div>{{cantidadSelect.id}}</div>
+                                            <select ng-model="cantidadSelect" ng-options="rsCantidad.id for rsCantidad in lsCantidad" ng-change="agregarCanasta(deco.idTipoDeco, cantidadSelect.id, servicio, selectedIdDireccion.nombreAlias, deco, $index)">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                    <div class="div-bts">
+                        <button type="button" ng-click="miClaroHomeCtr.mostrarConfirmacion()" disabled="disabled" class="bt bt-red bt-disabled bt-contratar buttonDecos">Contratar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-decos" ng-show="flagListaDecos != 0">
+            <p class="error-server">
+                <strong>{{mensaje_upps_titulo}}</strong>
+                <br>{{mensaje_upps_descripcion01}}
+                <br>{{mensaje_upps_descripcion02}}
+                <a href="" ng-click="llamarObtenerListaTvDecos()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+            </p>
+        </div>
+    </div>
+    <div class="tab-content noborder" ng-show="flagServiciosTV == 0 || flagServiciosTV == 1">
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+        <div class="resume box clearfix">
+            <div class="col100">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/TV - Sin Plan"]</h3>
+                <p>
+                    [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/TV - Sin Plan"]
+                    <br> &nbsp;
+                </p>
+                <p>
+                    <a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                </p>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content noborder" ng-show="flagServiciosTV == -1">
+        <div id="movil" class="tab active">
+            <div class="breadcrumb">
+                Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+            </div>
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+            <div class="resume box clearfix" style="text-align: center;">
+                <div class="col100">
+                    <h3>{{mensaje_error_titulo}}</h3>
+                    <p>
+                        {{mensaje_error_descripcion01}}
+                        <br /> {{mensaje_error_descripcion02}}
+                        <br />
+                        <br />
+                        <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content noborder" ng-show="showUpps">
+        <div id="movil" class="tab active">
+            <div class="breadcrumb">
+                Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+            </div>
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+            <div class="resume box clearfix" style="text-align: center;">
+                <div class="col100">
+                    <h3>{{mensaje_error_titulo}}</h3>
+                    <p>
+                        {{mensaje_error_descripcion01}}
+                        <br /> {{mensaje_error_descripcion02}}
+                        <br />
+                        <br />
+                        <a href="/wps/myportal/miclaro/consumer/solicitudes/decosadicionales/"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popupDecos">
+    <div class="bg" ng-click="miClaroHomeCtr.ocultarPopUpDecos()"></div>
+    <div class="pop">
+        <button type="button" ng-click="miClaroHomeCtr.ocultarPopUpDecos()" class="bt btclose"></button>
+        <div class="content">
+            <p><img src="" class="img"></p>
+            <h4 class="sub-border">{{nombreDecoPopUp}}</h4>
+        </div>
+    </div>
+</div>
+<div class="tabs-home tabs-clean" id="confirmacionPage" style="display: none;">
+    <div class="tab-content noborder">
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+        <div class="detail table-decos">
+            <div ng-repeat="canasta in lsCanasta">
+                <table class="outTable">
+                    <tr>
+                        <td class="no-mobile">&nbsp;</td>
+                        <td style="padding: 40px;text-align: -moz-center;">
+                            <table class="inTable">
+                                <tr>
+                                    <td class="leftTd">Nombre de Servicio:</td>
+                                    <td>{{canasta.servicio.nombreAlias}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="leftTd">Dirección de Servicio:</td>
+                                    <td>{{canasta.direccion}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="leftTd">Nombre del producto:</td>
+                                    <td>{{canasta.deco.nombreDeco}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="leftTd">Precio:</td>
+                                    <td>{{canasta.deco.simboloMoneda}} {{canasta.deco.precio}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="leftTd">Cantidad:</td>
+                                    <td>{{canasta.cantidad}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="no-mobile">&nbsp;</td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+            <form method="post" action="#" id="frConfirmarDecos">
+                <p>
+                    <label class="check" id="checkboxTerminos">
+                        <input type="checkbox" ng-click="miClaroHomeCtr.aceptarTerminosCondiciones(modelAceptarTerminos)" id="iterminos" ng-model="modelAceptarTerminos" name="iterminos" value="1" data-valid="required">
+                    </label>
+                    Acepto los <a href="" ng-click="miClaroHomeCtr.mostrarPopUpTerminos()" class="red linkterminos">Términos y Condiciones</a>
+                </p>
+                <div class="div-bts">
+                    <button type="button" ng-click="confirmar()" disabled="disabled" class="bt bt-red bt-disabled" id="btcontratar">Contratar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popupTerminos">
+    <div class="bg" ng-click="miClaroHomeCtr.ocultarPopUpTerminos()"></div>
+    <div class="pop">
+        <button type="button" ng-click="miClaroHomeCtr.ocultarPopUpTerminos()" class="bt btclose"></button>
+        <div class="content">
+            <h3 class="terminos">Términos y Condiciones</h3>
+            <p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+            <div class="frame">
+                <div class="text">
+                    [Element key="Texto Legal" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Terminos y Condiciones/Decos Adicional"]
+                </div>
+            </div>
+            <form method="post" id="iterminosformpop">
+                <p>
+                    <a href="" ng-click="miClaroHomeCtr.ocultarPopUpTerminos()" class="bt bt-gris" id="btterminoscancel">Cancelar</a>
+                    <a href="" ng-click="miClaroHomeCtr.aceptarTerminos()" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="tabs-home tabs-clean" id="confirmarPage" style="display: none;">
+    <div class="tab-content noborder" ng-show="solicitarDecosIdRespuesta == 0">
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+        <div class="compra-confirm">
+            <p><strong>Felicidades</strong></p>
+            <p>
+                Hemos enviado tu solicitud con éxito. Un asesor se comunicará
+                <br> contigo en las próximas horas a través de tu teléfono de contacto
+                <br> o correo electrónico
+                <br> &nbsp;
+            </p>
+            <p>
+                <a href="/wps/myportal/miclaro/corporativo/solicitudes/decosadicionales/" class="bt bt-red">Regresar</a>
+            </p>
+        </div>
+    </div>
+    <div class="tab-content noborder" ng-show="solicitarDecosIdRespuesta != 0 && solicitarDecosIdRespuesta != null">
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Decos Adicionales</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Decos Adicionales"]</h3>
+        <div class="compra-confirm">
+            <p class="error-server">
+                <strong>{{mensaje_upps_titulo}}</strong>
+                <br>{{mensaje_upps_descripcion01}}
+                <br>{{mensaje_upps_descripcion02}}
+                <a href="" ng-click="llamarConfirmar()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+            </p>
+        </div>
+    </div>
+</div>

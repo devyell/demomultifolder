@@ -1,0 +1,23 @@
+<h3>Listo</h3>
+<p>
+[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Otros/Modal - Numeros Frecuentes - Confirmacion"]
+
+<br>&nbsp;</p>
+<p><a  class="bt bt-red" id="btfrecuentesaceptar">Aceptar</a></p>
+
+
+<script>
+$(document).ready(function(e) {
+    $('#btfrecuentesaceptar').click(function(e){
+         e.preventDefault();
+         var href='/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/movil';
+	   $(location).attr('href', href);
+		 
+    });
+    $('.popup .btclose, .popup .bg').click(function(){
+         var href='/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/movil';
+	   $(location).attr('href', href);
+		 
+    });
+});
+</script>

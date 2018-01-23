@@ -1,0 +1,137 @@
+2017-01-16 15:49:15 -- Script Portlet command line version: 1.3
+
+2017-01-16 15:49:15 -- Home folder: C:\IBM_PORTLET_BATCH\sp_cmdln
+
+2017-01-16 15:49:15 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-01-16 15:49:15 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerComprasyRecargas
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroConsumerComprasyRecargas
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-01-16 15:49:15 -- Begin content push to Portal.
+
+2017-01-16 15:49:16 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-01-16 15:49:16 -- Virtual Portal ID: null
+
+2017-01-16 15:49:16 -- Project ID: null
+
+2017-01-16 15:49:16 -- WCM content ID: null
+
+2017-01-16 15:49:16 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerComprasyRecargas
+
+2017-01-16 15:49:16 -- WCM Content Title: null
+
+2017-01-16 15:49:16 -- Main HTML file: index.html
+
+2017-01-16 15:49:16 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-5429506378297797505.zip
+	(16066 bytes in 10 files)
+
+	angular/app.js
+	angular/controller/comprasyRecargasController.js
+	angular/controller/comprasyRecargasExitoController.js
+	angular/directives/directives.js
+	angular/service/ComprasyRecargasService.js
+	angular/service/ComunUsuarioSesionService.js
+	angular/view/consumer-compras-recargas-confirmacion.html
+	angular/view/consumer-compras-recargas.html
+	assets/js/utilitarios.js
+	index.html
+
+2017-01-16 15:49:21 -- Response status: HTTP/1.1 200 OK
+
+2017-01-16 15:49:21 -- Content-Type: application/json
+
+2017-01-16 15:49:21 -- Effective charset of body: UTF-8
+
+2017-01-16 15:49:21 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumer-compras-recargas-confirmacion.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumer-compras-recargas.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/utilitarios.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/directives\/directives.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/ComunUsuarioSesionService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/ComprasyRecargasService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/comprasyRecargasController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/comprasyRecargasExitoController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-01-16 15:49:21 -- Target authentication state: SUCCESS
+
+2017-01-16 15:49:21 -- Target authentication scheme: BASIC
+
+2017-01-16 15:49:21 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-01-16 15:49:21 -- Content push was successful.
+
+2017-01-16 15:49:21 -- End content push to Portal.
+

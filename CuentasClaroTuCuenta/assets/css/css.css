@@ -1,0 +1,47 @@
+.mouse { cursor:pointer; }
+.edit-pull .info2 { display: inline-block; filter: alpha(opacity=0);  height: 46px; line-height: 46px; -webkit-transition: all .15s ease-in; -moz-transition: all .15s ease-in; -o-transition: all .15s ease-in; transition: all .15s ease-in;  }
+
+.btn-refresh2{
+    background-position: 0 -276px;
+    width: 25px;
+    height: 25px;
+}
+.icon-sh_refresh2{
+    background-position: -78px -268px;
+    width: 15px;
+    height: 15px;
+}
+.icon-sh2{
+    background: url(../img/sprite_sheets_claro.png) no-repeat;
+    display: inline-block;
+}
+.centerError {
+text-align:center
+}
+.centerDireccion {
+float: right;
+position: relative;
+left: -50%;
+
+}
+.loaderimagenDisplay{display:none}
+
+a.disabled {
+  opacity: 0.5
+  pointer-events: none
+  cursor: default
+}
+
+.mobile span{
+	margin: 0px !important;
+}
+
+.TuCuentafoto{
+    cursor:pointer;float:right
+}
+
+.TuCuentafoto1{
+    cursor:pointer;
+	margin-left:15px
+}
+

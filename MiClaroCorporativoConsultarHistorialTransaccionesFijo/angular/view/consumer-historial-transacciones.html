@@ -1,0 +1,176 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/corporativo/consultas/historialtransacciones/movil/"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/corporativo/consultas/historialtransacciones/fijo/"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/consultas/historialtransacciones/internet/"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/corporativo/consultas/historialtransacciones/tv/"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="fijo" class="tab active">
+            <div class="change-type on-mobile" ng-if="consultarHistorialTransaccionesCtr.flagMostrarSwitch">
+                <label>Consumer</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label for="itype1"><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Historial de Transacciones"]</strong>
+            </div>
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Historial de Transacciones"]</h3>
+            <p>Aquí encontrarás información histórica desde el 1 de Marzo del 2016. Esta información se actualiza en un plazo de hasta cinco (5) días útiles desde que realizaste tu transacción.</p>
+            <p>&nbsp;</p>
+            <form method="post" class="form-filter clearfix" ng-class="{'search-column':consultarHistorialTransaccionesCtr.getBarraCorporativo()}" ng-show="mostrarCombos">
+                <div class="col25">
+                    <div class="pull pulldate" ng-class="{'disabled':consultarHistorialTransaccionesCtr.getBarraCorporativo()}">
+                        <div>{{consultarHistorialTransaccionesCtr.direccion.nombreAlias}}</div>
+                        <select name="icuenta" 
+                        ng-change="buscarHistorialTransacciones('1')" 
+                        ng-model="consultarHistorialTransaccionesCtr.direccion" 
+                        ng-options="direccion as direccion.nombreAlias for direccion in consultarHistorialTransaccionesCtr.direccionesFijasList track by direccion.idDireccion">
+                        </select>
+                    </div>
+                </div>
+                <div class="col25">
+                    <div class="pull pulldate" ng-class="{'disabled':consultarHistorialTransaccionesCtr.getBarraCorporativo()}">
+                        <div>{{consultarHistorialTransaccionesCtr.linea.ProductoServicioResponse.nombreAlias}}</div>
+                        <select name="irecibo" 
+                        ng-change="buscarHistorialTransacciones('2')" 
+                        ng-model="consultarHistorialTransaccionesCtr.linea" 
+                        ng-options="linea as linea.ProductoServicioResponse.nombreAlias for linea in consultarHistorialTransaccionesCtr.lineasCorporativoList track by linea.ProductoServicioResponse.idProductoServicio">
+                        </select>
+                    </div>
+                </div>
+                <div class="col25 colsearch">
+                    <div class="pull pulldate" ng-class="{'disabled':consultarHistorialTransaccionesCtr.getBarraCorporativo()}">
+                        <div>{{consultarHistorialTransaccionesCtr.lineaFija.nombreProducto}}</div>
+                        <select name="ifilter" 
+                        ng-model="consultarHistorialTransaccionesCtr.lineaFija" 
+                        ng-change="buscarHistorialTransacciones('3')" 
+                        ng-options="lineaFija as lineaFija.nombreProducto for lineaFija in consultarHistorialTransaccionesCtr.lineasFijasList track by lineaFija.idLinea">
+                        </select>
+                    </div>
+                    <div class="input search" ng-class="{'disabled':!consultarHistorialTransaccionesCtr.getBarraCorporativo()}">
+                        <input type="text" name="icelular" data-holder="Celular" data-valid="number" id="autocomplete-filtro-fijo" ng-model="consultarHistorialTransaccionesCtr.lineaAutocomplete">
+                        <button type="button" class="bt bt-search" />
+                    </div>
+                    <a href class="action" ng-click="consultarHistorialTransaccionesCtr.setBarraCorporativo()"></a>
+                </div>
+                <div class="col25">
+                    <div class="pull pulldate" ng-class="{'disabled':consultarHistorialTransaccionesCtr.getBarraCorporativo()}">
+                        <div>{{consultarHistorialTransaccionesCtr.periodoFacturacion.descripcion}}</div>
+                        <select name="iperiodo" 
+                        ng-model="consultarHistorialTransaccionesCtr.periodoFacturacion" 
+                        ng-change="('4')" 
+                        ng-options="periodoFacturacion as periodoFacturacion.descripcion for periodoFacturacion in consultarHistorialTransaccionesCtr.periodosFacturacionList track by periodoFacturacion.codigo">
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <br class="both">
+            <div class="detail clearfix" ng-show="mostrarContenidoLineas">
+                <div class="tabs tabs-consumos">
+                    <ul class="tab-links clearfix">
+                        <li ng-class="{'active':consultarHistorialTransaccionesCtr.tab == 1}">
+                            <a href ng-click="consultarHistorialTransaccionesCtr.obtenerComprasRecargasPeriodo()">
+                                <span class="icon-compras"></span> Compras y recargas
+                            </a>
+                        </li>
+                        <li ng-class="{'active':consultarHistorialTransaccionesCtr.tab == 2}">
+                            <a href ng-click="consultarHistorialTransaccionesCtr.obtenerSolicitudes(1)">
+                                <span class="icon-solicitudes"></span> Solicitudes
+                            </a>
+                        </li>
+                        <li ng-class="{'active':consultarHistorialTransaccionesCtr.tab == 3}">
+                            <a href ng-click="consultarHistorialTransaccionesCtr.obtenerContratosServicios(1)">
+                                <span class="icon-contratos"></span> Contratos y Servicios
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="compras-recargas-fijo" class="tab" ng-class="{'active':consultarHistorialTransaccionesCtr.tab == 1}">
+                            <div class="result-lista" ng-show="mostrarComprasyRecargas">
+                                <p>
+                                    Las compras y recargas sólo se muestran para servicios móviles y TV SAT prepago
+                                    <br> &nbsp;
+                                </p>
+                            </div>
+                        </div>
+                        <div id="solicitudes-fijo" class="tab" ng-class="{'active':consultarHistorialTransaccionesCtr.tab == 2}">
+                            <div class="result-lista" ng-show="mostrarSolicitudesPeriodo">
+                                <p>Revisa tus afiliaciones o desafiliaciones o si tuviste alguna suspención temporal</p>
+                                <table class="table">
+                                    <tr>
+                                        <th>Solicitud</th>
+                                        <th>Canal</th>
+                                        <th>Fecha</th>
+                                        <th class="center">Acciones</th>
+                                    </tr>
+                                    <tr ng-repeat="solicitudesPeriodo in consultarHistorialTransaccionesCtr.solicitudesPeriodoList | orderBy: 'fecha' : true">
+                                        <td>{{solicitudesPeriodo.solicitud}}</td>
+                                        <td>{{solicitudesPeriodo.canal}}</td>
+                                        <td>{{solicitudesPeriodo.fecha | limitTo: 10 | date: "dd MMM yyyy" }}</td>
+                                        <td class="center"><a href ng-click="consultarHistorialTransaccionesCtr.descargaArchivoSolicitudPeriodo(solicitudesPeriodo.idSolicitudArchivoDescarga)" class="download">descargar</a></td>
+                                    </tr>
+                                </table>
+                                <div class="more" ng-show="verTamanioSolicitudes.length == 10">
+                                    <a href ng-click="consultarHistorialTransaccionesCtr.verMasSolicitudes(2)" class="more-data">ver mas</a>
+                                </div>
+                            </div>
+                            <p ng-show="mostrarMensajeSolicitud">
+                                Por el momento no cuentas con ninguna solicitud afiliada
+                                <br> &nbsp;
+                            </p>
+                            <div class="result-lista" ng-show="errorSolicitudesPeriodo">
+                                <p class="error-server">
+                                    <strong>{{mensaje_upps_titulo}}</strong>
+                                    <br>{{mensaje_upps_descripcion01}}
+                                    <br>{{mensaje_upps_descripcion02}}
+                                    <br>
+                                    <a href ng-click="consultarHistorialTransaccionesCtr.obtenerSolicitudes(1)"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div id="contratos-servicios-fijo" class="tab" ng-class="{'active':consultarHistorialTransaccionesCtr.tab == 3}">
+                            <div class="result-lista" ng-show="mostrarContratosServiciosPeriodo">
+                                <p>Aquí podras ver tus altas, migraciones, suscripciones de servicios adicionales y bolsas.</p>
+                                <table class="table">
+                                    <tr>
+                                        <th>Transacciones</th>
+                                        <th>Canal</th>
+                                        <th>Fecha</th>
+                                        <th class="center">Acciones</th>
+                                    </tr>
+                                    <tr ng-repeat="contratosServicios in consultarHistorialTransaccionesCtr.contratosServiciosList | orderBy: 'fecha' : true">
+                                        <td>{{contratosServicios.transaccion}}</td>
+                                        <td>{{contratosServicios.canal}}</td>
+                                        <td>{{contratosServicios.fecha | limitTo: 10 | date: "dd MMM yyyy" }}</td>
+                                        <td class="center"><a href ng-click="consultarHistorialTransaccionesCtr.descargarArchivoContratosServicios(contratosServicios.idContratoArchivoDescarga)" class="download">descargar</a></td>
+                                    </tr>
+                                </table>
+                                <div class="more" ng-show="verTamanioContratos.length == 10">
+                                    <a href ng-click="consultarHistorialTransaccionesCtr.verMasContratos(2)" class="more-data">ver mas</a>
+                                </div>
+                            </div>
+                            <p ng-show="mostrarMensajeContratos">
+                                {{mensaje_upps_documento}}
+                                <br> {{mensaje_upps_fecha}}
+                                <br> &nbsp;
+                            </p>
+                            <div class="result-lista" ng-show="errorContratosServiciosPeriodo">
+                                <p class="error-server">
+                                    <strong>{{mensaje_upps_titulo}}</strong>
+                                    <br>{{mensaje_upps_descripcion01}}
+                                    <br>{{mensaje_upps_descripcion02}}
+                                    <br>
+                                    <a href ng-click="consultarHistorialTransaccionesCtr.obtenerContratosServicios(1)"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

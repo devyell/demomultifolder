@@ -1,0 +1,101 @@
+2017-01-26 18:17:08 -- Script Portlet command line version: 1.3
+
+2017-01-26 18:17:08 -- Home folder: C:\jorge\IBM\Portal\sp_cmdln
+
+2017-01-26 18:17:08 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-01-26 18:17:08 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerConsultasDetalleConsumosTV
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroConsumerConsultasDetalleConsumosTV
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-01-26 18:17:08 -- Begin content push to Portal.
+
+2017-01-26 18:17:09 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-01-26 18:17:09 -- Virtual Portal ID: null
+
+2017-01-26 18:17:09 -- Project ID: null
+
+2017-01-26 18:17:09 -- WCM content ID: null
+
+2017-01-26 18:17:09 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerConsultasDetalleConsumosTV
+
+2017-01-26 18:17:09 -- WCM Content Title: null
+
+2017-01-26 18:17:09 -- Main HTML file: index.html
+
+2017-01-26 18:17:12 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-8822576475058392438.zip
+	(1942 bytes in 4 files)
+
+	angular/app.js
+	angular/controller/appController.js
+	angular/view/miclaroConsumerSaldosConsumosTV.html
+	index.html
+
+2017-01-26 18:17:15 -- Response status: HTTP/1.1 200 OK
+
+2017-01-26 18:17:15 -- Content-Type: application/json
+
+2017-01-26 18:17:15 -- Effective charset of body: UTF-8
+
+2017-01-26 18:17:15 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/miclaroConsumerSaldosConsumosTV.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/appController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-01-26 18:17:15 -- Target authentication state: SUCCESS
+
+2017-01-26 18:17:15 -- Target authentication scheme: BASIC
+
+2017-01-26 18:17:15 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-01-26 18:17:15 -- Content push was successful.
+
+2017-01-26 18:17:15 -- End content push to Portal.
+

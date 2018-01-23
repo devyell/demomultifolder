@@ -1,0 +1,411 @@
+<div class='loaderTuConfig'><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" id="loaderTuConfiguracion"> </div>
+<div class="top" id="retornarClaro" style="padding-left: 0px ! important;">
+    <a href="#" class="back" id="regresaClaro"><span class="icon-sh icon-sh_backArrow"></span>Regresa a <strong>Mi Claro</strong></a>
+</div>
+<div class="body" id="hideErrorTuConfiguracion">
+    <h2 class='tuconfiguracion'>{{tuConfiguracion}}</h2>
+    <h3 ng-show="textCorporativo">Afilie su línea usuaria</h3>
+    <h3 ng-show="textConsumer">Afilia tu línea usuaria</h3>
+    <p ng-show="textCorporativo">Si usted usa un número Claro, pero no es el titular, puede afiliarlo <a href="/wps/myportal/cuentasclaro/afilialineausuaria">aquí</a></p>
+    <p ng-show="textConsumer">Si usas un número Claro, pero no eres el titular, puedes afiliarlo <a href="/wps/myportal/cuentasclaro/afilialineausuaria">aquí</a></p>
+    <p>&nbsp;</p>
+    <h3 id="idTabs">
+	
+	
+	
+	<div ng-show="textCorporativo">Personalice sus servicios</div>
+	<div ng-show="textConsumer">Personaliza tus cuentas</div>
+	
+	</h3>
+    <p ng-hide="nocliente">Usted no cuenta con ningún servicio Claro. Puede adquirir uno aqui</p>
+    <div class="no-mobile" id="idTabsMobile">
+            <div class="tabs">
+            <ul class="tab-links clearfix">
+                <li ng-class="activoMovil" id="ocultarMovil"><a ng-click="estadoMovil(); $event.stopPropagation()" class="mouse">Movil</a></li>
+                <li ng-class="activoFijo" ng-hide="ocultarFijo" id="ocultarFijo"><a ng-click="estadoFijo(); $event.stopPropagation()" class="mouse">Fijo</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="movil" ng-class="tabMovil">
+                    <div class="subtitle" id="ocultartituloConsumer" ng-hide="ocultarTipoLinea">{{textsutu2}} líneas</div>
+                    <div class="msgerror" id="msgErrorPhoneNum">{{ayCaramba_alias}}</div>
+                    <ul class="lista-col ocultarListaPostapago" ng-hide="ocultarTipoLineaConsumer">
+                        <li><strong>Post-Pago</strong></li>
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenPostpago"> </div>
+                        <li ng-repeat="postpago in listadoLineasPostpago.listadoProductosServicios">
+                            <form method="post" ng-attr-id="{{ 'frNumMovilC01' + $index }}">
+                                <div ng-attr-id="{{ 'idEditarPostpago' + $index }}" class="input text">
+                                    <input type="text" ng-model="postpago.ProductoServicioResponse.nombreAlias" maxlength="25" ng-click="editarPostpagoMovil($index,'f'); $event.stopPropagation()">
+                                </div>
+                                <a ng-attr-id="{{ 'idClassPostpago' + $index }}" class="editfield mouse" ng-click="editarPostpagoMovil($index,''); $event.stopPropagation()">{{ postpago.ProductoServicioResponse.txtAccion }}  </a>
+                                <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'idEditarPostpagoLoader' + $index }}">
+                                </div>
+                            </form>
+                        </li>
+                        <div id="errorPospago" class='loaderimagenDisplay'>
+                            <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('1')"></er-Customerror>
+                        </div>
+                    </ul>
+                    <ul class="lista-col ocultarListaPrepago" ng-hide="ocultarTipoLineaConsumer">
+                        <li><strong>Prepago</strong></li>
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenPrepago"> </div>
+                        <li ng-repeat="prepago in listaLineaPrepago.listadoProductosServicios">
+                            <form method="post" ng-attr-id="{{ 'frNumPrepagoC01' + $index }}">
+                                <div ng-attr-id="{{ 'idEditarPrepago' + $index }}" class="input text">
+                                    <input type="text" ng-model="prepago.ProductoServicioResponse.nombreAlias" maxlength="25" ng-click="editarPrepagoMovil($index,'f'); $event.stopPropagation()">
+                                </div>
+                                <a ng-attr-id="{{ 'idClassPrepago' + $index }}" class="editfield mouse" ng-click="editarPrepagoMovil($index,''); $event.stopPropagation()">{{ prepago.ProductoServicioResponse.txtAccion }}  </a>
+                                <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'idEditarPrepagoLoader' + $index }}"></div>
+                            </form>
+                        </li>
+                        <div id="errorPrepago" class='loaderimagenDisplay'>
+                            <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('2')"></er-Customerror>
+                        </div>
+                    </ul>
+                    <br class="both" />
+                    <div class="subtitle" ng-hide="ocultarTipoLinea">Sus líneas corporativas</div>
+                    <p id="textHideCuenta">1. Seleccione su cuenta</p>
+                    <div class="msgerror" id="msgErrorPhone">{{ayCaramba_alias}}</div>
+                    <div class="edit-pull clearfix frEditCuenta" ng-hide="ocultarTipoLineaMovil">
+                        <form method="post" action="#" id="frEditCuenta">
+                            <div class="pull" id="hideCuenta">
+                                <div style="cursor: text">{{SeleccionarCuenta}}{{selectCuenta.nombreAlias}}</div>
+                                <select name="ipull" ng-model="selectCuenta" ng-change="changeCuenta(selectCuenta.idCuenta,'c'); $event.stopPropagation()" ng-options="cuentas as cuentas.nombreAlias for cuentas in listaCuenta.listadoCuenta track by cuentas.idCuenta">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div id="editaCuentaNumero" class='input' style="display: none; ">
+                                <input type="text" id="idEditaCuentaNumero" ng-model="txtCuenta" maxlength="25">
+                            </div>
+                            <div class="info2" id="wpsCuenta" style="display: none; ">
+                                <div class="input-text">{{selectCuenta.nombreCuentaAlterno}}</div>
+                                <a ng-click="editarCuenta(); $event.stopPropagation()" id="Cuenta" class="editpull disabledLinea mouse">{{selectCuenta.txtAccion}}</a>
+                                <img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" id="loaderCuenta">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="errorCuenta" class='loaderimagenDisplay'>
+                        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('3')"></er-Customerror>
+                    </div>
+                    <br class="both" ng-hide="ocultarTipoLineaMovil" />
+                    <p id="textHideRecibo">2. Seleccione su recibo</p>
+                    <div class="edit-pull clearfix" ng-hide="ocultarTipoLineaMovil">
+                        <form method="post" action="#" id="frEditRecibo">
+                            <div class="pull" id="hideRecibo">
+                                <div>{{SeleccionarRecibo}}{{selectRecibo.nombreAlias}}</div>
+                                <select name="ipull" ng-model="selectRecibo" ng-change="changeRecibo('c'); $event.stopPropagation()" ng-options="recibos as recibos.nombreAlias for recibos in listaRecibo.listadoRecibo">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div id="editaReciboNumero" class='input' style="display: none; ">
+                                <input type="text" id="idEditaReciboNumero" maxlength="25" ng-model="txtRecibo">
+                            </div>
+                            <div class="info2" id="ocultarRecibo" style="display: none; ">
+                                <div class="input-text">{{selectRecibo.nombreReciboAlterno}} </div>
+                                <a ng-click="editarRecibo(); $event.stopPropagation()" id="Recibo" class="editpull disabledLinea mouse">{{selectRecibo.txtAccion}}</a>
+                                <img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" id="loaderRecibo">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="errorRecibo" class='loaderimagenDisplay'>
+                        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('4')"></er-Customerror>
+                    </div>
+                    <br class="both" ng-hide="ocultarTipoLineaMovil" />
+                    <br class="both" ng-hide="ocultarTipoLineaMovil" />
+                    <p ng-hide="ocultarTipoLineaMovil">3. Seleccione su línea</p>
+                    <form method="post" id="frBuscarLinea" ng-submit="buscarLinea();$event.stopPropagation()" ng-hide="ocultarTipoLineaMovil">
+                        <div class="input search">
+                            <input type="text" name="AutocompleteLinea" id="AutocompleteLinea" data-valid="required" placeholder="Busca su Línea" ng-model="txtBuscarLinea" ng-focus="blurAutocompleteLinea(); $event.stopPropagation()">
+                            <button type="button" class="bt bt-search" ng-click="buscarLinea(); $event.stopPropagation()"></button>
+                        </div>
+                        <div class="loader"><span></span></div>
+                    </form>
+                    <br />
+                    <div class="msgerror msgtext" id="msgErrorPhoneMovil" ng-hide="errorAlias">{{ayCaramba_alias}}</div>
+                    <div id="errorListaLinea" class='loaderimagenDisplay'>
+                        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('5')"></er-Customerror>
+                    </div>
+                    <ul class="lista-col " ng-hide="ocultarTipoLineaMovil">
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay loaderimagenListaLineaColumna01"> </div>
+                        <li ng-repeat="linea in listaLineaColumna01">
+                            <form method="post">
+                                <div ng-attr-id="{{ 'idEditarColumna01' + $index }}" class="input text">
+                                    <input type="text" id="numero" maxlength="25" ng-model="linea.ProductoServicioResponse.nombreAlias" ng-click="editarMovilCol1($index,'f'); $event.stopPropagation()">
+                                </div>
+                                <a ng-attr-id="{{ 'idClassColumna01' + $index }}" class="editfield mouse" ng-click="editarMovilCol1($index,''); $event.stopPropagation()">{{ linea.ProductoServicioResponse.txtAccion }}  </a>
+                                <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'idEditarColumna01Loader' + $index }}"></div>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="lista-col" ng-hide="ocultarTipoLineaMovil">
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay"> </div>
+                        <li ng-repeat="lineaCol02 in listaLineaColumna02">
+                            <form method="post">
+                                <div ng-attr-id="{{ 'idEditarColumna02' + $index }}" class="input text">
+                                    <input type="text" id="phonenum" maxlength="25" ng-model="lineaCol02.ProductoServicioResponse.nombreAlias" ng-click="editarMovilCol2($index,'f');$event.stopPropagation()">
+                                </div>
+                                <a ng-attr-id="{{ 'idClassColumna02' + $index }}" class="editfield mouse" ng-click="editarMovilCol2($index,''); $event.stopPropagation()">{{ lineaCol02.ProductoServicioResponse.txtAccion }}</a>
+                                <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'idEditarColumna02Loader' + $index }}"></div>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="lista-col hideNoEmpleadoPostpago" ng-hide="ocultarTipoNoEmpleado">
+                        <li><strong>Post-Pago</strong></li>
+                        <div id="errorNoEmpleado" class='loaderimagenDisplay'>
+                            <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('6')"></er-Customerror>
+                        </div>
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderNoEmpleadoPospago"> </div>
+                        <li ng-repeat="lineaNoCliente in listaNoEmpleado.listadoProductosServicios">
+                            <form method="post">
+                                <div ng-attr-id="{{ 'idEditarNoEmpleado' + $index }}" class="input text">
+                                    <input type="text" id="phonenum" maxlength="25" ng-model="lineaNoCliente.ProductoServicioResponse.nombreAlias" ng-click="editarNoEmpleado($index,'f');$event.stopPropagation()">
+                                </div>
+                                <a ng-attr-id="{{ 'idClassNoEmpleado' + $index }}" class="editfield mouse" ng-click="editarNoEmpleado($index,''); $event.stopPropagation()">{{ lineaNoCliente.ProductoServicioResponse.txtAccion }}</a>
+                                <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'editarNoEmpleadoLoader' + $index }}"></div>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="lista-col hideNoEmpleadoPrepago" ng-hide="ocultarTipoNoEmpleado">
+                        <li><strong>Prepago</strong></li>
+                        <div id="errorNoEmpleadoPrepago" class='loaderimagenDisplay'>
+                            <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('7')"></er-Customerror>
+                        </div>
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderEmpleadoPrepago"> </div>
+                        <li ng-repeat="lineaNoClientePrepago in listaNoEmpleadoPrepago.listadoProductosServicios">
+                            <form method="post">
+                                <div ng-attr-id="{{ 'idEditarNoEmpleadoPrepago' + $index }}" class="input text">
+                                    <input type="text" id="phonenum" maxlength="25" ng-model="lineaNoClientePrepago.ProductoServicioResponse.nombreAlias" ng-click="editarNoEmpleadoPrepago($index,'f');$event.stopPropagation()">
+                                </div>
+                                <a ng-attr-id="{{ 'idClassNoEmpleadoPrepago' + $index }}" class="editfield mouse" ng-click="editarNoEmpleadoPrepago($index,''); $event.stopPropagation()">{{ lineaNoClientePrepago.ProductoServicioResponse.txtAccion }}</a>
+                                <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'editarNoEmpleadoLoaderPrepago' + $index }}"></div>
+                            </form>
+                        </li>
+                    </ul>
+                    <br class="both" />
+                </div>
+                <div id="fijo" ng-class="tabFijo" ng-hide="hideTabFijo">
+                    <div class="msgerror msgtext" id="msgErrorDireccion">{{ayCaramba_alias}}</div>
+                    <p>1. Seleccione su dirección</p>
+                    <div class="edit-pull clearfix">
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderImagenSelectDireccion"> </div>
+                        <div id="errorDireccion" class='loaderimagenDisplay'>
+                            <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('8')"></er-Customerror>
+                        </div>
+                        <form method="post" id="editaDireccion">
+                            <div class="pull" id="hideDireccion">
+                                <div style="cursor: text" class="big">{{SeleccionarDireccion}}{{selectDireccion.nombreAlias}}</div>
+                                <select ng-model="selectDireccion" ng-change="changeDireccion(selectDireccion.idDireccion); $event.stopPropagation()" ng-options="direcciones as direcciones.nombreAlias for direcciones in listaDireccion.listadoDireccion track by direcciones.idDireccion">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div class="input" id='focusEditaDireccion' style="display: none; ">
+                                <input type="text" ng-model="txtDireccion" maxlength="25" />
+                            </div>
+                            <div class="info2" id="ocultarDireccion">
+                                <div class="input-text big">{{selectDireccion.nombreDireccionAlterno}}</div>
+                                <a style="cursor:pointer" ng-click="editarDireccion();$event.preventdefault();$event.stopPropagation('')" id="direccion" name="direccion">Editar</a>
+                                <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderDireccion"> </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-show="ocultarServicio">
+                        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderImagenServicioDirecccion"> </div>
+                        <p>2. Seleccione su servicio</p>
+                        <div id="errorListarDireccion" class='loaderimagenDisplay'>
+                            <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('9')"></er-Customerror>
+                        </div>
+                        <ul class="lista-col lista-col-big margin-top-none">
+                            <li ng-repeat="servicio in servicioDirecccion.listadoProductosServicios ">
+
+                                    <div ng-attr-id="{{ 'idEditarServicioDireccion' + $index }}" class="input textbig text">
+                                        <input type="text" id="phonenum" ng-model="servicio.ProductoServicioResponse.nombreAlias" ng-click="editarServicio($index,'f'); $event.stopPropagation()" maxlength="25">
+                                    </div>
+                                    <a ng-attr-id="{{ 'idClassServicioDireccion' + $index }}" class="editfield mouse" ng-click="editarServicio($index,''); $event.stopPropagation()">{{ servicio.ProductoServicioResponse.txtAccion }}</a>
+                                    <div class="loaderTu"><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagen" ng-attr-id="{{ 'idEditarServicioDireccionLoader' + $index }}"></div>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <br class="both" />
+                </div>
+            </div>
+        </div>
+        <p>&nbsp;</p>
+    </div>
+    <div ng-show="errorTotalLineas" id="errorTotalLineas" class="width: 40%;margin: 0 auto; margin-top:50px;" style="margin-top: 50px;">
+        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('16')"></er-Customerror>
+    </div>
+    <div class="mobile" id="hideNoClienteServicio">
+        <p ng-show="textCorporativo">Por favor ingresa desde una tablet, laptop o pc para poder personalizar tus servicios.
+            <br>&nbsp;</p>
+        <p ng-show="textConsumer">Por favor ingresa desde una tablet, laptop o pc para poder personalizar tus cuentas.
+            <br>&nbsp;</p>
+    </div>
+    <div ng-hide="ocultarTipoPerfil">
+        <h3>Asigna Tipo de Perfil</h3>
+        <div class="no-mobile">
+            <p>Elige el límite de acceso al cual podrán acceder tus líneas móviles registradas en Mi Claro.</p>
+            <div ng-hide="ocultarComsumer">
+                <div class="subtitleAsignaPerfil">Tus Lineas </div>
+                <div class="table list">
+                    <div class="row">
+                        <div class="col col30"><strong>Línea</strong><span class="help" title="Elige el límite de acceso al cual podrán acceder tus líneas móviles"></span></div>
+                        <div class="col col30"><strong>Usuario</strong><span class="help" title="No puede comprar con cargo al recibo o aprobar órdenes de Servicio Técnico. No podrá ver el detalle de sus llamadas completo."></span></div>
+                        <div class="col col30"><strong>Usuario Plus</strong><span class="help" title="La diferencia con el usuario es que podrá ver el detalle de llamadas completo y aprobar Ordenes de Servicio Técnico"></span></div>
+                        <div class="col col10">&nbsp;</div>
+                    </div>
+                    <div id="errorListaConsumer" class='loaderimagenDisplay'>
+                        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('10')"></er-Customerror>
+                    </div>
+                    <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderConsumerObtenerMovilesAfiliados"> </div>
+                    <div class="row" ng-repeat="perfil in listaConsumerObtenerMovilesAfiliados ">
+                        <form method="post" action="#" id="frTipo01">
+                            <div class="col col30">{{perfil.nombreAlias}} </div>
+                            <div class="col col30">
+                                <label class="radio" ng-class="perfil.radioUsuario">
+                                    <input type="radio" name="cel01" value="un" class="save-form" ng-click="modificarPermisoUsuario($index,'C'); $event.stopPropagation()">
+                                </label>
+                            </div>
+                            <div class="col col30">
+                                <label class="radio" ng-class="perfil.radioUsuarioPlus">
+                                    <input type="radio" name="cel01" value="up" class="save-form" ng-click="modificarPermisoUsuarioPlus($index,'C'); $event.stopPropagation()">
+                                </label>
+                            </div>
+                            <div class="col col10"><img src="/wpstheme/miclaro/img/loader.gif" style="display:none" ng-attr-id="{{ 'loaderMovile' + $index }}"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div ng-hide="ocultarCorporativo">
+                <div class="subtitleAsignaPerfil">Sus líneas corporativas </div>
+                <div class="p clearfix">
+                    <form method="post" id="frFilterLinea" class="form-filter clearfix" ng-submit="buscarLineaPerfil();$event.stopPropagation()">
+                        <div class="input search">
+                            <input type="text" id="AutocompletePerfil" name="AutocompletePerfil" data-valid="required" placeholder="Busca su línea" ng-model="txtBuscarLineaPerfil">
+                            <button type="button" class="bt bt-search" ng-click="buscarLineaPerfil();$event.stopPropagation()"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="table list">
+                    <div class="row">
+                        <div class="col col30"><strong>Línea</strong><span class="help" title="Elige el límite de acceso al cual podrán acceder tus líneas móviles"></span></div>
+                        <div class="col col30"><strong>Usuario</strong><span class="help" title="No puede ver estados de cuenta, comprar con cargo al recibo o aprobar órdenes de Servicio Técnico No podrá ver el detalle de sus llamadas completo."></span></div>
+                        <div class="col col30"><strong>Usuario Plus</strong><span class="help" title="Elige el límite de acceso al cual podrán acceder tus líneas móviles"></span></div>
+                        <div class="col col10">&nbsp;</div>
+                    </div>
+                    <div id="errorListaCorporativo" class='loaderimagenDisplay'>
+                        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('11')"></er-Customerror>
+                    </div>
+                    <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderCorporativoObtenerMovilesAfiliados"> </div>
+                    <div class="row" ng-repeat="corporativo in listaCorporativoObtenerMovilesAfiliados ">
+                        <form method="post" action="#" id="frTipo01">
+                            <div class="col col30">{{corporativo.nombreProducto}}</div>
+                            <div class="col col30">
+                                <label class="radio" ng-class="corporativo.radioUsuario">
+                                    <input type="radio" name="cel01" value="un" class="save-form" ng-click="modificarPermisoUsuario($index,'CO'); $event.stopPropagation()">
+                                </label>
+                            </div>
+                            <div class="col col30">
+                                <label class="radio" ng-class="corporativo.radioUsuarioPlus">
+                                    <input type="radio" name="cel01" value="up" class="save-form" ng-click="modificarPermisoUsuarioPlus($index,'CO'); $event.stopPropagation()">
+                                </label>
+                            </div>
+                            <div class="col col10"><img src="/wpstheme/miclaro/img/loader.gif" style="display:none" ng-attr-id="{{ 'loaderMovileCor' + $index }}"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p>&nbsp;</p>
+        </div>
+        <div class="mobile" id="mobileNoCliente">
+            <p>Por favor ingresa desde una tablet, laptop o pc para poder asignar tipos de perfil.
+                <br>&nbsp;</p>
+        </div>
+    </div>
+    <h3 id="hideVincularText">
+	<div ng-show="textCorporativo">Vincule sus cuentas</div>
+	<div ng-show="textConsumer">Vincula tus cuentas</div>
+	
+	</h3>
+    <div id='hideVincularProceso' class="no-mobile">
+        <p ng-show="textCorporativo">Si quiere vincular sus cuentas inicie el proceso <a href="/wps/myportal/cuentasclaro/vinculacuenta">aquí</a></p>
+        <p ng-show="textConsumer">Si quieres vincular tus cuentas inicia el proceso <a href="/wps/myportal/cuentasclaro/vinculacuenta">aquí</a></p>
+        <div class="p">
+            <div id="errorFrCuentas" class='loaderimagenDisplay'>
+                <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('12')"></er-Customerror>
+            </div>
+            <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderVincularcuenta"> </div>
+            <form method="post" action="#" id="frCuentas">
+                <label ng-class="vinculenCuentaClass">
+                    <input type="checkbox" id="ivincularcuenta" name="ivincularcuenta" class="save-form" ng-click="vinculenCuenta(); $event.stopPropagation()" />
+                </label>
+                <label for="ivincularcuenta">No deseo que vinculen mi cuenta</label>
+                <div class="loader" id="loaderVinculenCuenta"><span></span></div>
+            </form>
+        </div>
+        <div class="table list list-vincula">
+            <div class="row">
+                <div class="col col90 title" ng-show="textCorporativo">Cuentas que vinculé</div>
+                <div class="col col90 title" ng-show="textConsumer">Cuentas que vinculé</div>
+            </div>
+            <div id="errorMeVincule" class='loaderimagenDisplay'>
+                <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('13')"></er-Customerror>
+            </div>
+            <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderMeVincule"> </div>
+            <div class="row" ng-repeat="vincula in listaUsuariosVinculados.listaUsuariosVinculados " id="meVincule">
+                <div class="col col60">{{vincula.emailUsuario}}</div>
+                <div class="col col30"><a class="adesvincular mouse" data-loader="desvincular01" ng-click="desvincular($index); $event.stopPropagation()">desvincular</a></div>
+                <div class="col col10">
+                    <div><img src="/wpstheme/miclaro/img/loader.gif" style="display:none" ng-attr-id="{{ 'loaderDesvincular' + $index }}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="table list list-vincula">
+            <div class="row">
+                <div class="col col90 title" ng-show="textCorporativo">Me vincularon a</div>
+                <div class="col col90 title" ng-show="textConsumer">Me vincularon a</div>
+            </div>
+            <div id="errorMeVincularon" class='loaderimagenDisplay'>
+                <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('14')"></er-Customerror>
+            </div>
+            <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderMeVincularon"> </div>
+            <div class="row" ng-repeat="vincularon in listaVincularon.listaUsuariosQueMeVincularon " id="meVincularon">
+                <div class="col col60">{{vincularon.emailUsuario}}</div>
+                <div class="col col30"><a class="adesvincular mouse" data-loader="desvincular01" ng-click="meDesvincular($index); $event.stopPropagation()">desvincular</a></div>
+                <div class="col col10">
+                    <div><img src="/wpstheme/miclaro/img/loader.gif" style="display:none" ng-attr-id="{{ 'loaderMeDesvincular' + $index }}"></div>
+                </div>
+            </div>
+        </div>
+        <p>&nbsp;</p>
+    </div>
+    <div class="mobile" id="mobileNoClienteCuenta">
+        <p ng-show="textCorporativo">Por favor ingrese desde una tablet, laptop o pc para poder vincular sus cuentas.
+            <br>&nbsp;</p>
+        <p ng-show="textConsumer">Por favor ingresa desde una tablet, laptop o pc para poder vincular tus cuentas.
+            <br>&nbsp;</p>
+    </div>
+    <h3>
+	
+	<div ng-show="textCorporativo">Agregue promociones</div>
+	<div ng-show="textConsumer">Agregar Promociones</div>
+
+	
+	</h3>
+    <div id="errorPromociones" class='loaderimagenDisplay'>
+        <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('15')"></er-Customerror>
+    </div>
+    <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderPromociones"> </div>
+    <div class="p">
+        <form method="post" action="#" id="frPromos">
+            <label ng-class="promocionesClass">
+                <input type="checkbox" id="iquieropromo" name="iquieropromo" class="save-form" ng-click="promociones(); $event.stopPropagation()" />
+            </label>
+            <label for="iquieropromo">Acepto que Claro me envíe promociones a mi correo y celular</label>
+            <div class="loader" id="loaderPromocionesCheck"><span></span></div>
+        </form>
+    </div>
+    <br class="both" />
+</div>
+<div ng-show="errorTotal" class="width: 70%;margin: 0 auto; margin-top:50px;" style="margin-top: 50px;">
+    <er-Customerrortotal></er-Customerrortotal>
+</div>

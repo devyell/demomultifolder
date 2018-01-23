@@ -1,0 +1,34 @@
+﻿<div class="tabs tabs-home">
+	<ul class="tab-links clearfix">
+		<li class="movil active"><a href="/wps/myportal/miclaro/consumer/consultas/historialtransacciones/movil/"><span></span> Móvil</a></li>
+		<li class="fijo"><a href="/wps/myportal/miclaro/consumer/consultas/historialtransacciones/fijo/"><span></span> Fijo</a></li>
+		<li class="internet"><a href="/wps/myportal/miclaro/consumer/consultas/historialtransacciones/internet/"><span></span> Internet</a></li>
+		<li class="tv"><a href="/wps/myportal/miclaro/consumer/consultas/historialtransacciones/tv/"><span></span> TV</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="breadcrumb">
+			Consultas <span class="arrow"></span> <strong>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Historial de Transacciones"]</strong>
+		</div>
+
+		<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Historial de Transacciones"]</h3>
+		<div id="internet" class="tab active">
+			<div class="resume box clearfix">
+				<div class="col100" style="text-align: center;">
+					<h3 id="tituloError"></h3>
+					<p>
+						<span id="descripcionError1"></span><br />
+						<span id="descripcionError2"></span> <br /><br />
+						<a href="/wps/myportal/miclaro/root/"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+					</p>
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	document.getElementById("tituloError").innerHTML = WPSMensajeError.error_titulo;
+	document.getElementById("descripcionError1").innerHTML = WPSMensajeError.error_descripcion01;
+	document.getElementById("descripcionError2").innerHTML = WPSMensajeError.error_descripcion02;
+</script>

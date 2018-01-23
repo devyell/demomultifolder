@@ -1,0 +1,131 @@
+2016-10-20 15:15:25 -- Script Portlet command line version: 1.3
+
+2016-10-20 15:15:25 -- Home folder: C:\IBM_PORTLET_BATCH\sp_cmdln
+
+2016-10-20 15:15:25 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2016-10-20 15:15:25 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerConsultarHistorialTransaccionesMovil
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.64:10039
+	wcmContentName = MiClaroConsumerConsultarHistorialTransaccionesMovil
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2016-10-20 15:15:25 -- Begin content push to Portal.
+
+2016-10-20 15:15:25 -- Push URL: POST http://9.6.109.64:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2016-10-20 15:15:25 -- Virtual Portal ID: null
+
+2016-10-20 15:15:25 -- Project ID: null
+
+2016-10-20 15:15:25 -- WCM content ID: null
+
+2016-10-20 15:15:25 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerConsultarHistorialTransaccionesMovil
+
+2016-10-20 15:15:25 -- WCM Content Title: null
+
+2016-10-20 15:15:25 -- Main HTML file: index.html
+
+2016-10-20 15:15:25 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-6909730260547608174.zip
+	(11514 bytes in 9 files)
+
+	angular/app.js
+	angular/controller/consultarHistorialTransaccionesController.js
+	angular/service/consultarHistorialTransaccionesService.js
+	angular/view/consumer-historial-transacciones.html
+	angular/view/error.html
+	assets/js/angular-file-saver.min.js
+	assets/js/Blob.js
+	assets/js/FileSaver.min.js
+	index.html
+
+2016-10-20 15:15:30 -- Response status: HTTP/1.1 200 OK
+
+2016-10-20 15:15:30 -- Content-Type: application/json
+
+2016-10-20 15:15:30 -- Effective charset of body: UTF-8
+
+2016-10-20 15:15:30 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumer-historial-transacciones.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/error.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/angular-file-saver.min.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/FileSaver.min.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/Blob.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/consultarHistorialTransaccionesService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/consultarHistorialTransaccionesController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2016-10-20 15:15:30 -- Target authentication state: SUCCESS
+
+2016-10-20 15:15:30 -- Target authentication scheme: BASIC
+
+2016-10-20 15:15:30 -- Target authentication credentials: [principal: wpsadmin]
+
+2016-10-20 15:15:30 -- Content push was successful.
+
+2016-10-20 15:15:30 -- End content push to Portal.
+

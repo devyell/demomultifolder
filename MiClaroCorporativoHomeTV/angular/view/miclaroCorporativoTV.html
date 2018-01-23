@@ -1,0 +1,211 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/corporativo/home/movil"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="/wps/myportal/miclaro/corporativo/home/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/home/internet"><span></span> Internet</a></li>
+        <li class="tv active"><a href="/wps/myportal/miclaro/corporativo/home/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="change-type on-mobile" ng-show="showSwitch">
+            <label>Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label for="itype1"><span>Corporativo</span></label>
+        </div>
+        <div id="tv" class="tab" style="display: none;">
+            <div ng-show="flagServiciosTV != 0 && flagServiciosTV != 1 && flagServiciosTV != -1 && listaDireccionesFlag == 0 && listaServiciosFlag == 0 && errorFuncional == 0">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/TV - Servicios de TV"]</h3>
+                <div class="filter box clearfix">
+                    <form method="post" action="#">
+                        <div class="col50">
+                            <div class="pull">
+                                <div>{{selectedIdDireccion.nombreAlias}}</div>
+                                <select name="ifacturacion" ng-model="selectedIdDireccion" ng-options="direcciones.nombreAlias for direcciones in listaDirecciones" ng-change="cambioDireccion()">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col50">
+                            <div class="pull">
+                                <div>{{selectedIdProductoServicio.ProductoServicioResponse.nombreAlias}}</div>
+                                <select name="iservicio" ng-model="selectedIdProductoServicio" ng-options="servicio.ProductoServicioResponse.nombreAlias for servicio in listServiciosMoviles" ng-change="cambioServicio()">
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="resume box clearfix serviciosBox">
+                    <div class="col50">
+                        <div class="pull pullservicio disabled">
+                            <div>{{selectedIdProductoServicio.ProductoServicioResponse.nombreAlias}}</div>
+                            <select name="iservicio">
+                                <option value="1"></option>
+                            </select>
+                        </div>
+                        <p ng-show="estadoServicioFlag == 0">
+                            {{estadoServicio.direccionCompleta}}
+                            <br> Estado del servicio: <strong>{{estadoServicio.estadoServicio}}</strong>
+                            <br>
+                            <span class="alert">¡Faltan {{estadoServicio.diasFinCicloServicio}} día(s) para recibir tus servicios contratados!</span>
+                        </p>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag == 0 && estadoServicio.deudaPendienteSaldo > 1 || estadoServicio.deudaPendienteSaldo < 0">
+                        <div class=" list ">
+                            <div class="row tit ">
+                                <div class="col ">Deuda Pendiente </div>
+                                <div class="col "><strong> {{estadoServicio.simboloMoneda}}<span class="counter " ng-bind="estadoServicio.deudaPendienteSaldo | number:2 "></span></strong></div>
+                            </div>
+                            <div class="row ">
+                                <div class="col ">Estado de Cuenta:</div>
+                                <div class="col "><strong>{{estadoServicio.estadoCuenta}}</strong></div>
+                            </div>
+                            <div class="row ">
+                                <div class="col ">Vencimiento:</div>
+                                <div class="col ">{{estadoServicio.fechaVencimientoExpiracion| limitTo: 10 | date:"dd 'de' MMMM, yyyy "}}</div>
+                            </div>
+                            <div class="row ">
+                                <div class="col ">Ciclo de Facturación:</div>
+                                <div class="col ">{{estadoServicio.cicloFacturacion}}</div>
+                            </div>
+                            <div class="bts ">
+                                <a ng-if="estadoServicio.deudaPendienteSaldo > 1" href="" ng-click="pagarRecibo()" class="bt bt-red ">Pagar</a>
+                                <a ng-if="estadoServicio.deudaPendienteSaldo < 0" href="/wps/myportal/miclaro/corporativo/recibos/tv" class="bt bt-red">Ver Recibos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag == 0 && estadoServicio.deudaPendienteSaldo > 0 && estadoServicio.deudaPendienteSaldo < 1">
+                        <div class="list">
+                            <div class="row tit">
+                                <div class="col">Deuda Pendiente</div>
+                                <div class="col"><strong>{{estadoServicio.simboloMoneda}}<span class="counter" ng-bind="estadoServicio.deudaPendienteSaldo | number:2"></span></strong></div>
+                            </div>
+                            <div class="miniDeuda">¡Tranquilo! Este monto NO amerita el corte de tu servicio y lo podrás pagar junto con tu próximo recibo.</div>
+                            <div class="bts">
+                                <a href="/wps/myportal/miclaro/corporativo/recibos/tv" class="bt bt-red">Ver Recibos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag == 0 && estadoServicio.deudaPendienteSaldo == 0">
+                        <div class="list">
+                            <div class="row tit">
+                                <div class="col">Deuda Pendiente</div>
+                                <div class="col"><strong>S/. <span class="no-counter">0.00</span></strong></div>
+                            </div>
+                            <div class="row alert">
+                                <div class="col">¡Estás al día en tus pagos! Mira tus últimos recibos.</div>
+                            </div>
+                            <div class="bts">
+                                <a href="/wps/myportal/miclaro/corporativo/recibos/movil" class="bt bt-red">Ver Recibos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag != 0 && estadoServicioFlag != null">
+                        <p class="error-server ">
+                            <strong>{{mensaje_upps_titulo}}</strong>
+                            <br>{{mensaje_upps_descripcion01}}
+                            <br>{{mensaje_upps_descripcion02}}
+                            <br>
+                            <a href="" ng-click="recargarEstadoServicio()"><img src="/wpstheme/miclaro/img/icon-actualizar.png " width="24"></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="detail clearfix ">
+                    <div class="col50 colbig boxConsumos">
+                        <div class="plan clearfix box plan-tv" ng-show="planTvFlag == 0">
+                            <p class="plan">Detalle de Plan Claro TV</p>
+                            <h3>{{planTV.nombrePlan}}</h3>
+                            <div class="col33">
+                                <img src="/wpstheme/miclaro/img/icon-sd.png" width="36">
+                                <strong>{{planTV.numeroCanalesSD}}</strong> Canales SD
+                            </div>
+                            <div class="col33">
+                                <img src="/wpstheme/miclaro/img/icon-hd.png" width="36">
+                                <strong>{{planTV.numeroCanalesHD}}</strong> Canales HD
+                            </div>
+                            <div class="col33">
+                                <img src="/wpstheme/miclaro/img/icon-audio.png" width="25">
+                                <strong>{{planTV.numeroCanalesAudio}}</strong> Canales Audio
+                            </div>
+                            <br class="both">
+                            <a href="" ng-click="guiaCanales()" class="bt bt-red">Ver Guia de Canales</a>
+                            <a href="/wps/myportal/miclaro/corporativo/solicitudes/cambiodeplan/tv" class="bt bt-white bt-50-left">Cambia tu Plan</a>
+                            <a href="/wps/myportal/miclaro/corporativo/solicitudes/paquetespremiun" class="bt bt-white bt-50-right bt-text-min">Suscribete a Paquetes Premium</a>
+                        </div>
+                        <div class="consumos box" ng-show="planTvFlag != 0 && planTvFlag != null">
+                            <p>Detalle de Plan Claro TV</p>
+                            <p class="error-server">
+                                <strong>{{mensaje_upps_titulo}}</strong>
+                                <br>{{mensaje_upps_descripcion01}}
+                                <br>{{mensaje_upps_descripcion02}}
+                                <br>
+                                <a href="" ng-click="recargarConsumos()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col50 colbig">
+                        <div class="publicidad box">
+                            <img src="" width="445" alt="publicidad" class="ad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="flagServiciosTV == -1">
+                <div id="movil" class="tab active">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/TV - Servicios de TV"]</h3>
+                    <div style="text-align: center;" class="resume box clearfix">
+                        <div class="col100">
+                            <h3>{{mensaje_error_titulo}}</h3>
+                            <p>
+                                {{mensaje_error_descripcion01}}
+                                <br /> {{mensaje_error_descripcion02}}
+                                <br />
+                                <br />
+                                <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="(errorFuncional != 0 && errorFuncional != null) || (listaDireccionesFlag != 0 && listaDireccionesFlag != null) || (listaServiciosFlag != 0 && listaServiciosFlag != null)">
+                <div id="movil" class="tab active">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/TV - Servicios de TV"]</h3>
+                    <div style="text-align: center;" class="resume box clearfix">
+                        <div class="col100">
+                            <h3>{{mensaje_error_titulo}}</h3>
+                            <p>
+                                {{mensaje_error_descripcion01}}
+                                <br /> {{mensaje_error_descripcion02}}
+                                <br />
+                                <br />
+                                <a href="/wps/myportal/miclaro/corporativo/home/tv"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" ng-show="flagServiciosTV == 0 || flagServiciosTV == 1">
+                <div class="resume box clearfix">
+                    <div class="col100">
+                        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/TV - Sin Plan"]</h3>
+                        <p>
+                            [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/TV - Sin Plan"]
+                            <br> &nbsp;
+                        </p>
+                        <p>
+                            <a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio/tv" class="bt bt-red">solicitar nuevo servicio</a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="footerMiClaro">
+                    <img src="/wpstheme/miclaro/img/icon-reclamaciones.png"> <a href="" ng-click="libroReclamaciones()">Libro de Reclamaciones</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

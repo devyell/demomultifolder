@@ -1,0 +1,118 @@
+<div class="tabs-home tabs-clean">
+    <div class="tab-content noborder">
+        <br><br>
+        <div class="change-type on-mobile-switch" ng-show="showSwitch">
+            <label>Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label for="itype1"><span>Corporativo</span></label>
+        </div>
+        <div class="breadcrumb">
+            Consultas <span class="arrow"></span> <strong>Puntos Claro Club</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Puntos Claro Club"]</h3>
+                
+        <div>
+
+            <div id="show_panel" style="display: none;">
+                <div class="resume resume-puntos clearfix" id="show_puntos" style="display: none;">
+                    <div class="col50">
+                        <p>Mis puntos Claro Club</p>
+                        <h4 class="puntos">{{rs_claroPuntos}}</h4>
+                    </div>
+                    <div class="col50">
+                        <div class="list">
+                            <div class="row tit">
+                                <div class="col">Puntos por vencer</div>
+                                <div class="col"><strong>{{rs_claroPuntosPorVencer}}</strong></div>
+                            </div>
+                            <div class="row" id="rs_claroPuntosFechaVencimiento" style="display: none;">
+                                <div class="col">Próxima fecha de vencimiento</div>
+                                <div class="col">{{ rs_claroPuntosFechaVencimiento | date:"dd MMMM, yyyy" }} </div>
+                            </div>
+                            <div class="bts" id="show_botoncanjear" style="display: none;">
+                                <a href="/wps/myportal/miclaro/consumer/comprasyrecargas" class="bt bt-red">Canjear Puntos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				<div class="tab active" id="show_error_mis_puntos_claro_club" style="display: none;">
+					<div class="resume box clearfix">
+                  
+						<p class="error-server" style="padding-bottom: 20px; text-align: center;">
+                        <strong>{{mensaje_upps_titulo}}!</strong>
+                        <br> {{mensaje_upps_descripcion01}}
+                        <br>{{mensaje_upps_descripcion02}}
+                        <br>
+                        <a href="" ng-click="init_mis_puntos_claro()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                    
+					</div>
+				</div>
+				
+                <div class="no-mobile" id="ultimoMovimiento">
+                    <p class="border-bottom">Movimiento de Puntos (Últimos 30 movimientos)</p>
+                    <table class="table shadow">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Puntos Canjeados</th>
+                            <th>Puntos Acumulados</th>
+                        </tr>
+                        <tr ng-repeat="rsMovimiento in lsMovimiento | limitTo: 30">
+                            <td>{{rsMovimiento.fecha | limitTo: 10 | date:"dd-MM-yyyy"}}</td>
+                            <td>{{rsMovimiento.descripcion}}</td>
+                            <td>{{rsMovimiento.puntosCanjeados}}</td>
+                            <td>{{rsMovimiento.puntosAcumulados}}</td>
+                        </tr>                    
+                    </table>
+                    <div style="padding-top:20px; display: none;" class="masdetalle30">Solo te enseñamos los últimos 30 movimientos, si quieres más detalle, llámanos al *123 desde tu móvil o al 0-800-00123 desde tu fijo.</div>
+                </div>
+                <div class="on-mobile" id="movimientoPuntos">
+                    <p class="border-bottom">Movimiento de Puntos</p>
+                    <table class="table shadow table-mobile">
+                        <tr ng-repeat="rsMovimiento in lsMovimiento | limitTo: 20">
+                            <td>
+                                Fecha <span>{{rsMovimiento.fecha}}</span><br>
+                                Descripción <span>{{rsMovimiento.descripcion}}</span><br>
+                                Puntos Canjeados <span>{{rsMovimiento.puntosCanjeados}}</span><br>
+                                Puntos Acumulados <span>{{rsMovimiento.puntosAcumulados}}</span>
+                            </td>
+                        </tr>                
+                    </table>
+                    <div style="padding-top:20px; font-size: 12px; display: none;" class="masdetalle20">Solo te enseñamos los últimos 20 movimientos, si quieres más detalle, llámanos al *123 desde tu móvil o al 0-800-00123 desde tu fijo.</div>
+                </div>
+            </div>
+
+            <div class="resume resume-puntos clearfix" id="show_sin_movimientos" style="display: none;">
+                <div class="col100">
+                    <p>&nbsp;</p>
+                    <p class="center">Aún no cuentas puntos ClaroClub.<br>Descubre cómo puedes ganar puntos <a href="http://www.claro.com.pe/portal/pe/sc/personas/claro-club/" target="_blank">aquí</a></p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+
+            <div class="tab active" id="show_error_root" style="display: none;">
+                <div class="resume box clearfix">
+                    <div class="col100" style="text-align: center;">
+                        <h3>{{mensaje_error_titulo}}</h3>
+                        <p>
+                            {{mensaje_error_descripcion01}} <br />
+                            {{mensaje_error_descripcion02}} <br /><br />
+                            <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            
+           
+
+        </div>
+    </div>
+
+</div>

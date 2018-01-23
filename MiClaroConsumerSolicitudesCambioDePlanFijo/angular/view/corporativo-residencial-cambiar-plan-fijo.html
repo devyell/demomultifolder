@@ -1,0 +1,198 @@
+<div class="tabs tabs-home">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/consumer/solicitudes/cambiodeplan/movil"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/consumer/solicitudes/cambiodeplan/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/consumer/solicitudes/cambiodeplan/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/consumer/solicitudes/cambiodeplan/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="fijo" class="tab active" ng-show="mostrarServicios">
+            <div class="change-type on-mobile-switch" ng-show="mostrarSwitch">
+                <label>Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label for="itype1"><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Solicitudes <span class="arrow"></span> <strong>Cambiar de Plan</strong>
+            </div>
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Solicitudes/Cambiar de Plan"]</h3>
+            <div class="resume box clearfix" ng-show="mostrarServiciosConsumer">
+                <div class="col50">
+                    <p><span class="type">&nbsp;</span></p>
+                    <div class="pull pullservicio">
+                        <div ng-bind="selectServicio.ProductoServicioResponse.nombreAlias"></div>
+                        <select name="iservicio" ng-model="selectServicio" ng-options="servicios.ProductoServicioResponse.nombreAlias for servicios in listaServiciosConsumer" ng-change="obtenerPlanesxServicio()">
+                        </select>
+                    </div>
+                    <p>{{direccionCompleta}}</p>
+                </div>
+                <div class="col50 no-mobile" ng-show="mostrarDatosAdicionales">
+                    <p>
+                        &nbsp;
+                        <br>
+                        <strong>Plan Actual:</strong> {{planActual}}
+                        <br>
+                        <strong>Fecha de Renovación:</strong> {{fechaRenovacion | limitTo:10 | date:"dd-MM-yyyy"}}
+                        <br> &nbsp;
+                        <br>
+                        <strong>Mira tu plan actual</strong> <a href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/fijo" class="linkred">aquí</a>
+                        <br> &nbsp;
+                    </p>
+                </div>
+                <div ng-show="errorDatosAdicionales">
+                    <er-Customerror on-Refresh="refreshPortlet('1')"></er-Customerror>
+                </div>
+            </div>
+            <div class="" ng-show="mostrarPlanesSugeridos">
+                <div class="detail box clearfix">
+                    <div id="consumo-opt11" class="tab active">
+                        <div class="result-lista">
+                            <h4 class="tit-border">Planes Recomendados para ti:</h4>
+                            <div class="slide-planes" id="idPlanesTabs" style="height: 480px;">
+                                <div class="canvas" style="height: 480px;">
+                                    <div class="planes clearfix">
+                                        <div class="plan" ng-style="agregarCss()" ng-repeat="mostrarSinTab in planesSinTab">
+                                            <div ng-class="{'sugerido': mostrarSinTab.idPlan == planSugest}" class="name" ng-bind="mostrarSinTab.nombre"></div>
+                                            <div class="precio">{{mostrarSinTab.moneda}} {{mostrarSinTab.precio}}</div>
+                                            <div class="text">
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono1+''+ mostrarSinTab.texto1)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono2+''+ mostrarSinTab.texto2)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono3+''+ mostrarSinTab.texto3)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono4+''+ mostrarSinTab.texto4)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono5+''+ mostrarSinTab.texto5)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono6+''+ mostrarSinTab.texto6)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono7+''+ mostrarSinTab.texto7)"></div>
+                                                <div ng-bind-html="$sce.trustAsHtml(mostrarSinTab.icono8+''+ mostrarSinTab.texto8)"></div>
+                                                <button type="button" class="bt bt-red" ng-click="mostrarPlanTerminos(mostrarSinTab)" ng-disabled="desabilitarBoton">Solicitar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Solicitudes/Mensaje Footer Cambio Plan"]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="mostrarDetallePlan">
+                <p class="border-bottom" style="margin-bottom: 18px;">PLAN SELECCIONADO:</p>
+                <div class="resume box clearfix no-mobile" style="padding-bottom: 20px;">
+                    <div>
+                        <div class="col col33 no-mobile"><strong>Plan</strong></div>
+                        <div class="col col33 no-mobile"><strong>Detalle Principal</strong></div>
+                        <div class="col col33 no-mobile"><strong>Precio</strong></div>
+                    </div>
+                    <div>
+                        <div class="col col33">{{objPlanConfirmar.nombre}}</div>
+                        <div class="col col33">{{objPlanConfirmar.texto1}}</div>
+                        <div class="col col33 precio" style="color: #d42b1e;font-family: 'DIN-BoldAlternate';">{{objPlanConfirmar.moneda}} {{objPlanConfirmar.precio}}</div>
+                    </div>
+                </div>
+                <div class="resume box clearfix on-mobile" style="padding-bottom: 20px;">
+                    <div>
+                        <div class="col col50" style="margin-bottom: 0px;"><strong>Plan</strong></div>
+                        <div class="col col50">{{objPlanConfirmar.nombre}}</div>
+                    </div>
+                    <div>
+                        <div class="col col50" style="margin-bottom: 0px;"><strong>Detalle Principal</strong></div>
+                        <div class="col col50">{{objPlanConfirmar.texto1}}</div>
+                    </div>
+                    <div>
+                        <div class="col col50" style="margin-bottom: 0px;"><strong>Precio</strong></div>
+                        <div class="col col50 precio" style="color: #d42b1e;font-family: 'DIN-BoldAlternate';">{{objPlanConfirmar.moneda}} {{objPlanConfirmar.precio}}</div>
+                    </div>
+                </div>
+                <p style="margin-bottom: 30px;">
+                    <label class="check" id="checkboxTerminos">
+                        <input type="checkbox" ng-click="aceptarTerminosCondiciones(modelAceptarTerminos)" id="iterminos" ng-model="modelAceptarTerminos" name="iterminos" value="1" data-valid="required">
+                    </label>
+                    Acepto los <a href="" ng-click="mostrarPopUpTerminos()" class="red linkterminos">Términos y Condiciones</a>
+                </p>
+                <div class="div-bts">
+                    <button type="button" ng-click="regresar()" class="bt bt-white">Regresar</button>
+                    <button type="button" ng-click="solicitarNuevoServicio()" disabled="disabled" class="bt bt-red bt-disabled" id="btcontratar">Contratar</button>
+                </div>
+            </div>
+            <div ng-show="errorPlanesSugeridos">
+                <er-Customerror on-Refresh="refreshPortlet('1')"></er-Customerror>
+            </div>
+            <div ng-show="errorTotalRedirect">
+                <div class="resume box clearfix" style="text-align: center;">
+                    <div class="col100">
+                        <h3>{{mensaje_error_titulo}}</h3>
+                        <p>
+                            {{mensaje_error_descripcion01}}.
+                            <br /> {{mensaje_error_descripcion02}}
+                            <br />
+                            <br />
+                            <a href="{{urlInicio}}"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="showSinServicios">
+                <div class="resume box clearfix">
+                    <div class="col100">
+                        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]</h3>
+                        <p>
+                            [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]
+                            <br> &nbsp;
+                        </p>
+                        <p><a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar Nuevo Servicio</a></p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popupTerminos" class="popup">
+    <div class="bg" ng-click="ocultarPopUpTerminos()"></div>
+    <div class="pop">
+        <button type="button" ng-click="ocultarPopUpTerminos()" class="bt btclose"></button>
+        <div class="content">
+            <h3 class="terminos">Términos y Condiciones</h3>
+            <p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+            <div class="frame">
+                <div class="text">
+                    [Element key="Texto Legal" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Terminos y Condiciones/Cambio Plan Fijo Consumer"]
+                </div>
+            </div>
+            <form method="post" id="iterminosformpop">
+                <p>
+                    <a href="" ng-click="ocultarPopUpTerminos()" class="bt bt-gris" id="btterminoscancel">Cancelar</a>
+                    <a href="" ng-click="aceptarTerminos()" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="idPopupNuevoServicio" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <div class="content">
+            <div id="idProcesando">
+                <p>&nbsp;</p>
+                <p><img src="/wpstheme/miclaro/img/preloader.gif" width="32" height="32"></p>
+                <p>&nbsp;</p>
+                <h3 id="idGifProc">Realizando transacción</h3>
+                <p>Espera un momento, por favor...</p>
+            </div>
+            <div id="idConfirmacion">
+                <h3>[Element key="titulo" type="content" context="selected" name="Mi Claro Content Library/Mi Claro/Consumer/Solicitudes/Modal - Cambiar Plan - Confirmacion"]</h3>
+                <p>[Element key="subtitulo" type="content" context="selected" name="Mi Claro Content Library/Mi Claro/Consumer/Solicitudes/Modal - Cambiar Plan - Confirmacion"]&nbsp;</p>
+                <p><a href="" class="bt bt-red" id="btcambioplanaceptar" ng-click="terminarAccion()">Ok</a></p>
+            </div>
+            <div id="idConfirmacionError">
+                <h3>{{mensaje_error_titulo}}</h3>
+                <p>{{mensaje_error_descripcion01}} {{mensaje_error_descripcion02}}.
+                    <br>
+                    <br>&nbsp;</p>
+                <p><a href="" class="bt bt-red" id="btcambioplanaceptar" ng-click="cerrarConfirmacion()">Ok</a></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil active"><a href="/wps/myportal/miclaro/corporativo/solicitudes/cambiodeplan/movil"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="/wps/myportal/miclaro/corporativo/solicitudes/cambiodeplan/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/solicitudes/cambiodeplan/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/corporativo/solicitudes/cambiodeplan/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="movil" class="tab active" ng-show="mostrarServicios">
+            <div class="change-type on-mobile-switch" ng-show="mostrarSwitchCorporativo">
+                <label for="itype1">Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Solicitudes <span class="arrow"></span> <strong>Cambiar de Plan</strong>
+            </div>
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Cambiar de Plan"]</h3>
+            <div ng-show="mostrarDataCambioPlan">
+                <p>[Element key="subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Cambiar de Plan"]
+                    <br>&nbsp;</p>
+                <p>
+                    <button type="button" class="bt bt-red btcambiarplan" ng-click="solicitarNuevoServicio()">Solicite cambio de Plan</button>
+                </p>
+                <p>&nbsp;</p>
+                <p>O comuníquese con nosotros a los teléfonos:</p>
+                <div class="phone-box">
+                    <p>
+                        Desde tu celular Claro:
+                        <strong>*200</strong> sin costo
+                    </p>
+                </div>
+                <div class="phone-box">
+                    <p>
+                        Desde tu teléfono fijo:
+                        <strong>0-800-00-200</strong> sin costo
+                    </p>
+                </div>
+                <div class="phone-box">
+                    <p>
+                        Desde tu móvil o fijo:
+                        <strong>(01) 620-0200</strong> con costo
+                    </p>
+                </div>
+                <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Mensaje Footer Cambio Plan"]</p>
+            </div>
+            <div ng-show="showSinServicios">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/Movil - Sin Plan"]</h3>
+                <p>
+                    [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/Movil - Sin Plan"]
+                    <br> &nbsp;
+                </p>
+                <p><a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio" class="bt bt-red">Solicitar Nuevo Servicio</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="idPopupNuevoServicio" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cerrarPopup()"></button>
+        <div class="content">
+            <div id="idProcesando">
+                <p>&nbsp;</p>
+                <p><img src="/wpstheme/miclaro/img/preloader.gif" width="32" height="32"></p>
+                <p>&nbsp;</p>
+                <h3 id="idGifProc">Realizando transacción</h3>
+                <p>Espera un momento, por favor...</p>
+            </div>
+            <div id="idConfirmacion">
+                <h3>[Element key="titulo" type="content" context="selected" name="Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Modal - Cambiar Plan - Confirmacion"]</h3>
+                <p>[Element key="subtitulo" type="content" context="selected" name="Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Modal - Cambiar Plan - Confirmacion"]&nbsp;</p>
+                <p><a href="" class="bt bt-red" id="btcambioplanaceptar" ng-click="cerrarPopup()">Ok</a></p>
+            </div>
+            <div id="idConfirmacionError">
+                <h3>{{mensaje_error_titulo}}</h3>
+                <p>{{mensaje_error_descripcion01}} {{mensaje_error_descripcion02}}.
+                <br>
+                <br>&nbsp;</p>
+                <p><a href="" class="bt bt-red" id="btcambioplanaceptar" ng-click="cerrarPopup()">Ok</a></p>
+            </div>
+        </div>
+    </div>
+</div>

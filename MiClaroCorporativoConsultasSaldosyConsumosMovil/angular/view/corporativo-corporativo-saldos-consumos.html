@@ -1,0 +1,657 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil active"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/movil"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="movil" class="tab active" ng-show="mostrarInfoMovil">
+            <div class="change-type on-mobile-switch" ng-show="mostrarSwitchMovil">
+                <label for="itype1">Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Saldos y Consumos</strong>
+            </div>
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Saldos y Consumos"]</h3>
+            <div class="filter-lista" ng-show="mostrarRadioButtons">
+                <span>
+                        <label class="radio" ng-class="{'checked': checkRadioBolsas}">
+                            <input type="radio" name="filtromovil"  ng-click="cambiarClaseRadioButton('101')" >
+                        </label> Ver Bolsas contratadas
+                    </span>
+                <span>
+                        <label class="radio" ng-class="{'checked': checkRadioLineas}">
+                            <input type="radio" name="filtromovil"  ng-click="cambiarClaseRadioButton('202')">
+                        </label> Ver línea específica
+                    </span>
+            </div>
+            <form method="post" class="form-filter clearfix" ng-class="classBuscar" ng-show="formCombos">
+                <div class="col33">
+                    <div class="pull pulldate" ng-class="desabledCombos">
+                        <div>{{selectIdCuenta.nombreAlias}}</div>
+                        <select name="ifilter" ng-model="selectIdCuenta" ng-options="cuentas.nombreAlias for cuentas in listadoCuentas " ng-change="asCtrlSaldosyConsumos.buscarServiciosxRecibo()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col33">
+                    <div class="pull pulldate" ng-class="desabledCombos">
+                        <div>{{selectIdRecibo.nombreAlias}}</div>
+                        <select name="ifilter" ng-model="selectIdRecibo" ng-options="recibos.nombreAlias for recibos in listadoRecibos" ng-change="asCtrlSaldosyConsumos.buscarServiciosxReciboyCuenta()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col33 colsearch" id="filterlineamovil" ng-show="divShowLineas">
+                    <div class="pull pulldate">
+                        <div>{{selectLinea.ProductoServicioResponse.nombreAlias}}</div>
+                        <select name="ifilter" ng-model="selectLinea" ng-options="lineas.ProductoServicioResponse.nombreAlias for lineas in listadoServicios" ng-change="asCtrlSaldosyConsumos.buscarDetalleConsumoxLinea()">
+                        </select>
+                    </div>
+                    <div class="input search">
+                        <input type="text" ng-model="inputLineaMovil" id="autocomplete-filtro-movil" placeholder="Celular" ng-keydown="$event.which === 13 && asCtrlSaldosyConsumos.buscarServicioxXriterio()">
+                        <button type="button" class="bt bt-search" ng-click="asCtrlSaldosyConsumos.buscarServicioxXriterio()"></button>
+                    </div>
+                    <a href ng-click="cambiarClassForm()" class="action"></a>
+                </div>
+            </form>
+            <div class="result" id="divsaldosconsumosmovil" ng-show="flagDatosConsumos">
+                <div id="idSlideBolsas" class="slide">
+                    <div class="resume box clearfix" ng-show="mostrarDatosAdicionales">
+                        <div class="col50">
+                            <p><span class="type">Línea Postpago</span></p>
+                            <div class="pull pullservicio disabled">
+                                <div>{{lineaPrincipal}}</div>
+                            </div>
+                        </div>
+                        <div class="col50">
+                            <div class="list list-saldo" ng-show="flagDatosAdicionalesBolsa">
+                                <div class="row tit">
+                                    <div class="col">Línea de
+                                        <br>crédito</div>
+                                    <div class="col"><strong>{{simboloMoneda}} <span class="counter">{{lineaCredito}}</span></strong></div>
+                                </div>
+                                <div class="bts">
+                                    <a href="/wps/myportal/miclaro/corporativo/comprasyrecargas/" class="bt bt-red">Compra y Recarga</a>
+                                </div>
+                            </div>
+                            <div ng-show="errorFlagDatosAdicionalesBolsa">
+                                <er-Customerror on-Refresh="refreshPortlet('1')"></er-Customerror>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="errorFlagServicioCorporativo">
+                        <er-Customerror on-Refresh="refreshPortlet('0')"></er-Customerror>
+                    </div>
+                    <div class="no-mobile" ng-show="mostrarDataBolsas">
+                        <div class="detail box clearfix">
+                            <p class="border-bottom">
+                                Período
+                                <span>{{fechaPeriodo}}</span>
+                            </p>
+                            <table class="table shadow">
+                                <tr class="tit">
+                                    <th>Bolsas contratadas</th>
+                                    <th>Tope de Consumo</th>
+                                    <th>Consumo</th>
+                                    <th>Saldo</th>
+                                </tr>
+                                <tr ng-repeat="bolsas in listadoConsumos | orderBy:'tipoBolsa'">
+                                    <td><img ng-src="{{funcionImagen(bolsas.tipoBolsa)}}" width="16"> {{bolsas.nombreBolsa}}</td>
+                                    <td>{{bolsas.topeConsumo}}</td>
+                                    <td>{{bolsas.consumo}}</td>
+                                    <td>{{bolsas.saldo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="on-mobile" ng-show="mostrarDataBolsas">
+                        <div class="detail box clearfix">
+                            <p class="border-bottom">
+                                Período
+                                <span{{fechaPeriodo}}</span>
+                            </p>
+                            <table class="table table-mobile shadow">
+                                <tr ng-repeat="bolsas in listadoConsumos | orderBy:'tipoBolsa'">
+                                    <td>
+                                        <br>
+                                        <img ng-src="{{funcionImagen(bolsas.tipoBolsa)}}" width="16"> <strong>{{bolsas.nombreBolsa}}</strong>
+                                        <br> Tope de Consumo <span>{{bolsas.topeConsumo}}</span>
+                                        <br> Consumo <span>{{bolsas.consumo}}</span>
+                                        <br> Saldo <span>{{bolsas.saldo}}</span>
+                                        <br> &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="errorMostrarDataBolsas">
+                        <er-Customerror on-Refresh="refreshPortlet('2')"></er-Customerror>
+                    </div>
+                    <div class="mensajeOhh" ng-show="sinBolsas">
+                        !Ohh no! Al parecer no tiene una bolsa contratada. <br> Comuniquese con un asesor para solicitarla.
+                    </div>
+                </div>
+                <div id="idSlideLinea" class="slide">
+                    <div class="resume box clearfix" ng-show="mostrarDatosAdicionalesLineas">
+                        <div class="col50">
+                            <p><span class="type">Línea Postpago</span></p>
+                            <div class="pull pullservicio disabled">
+                                <div>{{lineaPrincipal}}</div>
+                            </div>
+                        </div>
+                        <div class="col50">
+                            <div class="list list-saldo" ng-show="flagDatosAdicionalesLinea">
+                                <div class="row tit">
+                                    <div class="col">Línea de
+                                        <br>crédito</div>
+                                    <div class="col"><strong>{{simboloMoneda}} <span class="counter">{{lineaCredito}}</span></strong></div>
+                                </div>
+                                <div class="bts">
+                                    <a href="/wps/myportal/miclaro/corporativo/comprasyrecargas/" class="bt bt-red">Compra y Recarga</a>
+                                </div>
+                            </div>
+                            <div ng-show="errorflagDatosAdicionalesLinea">
+                                <er-Customerror on-Refresh="refreshPortlet('3')"></er-Customerror>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-mobile" ng-show="mostrarDataLineas">
+                        <div class="detail box clearfix">
+                            <p class="border-bottom">
+                                Período
+                                <span>{{fechaPeriodoLinea}}</span>
+                            </p>
+                            <table class="table progress shadow" ng-show="mostrarDataInternet">
+                                <tr class="tit">
+                                    <td>Internet</td>
+                                    <td colspan="2"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil?tipo=T" class="red">ver detalle</a></td>
+                                </tr>
+                                <tr ng-repeat="internetPrincipal in internetListaBolsaPrincipalInternet">
+                                    <td width="30%">{{internetPrincipal.nombreBolsa}}
+                                        <br>Vence: {{internetPrincipal.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="internetPrincipal.flagIlimitado == 'false'">
+                                        <div ng-if="internetPrincipal.bolsaTotal != internetPrincipal.bolsaUtilizada" class="progress-bar" data-color="#F6A244" data-percent="{{internetPrincipal.bolsaUtilizada*100/internetPrincipal.bolsaTotal}}" data-value="{{internetPrincipal.bolsaUtilizada}}" data-unidad="{{internetPrincipal.unidadConsumo}}" val-Custom><span>{{internetPrincipal.bolsaTotal - internetPrincipal.bolsaUtilizada}} {{internetPrincipal.unidadConsumo}} restantes</span>
+                                        </div>
+                                        <div ng-if="internetPrincipal.bolsaTotal == internetPrincipal.bolsaUtilizada" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span>
+                                        </div>
+                                    </td>
+                                    <td width="100" ng-if="internetPrincipal.flagIlimitado == 'false'">{{internetPrincipal.bolsaTotal}} {{internetPrincipal.unidadConsumo}}</td>
+                                    <td ng-if="internetPrincipal.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetPrincipal.bolsaUtilizada}}" data-unidad="{{internetPrincipal.unidadConsumo}}" val-Custom><span>Ilimitado</span>
+                                        </div>
+                                    </td>
+                                    <td width="100" ng-if="internetPrincipal.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarListaAdicionales">
+                                    <td>Adicionales al Plan</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr ng-repeat="internetAdicionales in internetListaAdicionalesPlan">
+                                    <td width="30%">{{internetAdicionales.nombre}}
+                                        <br>Vence: {{internetAdicionales.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="internetAdicionales.flagIlimitado == 'false'">
+                                        <div ng-if="internetAdicionales.total != internetAdicionales.utilizado" class="progress-bar" data-color="#F6A244" data-percent="{{internetAdicionales.utilizado*100/internetAdicionales.total}}" data-value="{{internetAdicionales.utilizado}}" data-unidad="{{internetAdicionales.unidadConsumo}}" val-Custom><span>{{internetAdicionales.total - internetAdicionales.utilizado}} {{internetAdicionales.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetAdicionales.total == internetAdicionales.utilizado" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="internetAdicionales.flagIlimitado == 'false'">{{internetAdicionales.total}} {{internetAdicionales.unidadConsumo}}</td>
+                                    <td ng-if="internetAdicionales.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetAdicionales.utilizado}}" data-unidad="{{internetAdicionales.unidadConsumo}}" val-Custom><span>ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="internetAdicionales.flagIlimitado == 'true'"> ilimitado</td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarListaActivos">
+                                    <td>Planes Activos</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr ng-repeat="internetActivos in internetListaPaquetesActivos">
+                                    <td width="30%">{{internetActivos.nombre}}
+                                        <br>Vence: {{internetActivos.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="internetAdicionales.flagIlimitado == 'false'">
+                                        <div ng-if="internetAdicionales.total != internetAdicionales.utilizado" class="progress-bar" data-color="#F6A244" data-percent="{{internetActivos.utilizado*100/internetActivos.total}}" data-value="{{internetActivos.utilizado}}" data-unidad="{{internetActivos.unidadConsumo}}" val-Custom><span>{{internetActivos.total - internetActivos.utilizado}} {{internetActivos.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetAdicionales.total == internetAdicionales.utilizado" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="internetAdicionales.flagIlimitado == 'false'">{{internetActivos.total}} {{internetActivos.unidadConsumo}}</td>
+                                    <td ng-if="internetAdicionales.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetActivos.utilizado}}" data-unidad="{{internetActivos.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="internetAdicionales.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarListaPendientes">
+                                    <td>Paquetes Pendientes</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr ng-repeat="internetPendientes in internetListaPaquetesPendientes">
+                                    <td width="30%">{{internetPendientes.nombre}}
+                                        <br>Vence: {{internetPendientes.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="internetAdicionales.flagIlimitado == 'false'">
+                                        <div ng-if="internetAdicionales.total != internetAdicionales.utilizado" class="progress-bar" data-color="#F6A244" data-percent="{{internetPendientes.utilizado*100/internetPendientes.total}}" data-value="{{internetPendientes.utilizado}}" data-unidad="{{internetPendientes.unidadConsumo}}" val-Custom><span>{{internetPendientes.total - internetPendientes.utilizado}} {{internetPendientes.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetAdicionales.total == internetAdicionales.utilizado" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="internetAdicionales.flagIlimitado == 'false'">{{internetPendientes.total}} {{internetPendientes.unidadConsumo}}</td>
+                                    <td ng-if="internetAdicionales.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetPendientes.utilizado}}" data-unidad="{{internetPendientes.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="internetAdicionales.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                            </table>
+                            <table class="table progress shadow" ng-show="mostrarDataLlamadas">
+                                <tr class="tit">
+                                    <td>Llamadas</td>
+                                    <td colspan="2"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil?tipo=L" class="red">ver detalle</a></td>
+                                </tr>
+                                <tr ng-repeat="principalLlamadas in llamadasListaBolsaPrincipalLlamadas">
+                                    <td width="30%">{{principalLlamadas.nombreBolsa}}
+                                        <br>Vence: {{principalLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="principalLlamadas.flagIlimitado == 'false'">
+                                        <div ng-if="principalLlamadas.bolsaTotal != principalLlamadas.bolsaUtilizada" class="progress-bar" data-color="#d52b1e" data-percent="{{principalLlamadas.bolsaUtilizada*100/principalLlamadas.bolsaTotal}}" data-value="{{principalLlamadas.bolsaUtilizada}}" data-unidad="{{principalLlamadas.unidadConsumo}}" val-Custom><span>{{principalLlamadas.bolsaTotal - principalLlamadas.bolsaUtilizada}} {{principalLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="principalLlamadas.bolsaTotal == principalLlamadas.bolsaUtilizada" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="principalLlamadas.flagIlimitado == 'false'">{{principalLlamadas.bolsaTotal}} {{principalLlamadas.unidadConsumo}}</td>
+                                    <td ng-if="principalLlamadas.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{principalLlamadas.bolsaUtilizada}}" data-unidad="{{principalLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="principalLlamadas.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="regaladosLlamadas in llamadasListaBonosRegalados">
+                                    <td width="30%">{{regaladosLlamadas.nombre}}
+                                        <br>Vence: {{regaladosLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="regaladosLlamadas.flagIlimitado == 'false'">
+                                        <div ng-if="regaladosLlamadas.total != regaladosLlamadas.utilizado" class="progress-bar" data-color="#d52b1e" data-percent="{{regaladosLlamadas.utilizado*100/regaladosLlamadas.total}}" data-value="{{regaladosLlamadas.utilizado}}" data-unidad="{{regaladosLlamadas.unidadConsumo}}" val-Custom><span>{{regaladosLlamadas.total - regaladosLlamadas.utilizado}} {{regaladosLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="regaladosLlamadas.total == regaladosLlamadas.utilizado" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="regaladosLlamadas.flagIlimitado == 'false'">{{regaladosLlamadas.total}} {{regaladosLlamadas.unidadConsumo}}</td>
+                                    <td ng-if="regaladosLlamadas.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{regaladosLlamadas.utilizado}}" data-unidad="{{regaladosLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="regaladosLlamadas.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="pendientesLlamadas in llamadasListaPaquetesPendientesLlamadas">
+                                    <td width="30%">{{pendientesLlamadas.nombre}}
+                                        <br>Vence: {{pendientesLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="pendientesLlamadas.flagIlimitado == 'false'">
+                                        <div ng-if="pendientesLlamadas.total != pendientesLlamadas.utilizado" class="progress-bar" data-color="#d52b1e" data-percent="{{pendientesLlamadas.utilizado*100/pendientesLlamadas.total}}" data-value="{{pendientesLlamadas.utilizado}}" data-unidad="{{pendientesLlamadas.unidadConsumo}}" val-Custom><span>{{pendientesLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="pendientesLlamadas.total == pendientesLlamadas.utilizado" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="pendientesLlamadas.flagIlimitado == 'false'">{{pendientesLlamadas.total - pendientesLlamadas.utilizado}} {{pendientesLlamadas.unidadConsumo}} restantes</td>
+                                    <td ng-if="pendientesLlamadas.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{pendientesLlamadas.utilizado}}" data-unidad="{{pendientesLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="pendientesLlamadas.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarLlaamadasAdicionales">
+                                    <td>Adicionales a tu Plan</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr ng-repeat="adicionalesLlamadas in llamadasListaAdicionalesPlan">
+                                    <td width="30%">{{adicionalesLlamadas.nombre}}
+                                        <br>Vence: {{adicionalesLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="adicionalesLlamadas.flagIlimitado == 'false'">
+                                        <div ng-if="adicionalesLlamadas.total != adicionalesLlamadas.utilizado" class="progress-bar" data-color="#d52b1e" data-percent="{{adicionalesLlamadas.utilizado*100/adicionalesLlamadas.total}}" data-value="{{adicionalesLlamadas.utilizado}}" data-unidad="{{adicionalesLlamadas.unidadConsumo}}" val-Custom><span>{{adicionalesLlamadas.total - adicionalesLlamadas.utilizado}} {{adicionalesLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="adicionalesLlamadas.total == adicionalesLlamadas.utilizado" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="adicionalesLlamadas.flagIlimitado == 'false'">{{adicionalesLlamadas.total}} {{adicionalesLlamadas.unidadConsumo}}</td>
+                                    <td ng-if="adicionalesLlamadas.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{adicionalesLlamadas.utilizado}}" data-unidad="{{adicionalesLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="adicionalesLlamadas.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                            </table>
+                            <table class="table progress shadow" ng-show="mostrarDataMmsSms">
+                                <tr class="tit">
+                                    <td>Mensajes</td>
+                                    <td colspan="2"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil?tipo=M" class="red">ver detalle</a></td>
+                                </tr>
+                                <tr ng-repeat="adicionalMsj in smsyMmmsListaAdicionalesPlan">
+                                    <td width="30%">{{adicionalMsj.nombre}}
+                                        <br>Vence: {{adicionalMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="adicionalMsj.flagIlimitado == 'false'">
+                                        <div ng-if="adicionalMsj.total != adicionalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{adicionalMsj.utilizado*100/adicionalMsj.total}}" data-value="{{adicionalMsj.utilizado}}" data-unidad="{{adicionalMsj.unidadConsumo}}" val-Custom><span>{{adicionalMsj.total - adicionalMsj.utilizado}} {{adicionalMsj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="adicionalMsj.total == adicionalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="adicionalMsj.flagIlimitado == 'false'">{{adicionalMsj.total}} {{adicionalMsj.unidadConsumo}}</td>
+                                    <td ng-if="adicionalMsj.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{adicionalMsj.utilizado}}" data-unidad="{{adicionalMsj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="adicionalMsj.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="principalMsj in smsyMmmsListaBolsaPrincipalSms">
+                                    <td width="30%">{{principalMsj.nombre}}
+                                        <br>Vence: {{principalMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="principalMsj.flagIlimitado == 'false'">
+                                        <div ng-if="principalMsj.total != principalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{principalMsj.utilizado*100/principalMsj.total}}" data-value="{{principalMsj.utilizado}}" data-unidad="{{principalMsj.unidadConsumo}}" val-Custom><span>{{principalMsj.total - principalMsj.utilizado}} {{principalMsj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="principalMsj.total == principalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="principalMsj.flagIlimitado == 'false'">{{principalMsj.total}} {{principalMsj.unidadConsumo}}</td>
+                                    <td ng-if="principalMsj.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{principalMsj.utilizado}}" data-unidad="{{principalMsj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="principalMsj.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="regaladosSmj in smsyMmmsListaBonosRegalados">
+                                    <td width="30%">{{regaladosSmj.nombre}}
+                                        <br>Vence: {{regaladosSmj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="regaladosSmj.flagIlimitado == 'false'">
+                                        <div ng-if="regaladosSmj.total != regaladosSmj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{regaladosSmj.utilizado*100/regaladosSmj.total}}" data-value="{{regaladosSmj.utilizado}}" data-unidad="{{regaladosSmj.unidadConsumo}}" val-Custom><span>{{regaladosSmj.total - regaladosSmj.utilizado}} {{regaladosSmj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="regaladosSmj.total == regaladosSmj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="regaladosSmj.flagIlimitado == 'false'">{{regaladosSmj.total}} {{regaladosSmj.unidadConsumo}}</td>
+                                    <td ng-if="regaladosSmj.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{regaladosSmj.utilizado}}" data-unidad="{{regaladosSmj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="regaladosSmj.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="pendientesMsj in smsyMmmsListaPaquetesPendientesSMS">
+                                    <td width="30%">{{pendientesMsj.nombre}}
+                                        <br>Vence: {{pendientesMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="pendientesMsj.flagIlimitado == 'false'">
+                                        <div ng-if="pendientesMsj.total != pendientesMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{pendientesMsj.utilizado*100/pendientesMsj.total}}" data-value="{{pendientesMsj.utilizado}}" data-unidad="{{pendientesMsj.unidadConsumo}}" val-Custom><span>{{pendientesMsj.total - pendientesMsj.utilizado}} {{pendientesMsj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="pendientesMsj.total == pendientesMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="50" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="pendientesMsj.flagIlimitado == 'false'">{{pendientesMsj.total}} {{pendientesMsj.unidadConsumo}}</td>
+                                    <td ng-if="pendientesMsj.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{pendientesMsj.utilizado}}" data-unidad="{{pendientesMsj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="pendientesMsj.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="principalMms in smsyMmmsListaBolsaPrincipalMMS">
+                                    <td width="30%">{{principalMms.nombre}}
+                                        <br>Vence: {{principalMms.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="principalMms.flagIlimitado == 'false'">
+                                        <div ng-if="principalMms.total != principalMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{principalMms.utilizado*100/principalMms.total}}" data-value="{{principalMms.utilizado}}" data-unidad="{{principalMms.unidadConsumo}}" val-Custom><span>{{principalMms.total - principalMms.utilizado}} {{principalMms.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="principalMms.total == principalMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="principalMms.flagIlimitado == 'false'">{{principalMms.total}} {{principalMms.unidadConsumo}}</td>
+                                    <td ng-if="principalMms.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{principalMms.utilizado}}" data-unidad="{{principalMms.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="principalMms.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                                <tr ng-repeat="pendienteMms in smsyMmmsListaPaquetesPendientesMMS">
+                                    <td width="30%">{{pendienteMms.nombre}}
+                                        <br>Vence: {{pendienteMms.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</td>
+                                    <td ng-if="pendienteMms.flagIlimitado == 'false'">
+                                        <div ng-if="pendienteMms.total != pendienteMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{pendienteMms.utilizado*100/pendienteMms.total}}" data-value="{{pendienteMms.utilizado}}" data-unidad="{{pendienteMms.unidadConsumo}}" val-Custom><span>{{pendienteMms.total - pendienteMms.utilizado}} {{pendienteMms.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="pendienteMms.total == pendienteMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="pendienteMms.flagIlimitado == 'false'">{{pendienteMms.total}} {{pendienteMms.unidadConsumo}}</td>
+                                    <td ng-if="pendienteMms.flagIlimitado == 'true'">
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{pendienteMms.utilizado}}" data-unidad="{{pendienteMms.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                    </td>
+                                    <td width="100" ng-if="pendienteMms.flagIlimitado == 'true'">Ilimitado</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="on-mobile" ng-show="mostrarDataLineas">
+                        <div class="detail box clearfix">
+                            <p class="border-bottom">
+                                Período
+                                <span>{{fechaPeriodoLinea}}</span>
+                            </p>
+                            <table class="table progress shadow" ng-show="mostrarDataInternet">
+                                <tr class="tit">
+                                    <td>Internet</td>
+                                    <td colspan="2"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil?tipo=T" class="red">ver detalle</a></td>
+                                </tr>
+                                <tr ng-repeat="internetPrincipal in internetListaBolsaPrincipalInternet">
+                                    <td colspan="3" ng-if="internetPrincipal.flagIlimitado == 'false'">
+                                        <div class="servicio">{{internetPrincipal.nombreBolsa}}</div>
+                                        <div ng-if="internetPrincipal.bolsaTotal != internetPrincipal.bolsaUtilizada" class="progress-bar" data-color="#F6A244" data-percent="{{internetPrincipal.bolsaUtilizada*100/internetPrincipal.bolsaTotal}}" data-value="{{internetPrincipal.bolsaUtilizada}}" data-unidad="{{internetPrincipal.unidadConsumo}}" val-Custom><span>{{internetPrincipal.bolsaTotal - internetPrincipal.bolsaUtilizada}} {{internetPrincipal.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetPrincipal.bolsaTotal == internetPrincipal.bolsaUtilizada" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetPrincipal.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="internetPrincipal.flagIlimitado == 'true'">
+                                        <div class="servicio">{{internetPrincipal.nombreBolsa}}</div>
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetPrincipal.bolsaUtilizada}}" data-unidad="{{internetPrincipal.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetPrincipal.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarListaAdicionales">
+                                    <td colspan="3" class="text-left">Adicionales al Plan</td>
+                                </tr>
+                                <tr ng-repeat="internetAdicionales in internetListaAdicionalesPlan">
+                                    <td colspan="3" ng-if="internetAdicionales.flagIlimitado == 'false'">
+                                        <div class="servicio">{{internetAdicionales.nombre}}</div>
+                                        <div ng-if="internetAdicionales.total != internetAdicionales.utilizado" class="progress-bar" data-color="#F6A244" data-percent="{{internetAdicionales.utilizado*100/internetAdicionales.total}}" data-value="{{internetAdicionales.utilizado}}" data-unidad="{{internetAdicionales.unidadConsumo}}" val-Custom><span>{{internetAdicionales.total - internetAdicionales.utilizado}} {{internetAdicionales.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetAdicionales.total == internetAdicionales.utilizado" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetAdicionales.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="internetAdicionales.flagIlimitado == 'true'">
+                                        <div class="servicio">{{internetAdicionales.nombre}}</div>
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetAdicionales.utilizado}}" data-unidad="{{internetAdicionales.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetAdicionales.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarListaActivos">
+                                    <td colspan="3" class="text-left">Planes Activos</td>
+                                </tr>
+                                <tr ng-repeat="internetActivos in internetListaPaquetesActivos">
+                                    <td colspan="3" ng-if="internetActivos.flagIlimitado == 'false'">
+                                        <div class="servicio">{{internetActivos.nombre}}</div>
+                                        <div ng-if="internetActivos.total != internetActivos.utilizado" class="progress-bar" data-color="#F6A244" data-percent="{{internetActivos.utilizado*100/internetActivos.total}}" data-value="{{internetActivos.utilizado}}" data-unidad="{{internetActivos.unidadConsumo}}" val-Custom><span>{{internetActivos.total - internetActivos.utilizado}} {{internetActivos.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetActivos.total == internetActivos.utilizado" class="progress-bar" data-color="#EBD3B8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetActivos.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="internetActivos.flagIlimitado == 'true'">
+                                        <div class="servicio">{{internetActivos.nombre}}</div>
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetActivos.utilizado}}" data-unidad="{{internetActivos.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetActivos.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr class="sub" ng-show="mostrarListaPendientes">
+                                    <td colspan="3" class="text-left">Planes Pendientes</td>
+                                </tr>
+                                <tr ng-repeat="internetPendientes in internetListaPaquetesPendientes">
+                                    <td colspan="3" ng-if="internetPendientes.flagIlimitado == 'false'">
+                                        <div class="servicio">{{internetPendientes.nombre}}</div>
+                                        <div ng-if="internetPendientes.total != internetPendientes.utilizado" class="progress-bar" data-color="#F6A244" ddata-percent="{{internetPendientes.utilizado*100/internetPendientes.total}}" data-value="{{internetPendientes.utilizado}}" data-unidad="{{internetPendientes.unidadConsumo}}" val-Custom><span>{{internetPendientes.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="internetPendientes.total == internetPendientes.utilizado" class="progress-bar" data-color="#EBD3B8" data-percent="100"><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{internetPendientes.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="internetPendientes.flagIlimitado == 'true'">
+                                        <div class="servicio">{{internetPendientes.nombre}}</div>
+                                        <div class="progress-bar" data-color="#F6A244" data-percent="50" data-value="{{internetPendientes.utilizado}}" data-unidad="{{internetPendientes.unidadConsumo}}" val-Custom><span>{{internetPendientes.unidadConsumo}} restantes</span></div>
+                                        <div class="fecha-vence">Vence: {{internetPendientes.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table progress shadow" ng-show="mostrarDataLlamadas">
+                                <tr class="tit">
+                                    <td>Llamadas</td>
+                                    <td colspan="2"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil?tipo=L" class="red">ver detalle</a></td>
+                                </tr>
+                                <tr ng-repeat="principalLlamadas in llamadasListaBolsaPrincipalLlamadas">
+                                    <td colspan="3" ng-if="principalLlamadas.flagIlimitado == 'false'">
+                                        <div class="servicio">{{principalLlamadas.nombreBolsa}}</div>
+                                        <div ng-if="principalLlamadas.bolsaTotal != principalLlamadas.bolsaUtilizada" class="progress-bar" data-color="#d52b1e" data-percent="{{principalLlamadas.bolsaUtilizada*100/principalLlamadas.bolsaTotal}}" data-value="{{principalLlamadas.bolsaUtilizada}}" data-unidad="{{principalLlamadas.unidadConsumo}}" val-Custom><span>{{principalLlamadas.total - principalLlamadas.utilizado}} {{principalLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="principalLlamadas.bolsaTotal == principalLlamadas.bolsaUtilizada" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{principalLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="principalLlamadas.flagIlimitado == 'true'">
+                                        <div class="servicio">{{principalLlamadas.nombreBolsa}}</div>
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{principalLlamadas.bolsaUtilizada}}" data-unidad="{{principalLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{principalLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="regaladosLlamadas in llamadasListaBonosRegalados">
+                                    <td colspan="3" ng-if="regaladosLlamadas.flagIlimitado == 'false'">
+                                        <div class="servicio">{{regaladosLlamadas.nombre}}</div>
+                                        <div ng-if="regaladosLlamadas.total != regaladosLlamadas.utilizado" class="progress-bar" data-color="#d52b1e" data-percent="{{regaladosLlamadas.utilizado*100/regaladosLlamadas.total}}" data-value="{{regaladosLlamadas.utilizado}}" data-unidad="{{regaladosLlamadas.unidadConsumo}}" val-Custom><span>{{regaladosLlamadas.total - regaladosLlamadas.utilizado}} {{regaladosLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="regaladosLlamadas.total == regaladosLlamadas.utilizado" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{regaladosLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="regaladosLlamadas.flagIlimitado == 'true'">
+                                        <div class="servicio">{{regaladosLlamadas.nombre}}</div>
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{regaladosLlamadas.bolsaUtilizada}}" data-unidad="{{regaladosLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{regaladosLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="pendientesLlamadas in llamadasListaPaquetesPendientesLlamadas">
+                                    <td colspan="3" ng-if="pendientesLlamadas.flagIlimitado == 'false'">
+                                        <div class="servicio">{{pendientesLlamadas.nombre}}</div>
+                                        <div ng-if="pendientesLlamadas.total != pendientesLlamadas.utilizado" class="progress-bar" data-color="#d52b1e" data-percent="{{pendientesLlamadas.utilizado*100/pendientesLlamadas.total}}" data-value="{{pendientesLlamadas.utilizado}}" data-unidad="{{pendientesLlamadas.unidadConsumo}}" val-Custom><span>{{pendientesLlamadas.total - pendientesLlamadas.utilizado}} {{pendientesLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="pendientesLlamadas.total == pendientesLlamadas.utilizado" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendientesLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="pendientesLlamadas.flagIlimitado == 'true'">
+                                        <div class="servicio">{{pendientesLlamadas.nombre}}</div>
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="100" data-percent="50" data-value="{{pendientesLlamadas.utilizado}}" data-unidad="{{pendientesLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendientesLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr class="sub">
+                                    <td colspan="3" class="text-left">Adicionales a tu Plan</td>
+                                </tr>
+                                <tr ng-repeat="adicionalesLlamadas in llamadasListaAdicionalesPlan">
+                                    <td colspan="3" ng-if="adicionalesLlamadas.flagIlimitado == 'false'">
+                                        <div class="servicio">{{adicionalesLlamadas.nombre}}</div>
+                                        <div ng-if="adicionalesLlamadas.total != adicionalesLlamadas.utilizado" class="progress-bar" data-color="#d52b1e" data-percent="{{adicionalesLlamadas.utilizado*100/adicionalesLlamadas.total}}" data-value="{{adicionalesLlamadas.utilizado}}" data-unidad="{{adicionalesLlamadas.unidadConsumo}}" val-Custom><span>{{adicionalesLlamadas.total - adicionalesLlamadas.utilizado}} {{adicionalesLlamadas.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="adicionalesLlamadas.total == adicionalesLlamadas.utilizado" class="progress-bar" data-color="#E3C1BE" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{adicionalesLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="adicionalesLlamadas.flagIlimitado == 'true'">
+                                        <div class="servicio">{{adicionalesLlamadas.nombre}}</div>
+                                        <div class="progress-bar" data-color="#d52b1e" data-percent="50" data-value="{{adicionalesLlamadas.utilizado}}" data-unidad="{{adicionalesLlamadas.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{adicionalesLlamadas.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table progress shadow" ng-show="mostrarDataMmsSms">
+                                <tr class="tit">
+                                    <td>Mensajes</td>
+                                    <td colspan="2"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil?tipo=M" class="red">ver detalle</a></td>
+                                </tr>
+                                <tr ng-repeat="principalMsj in smsyMmmsListaBolsaPrincipalSms">
+                                    <td colspan="3" ng-if="principalMsj.flagIlimitado == 'false'">
+                                        <div class="servicio">{{principalMsj.nombre}}</div>
+                                        <div ng-if="principalMsj.total != principalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{principalMsj.utilizado*100/principalMsj.total}}" data-value="{{principalMsj.utilizado}}" data-unidad="{{principalMsj.unidadConsumo}}" val-Custom><span>{{principalMsj.total - principalMsj.utilizado}} {{principalMsj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="principalMsj.total == principalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{principalMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="principalMsj.flagIlimitado == 'true'">
+                                        <div class="servicio">{{principalMsj.nombre}}</div>
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{principalMsj.utilizado}}" data-unidad="{{principalMsj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{principalMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="pendientesMsj in smsyMmmsListaPaquetesPendientesSMS">
+                                    <td colspan="3" ng-if="pendientesMsj.flagIlimitado == 'false'">
+                                        <div class="servicio">{{pendientesMsj.nombre}}</div>
+                                        <div ng-if="pendientesMsj.total != pendientesMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{pendientesMsj.utilizado*100/pendientesMsj.total}}" data-value="{{pendientesMsj.utilizado}}" data-unidad="{{pendientesMsj.unidadConsumo}}" val-Custom><span>{{pendientesMsj.total - pendientesMsj.utilizado}} {{pendientesMsj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="pendientesMsj.total == pendientesMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendientesMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="pendientesMsj.flagIlimitado == 'true'">
+                                        <div class="servicio">{{pendientesMsj.nombre}}</div>
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{pendientesMsj.utilizado}}" data-unidad="{{pendientesMsj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendientesMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="adicionalMsj in smsyMmmsListaAdicionalesPlan">
+                                    <td colspan="3" ng-if="adicionalMsj.flagIlimitado == 'false'">
+                                        <div class="servicio">{{adicionalMsj.nombre}}</div>
+                                        <div ng-if="adicionalMsj.total != adicionalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{adicionalMsj.utilizado*100/adicionalMsj.total}}" data-value="{{adicionalMsj.utilizado}}" data-unidad="{{adicionalMsj.unidadConsumo}}" val-Custom><span>{{adicionalMsj.total - adicionalMsj.utilizado}} {{adicionalMsj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="adicionalMsj.total == adicionalMsj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="
+                                        100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{adicionalMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="adicionalMsj.flagIlimitado == 'true'">
+                                        <div class="servicio">{{adicionalMsj.nombre}}</div>
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{adicionalMsj.utilizado}}" data-unidad="{{adicionalMsj.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{adicionalMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="regaladosSmj in smsyMmmsListaBonosRegalados">
+                                    <td colspan="3" ng-if="regaladosSmj.flagIlimitado == 'false'">
+                                        <div class="servicio">{{regaladosSmj.nombre}}</div>
+                                        <div ng-if="regaladosSmj.total != regaladosSmj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{regaladosSmj.utilizado*100/regaladosSmj.total}}" data-value="{{regaladosSmj.utilizado}}" data-unidad="{{regaladosSmj.unidadConsumo}}" val-Custom><span>{{regaladosSmj.total - regaladosSmj.utilizado}} {{regaladosSmj.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="regaladosSmj.total == regaladosSmj.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{regaladosSmj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="regaladosSmj.flagIlimitado == 'true'">
+                                        <div class="servicio">{{regaladosSmj.nombre}}</div>
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="{{regaladosSmj.utilizado*100/regaladosSmj.total}}" data-value="{{regaladosSmj.utilizado}}" data-unidad="{{regaladosSmj.unidadConsumo}}" val-Custom><span>{{regaladosSmj.total - regaladosSmj.utilizado}} {{regaladosSmj.unidadConsumo}} restantes</span></div>
+                                        <div class="fecha-vence">Vence: {{regaladosSmj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="principalMms in smsyMmmsListaBolsaPrincipalMMS">
+                                    <td colspan="3" ng-if="principalMms.flagIlimitado == 'false'">
+                                        <div class="servicio">{{principalMms.nombre}}</div>
+                                        <div ng-if="principalMms.total != principalMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{principalMms.utilizado*100/principalMms.total}}" data-value="{{principalMms.utilizado}}" data-unidad="{{principalMms.unidadConsumo}}" val-Custom><span>{{principalMms.total - principalMms.utilizado}} {{principalMms.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="principalMms.total == principalMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendientesMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="principalMms.flagIlimitado == 'true'">
+                                        <div class="servicio">{{principalMms.nombre}}</div>
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="{{50}}" data-value="{{principalMms.utilizado}}" data-unidad="{{principalMms.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendientesMsj.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="pendienteMms in smsyMmmsListaPaquetesPendientesMMS">
+                                    <td colspan="3" ng-if="pendienteMms.flagIlimitado == 'false'">
+                                        <div class="servicio">MMS</div>
+                                        <div ng-if="pendienteMms.total != pendienteMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="{{pendienteMms.utilizado*100/pendienteMms.total}}" data-value="{{pendienteMms.utilizado}}" data-unidad="{{pendienteMms.unidadConsumo}}" val-Custom><span>{{pendienteMms.total - pendienteMms.utilizado}} {{pendienteMms.unidadConsumo}} restantes</span></div>
+                                        <div ng-if="pendienteMms.total == pendienteMms.utilizado" class="progress-bar" data-color="#2095a8" data-percent="100" val-Custom><span>Agotado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendienteMms.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                    <td colspan="3" ng-if="pendienteMms.flagIlimitado == 'true'">
+                                        <div class="servicio">MMS</div>
+                                        <div class="progress-bar" data-color="#2095a8" data-percent="50" data-value="{{pendienteMms.utilizado}}" data-unidad="{{pendienteMms.unidadConsumo}}" val-Custom><span>Ilimitado</span></div>
+                                        <div class="fecha-vence">Vence: {{pendienteMms.fechaVencimiento | limitTo:10 | date:"dd-MM-yyyy"}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="errorMostrarDataLineas">
+                        <er-Customerror on-Refresh="refreshPortlet('4')"></er-Customerror>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="errorTotalRedirect">
+                <div class="resume box clearfix" style="text-align: center;">
+                    <div class="col100">
+                        <h3>{{mensaje_error_titulo}}</h3>
+                        <p>
+                            {{mensaje_error_descripcion01}}.
+                            <br /> {{mensaje_error_descripcion02}}
+                            <br />
+                            <br />
+                            <a href="{{urlInicio}}"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="showSinServicios">
+            <div class="change-type on-mobile" ng-show="mostrarSwitchSinServicios">
+                <label for="itype1">Consumer</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Saldos y Consumos</strong>
+            </div>
+            <div class="resume box clearfix">
+                <div class="col100">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Aviso Claro - Sin Opcion - Movil"]</h3>
+                    <p>
+                        [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Aviso Claro - Sin Opcion - Movil"]
+                        <br> &nbsp;
+                    </p>
+                    <p><a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio" class="bt bt-red">Solicitar Nuevo Servicio</a></p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

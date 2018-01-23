@@ -1,0 +1,30 @@
+<h3 class="terminos">Términos y Condiciones</h3>
+<p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+<div class="frame">
+    <div class="text">
+        [Element key="Texto Legal" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/Tu Cuenta/Terminos y Condiciones Facturacion Electronica"]
+    </div>
+</div>
+<p>
+    <!--<a href="#" class="bt bt-gris" id="btterminoscancel">Cancelar</a>-->
+    <a href="#" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+</p>
+<script>
+$(document).ready(function(e) { 
+var $popup = $('.popup');
+    $('#btterminoscancel').click(function(e){
+        e.preventDefault();
+        hidePopUp();
+    });
+    $('#bterminosaceptar').click(function(e){
+	
+        e.preventDefault();
+        hidePopUp();
+    });
+	
+	function hidePopUp() {
+		$popup.fadeOut(250); 
+	}
+  
+});
+</script>

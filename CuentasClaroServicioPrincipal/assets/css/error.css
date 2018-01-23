@@ -1,0 +1,58 @@
+.error-server {
+    text-align: left;
+    color: #d42b1e !important;
+    font-size: 14px !important;
+    font-family: 'dinAlternateLight' !important;
+    line-height: 20px !important;
+    margin: 0 auto;
+    padding: 10px 0 30px 0 !important;
+}
+
+.error-server a {
+    display: block;
+    margin-top: 20px;
+}
+
+.error-server a:hover {
+    opacity: 0.75;
+}
+
+.error-server strong {
+    font-family: 'dinAlternateBold';
+}
+
+.error-server.error-left {
+    text-align: left;
+    padding: 10px 0;
+}
+
+.error-server1 {
+    text-align: right;
+    color: #d42b1e !important;
+    font-size: 14px !important;
+    font-family: 'dinAlternateLight' !important;
+    line-height: 20px !important;
+    margin: 0 auto;
+    padding: 0 0 0 0 !important;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 700px) {
+    body .wpbox {
+        padding-top: 20px;
+    }
+    body .body.gris {
+        padding-bottom: 20px !important;
+    }
+    body .body.plomo h3{
+        padding-top: 20px !important;
+    }
+}
+
+
+
+@media screen and (min-width: 701px) {
+    body .wpbox {
+        padding-top: 0px;
+    }
+}

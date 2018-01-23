@@ -1,0 +1,147 @@
+<div class="body" ng-show="divInformacion">
+    <h2 ng-bind="nombreAMostrar | limitTo : 18 | uppercase"></h2>
+    <p ng-show="showImformeCliente">
+        [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Cuentas Claro/Tu Cuenta/Elija Servicio Principal"]
+    </p>
+    <p class="txt-alert" ng-show="!showImformeCliente">
+        No tienes servicios a tu nombre. Si utilizas un número Claro, pero no eres el titular, puedes afiliar tu número <a href="/wps/myportal/cuentasclaro/afilialineausuaria">aquí</a>.
+    </p>
+</div>
+<div class="body gris clearfix" ng-show="allServiciosMoviles">
+    <div ng-show="showMovilesConsumer" class="wpbox">
+        <h3>Móvil <img src="/wpstheme/cuentasclaro/img/icon-movil.png" width="16"></h3>
+        <ul class="lista-col" ng-show="mostrarPostpago">
+            <li><strong>Post-Pago</strong></li>
+            <li id='loadingPost'><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenPostpago" /></li>
+            <li ng-repeat="numberPostpago in listProductoPostpago | limitTo : 10">
+                <span ng-bind="numberPostpago.ProductoServicioResponse.nombreAlias"></span>
+                <label class="checkradio" ng-class="{'checked':$index == radioPost}">
+                    <input type="radio" name="ioption" ng-model="$parent.selected" ng-value="numberPostpago" ng-click="myCtrServPrincipal.clickPost($index)" />
+                </label>
+            </li>
+            <li ng-show="erroUlPostpago" style="display:inline-block">
+                <er-Customerror texto="textoConsumer" on-Refresh="refreshPortlet('1')"></er-Customerror>
+            </li>
+        </ul>
+        <ul class="lista-col" ng-show="mostrarPrepago">
+            <li><strong>Prepago</strong></li>
+            <li id='loadingPre'><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenPrepago"></li>
+            <li ng-repeat="numberPrepago in listProductoPrepago | limitTo : 10">
+                <span ng-bind="numberPrepago.ProductoServicioResponse.nombreAlias"></span>
+                <label class="checkradio" ng-class="{'checked': $index == radioPre }">
+                    <input type="radio" name="ioption" ng-model="$parent.selected" ng-value="numberPrepago" ng-click="myCtrServPrincipal.clickPre($index)" />
+                </label>
+            </li>
+            <li ng-show="erroUlPrepago" style="display:inline-block">
+                <er-Customerror texto="textoConsumer" on-Refresh="refreshPortlet('2')"></er-Customerror>
+            </li>
+        </ul>
+    </div>
+    <br class="both">
+    <div ng-show="showCoorporativoMovil">
+        <h3>Móvil corporativo <img src="/wpstheme/cuentasclaro/img/icon-movil.png" width="16"></h3>
+        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenCombosCorporativos"> </div>
+        <div class="filter clearfix" ng-show="showCombosCorporativos">
+            <div class="col col50 colmin">
+                <div class="pull">
+                    <div>{{selectIdCuenta.nombreAlias}}{{valorCuentaDefault}}</div>
+                    <select name="ifield06" ng-model="selectIdCuenta" ng-change="myCtrServPrincipal.obtenerServiciosxRecibo()" ng-options="cuentas.nombreAlias for cuentas in listCuentasCoorporativas" ng-disabled="disabledInput">
+                        <option value="">Seleccione Cuenta</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col col50 colmin">
+                <div class="pull">
+                    <div>{{selectIdRecibo.nombreAlias}}{{valorReciboDefault}}</div>
+                    <select name="ifield07" ng-model="selectIdRecibo" ng-change="myCtrServPrincipal.obtenerServiciosCoorporativos()" ng-options="recibos.nombreAlias for recibos in listRecibosCoor" ng-disabled="disabledInput">
+                        <option value="">Seleccione Recibo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="filter clearfix" ng-show="errorDivCoorporativo">
+            <er-Customerror texto="textoCorporativo" on-Refresh="refreshPortlet('3')"></er-Customerror>
+        </div>
+        <p>Mostramos solamente 10 líneas por recibo. Si desea encontrar otra línea, por favor, use el buscador.</p>
+        <div class="filter clearfix">
+            <div class="col col50">
+                <form method="post" id="frBuscar" ng-submit="buscarOnCliclOnEnter()">
+                    <div class="input search">
+                        <input type="text" id="autocomplete-linea-principal" placeholder="Buscar Línea" ng-blur="onBlur()">
+                        <button type="button" class="bt bt-search" ng-click="buscarOnCliclOnEnter()"></button>
+                    </div>
+                    <div class="loader"><span></span></div>
+                </form>
+            </div>
+        </div>
+        <div ng-show="showSearchCoorpo">
+            <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenServiciosCoorporativos"> </div>
+            <ul class="lista-col">
+                <li ng-repeat="numbCoor in ulMayor">
+                    <span ng-bind="numbCoor.ProductoServicioResponse.nombreAlias"></span>
+                    <label class="checkradio" ng-class="{'checked':$index == RadioCoor1}">
+                        <input type="radio" name="ioption" ng-click="myCtrServPrincipal.clickCoor1($index)" ng-model="$parent.selected" ng-value="numbCoor" />
+                    </label>
+                </li>
+            </ul>
+            <ul class="lista-col">
+                <li ng-repeat="numberCoor2 in ulMenor | limitTo : 5">
+                    <span ng-bind="numberCoor2.ProductoServicioResponse.nombreAlias"></span>
+                    <label class="checkradio" ng-class="{'checked':$index == RadioCoor2}">
+                        <input type="radio" name="ioption" ng-click="myCtrServPrincipal.clickCoor2($index)" ng-model="$parent.selected" ng-value="numberCoor2" />
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="filter clearfix" ng-show="errorDivCorServicios">
+            <er-Customerror texto="textoCorporativo" on-Refresh="refreshPortlet('4')"></er-Customerror>
+        </div>
+    </div>
+</div>
+<div class="body plomo clearfix" ng-show="showAllServiciosFijos" >
+    <h3>Fijo <img src="/wpstheme/cuentasclaro/img/icon-phone.png" width="17"></h3>
+    <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenFijo"> </div>
+    <div ng-show="showConsumerFija" >
+        <div class="filter clearfix">
+            <div class="col col50">
+                <div class="pull" ng-show="showBusquedaDirecciones">
+                    <div>{{selectIdDireccion.nombreAlias}}{{valorDireccionDefault}}</div>
+                    <select name="ifield06" class="pull-address" ng-model="selectIdDireccion" ng-change="myCtrServPrincipal.buscarServicesFijos()" ng-options="direcciones as direcciones.nombreAlias for direcciones in listDireccionesFija">
+                        <option value="">Seleccionar dirección</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderimagenServiciosFijos"> </div>
+        <div class="result" ng-show="showListFijos">
+            <ul class="lista-col address address-01">
+                <li ng-repeat="numFijo1 in ulMayorFijo"><span ng-bind="numFijo1.ProductoServicioResponse.nombreAlias"></span>
+                    <label class="checkradio" ng-class="{'checked':$index == RadioFijo1}">
+                        <input type="radio" name="ioption" ng-click="myCtrServPrincipal.clickFijo1($index)" ng-model="$parent.selected" ng-value="numFijo1" />
+                    </label>
+                </li>
+            </ul>
+            <ul class="lista-col address address-02">
+                <li ng-repeat="numFijo2 in ulMenorFijo | limitTo : 5"><span ng-bind="numFijo2.ProductoServicioResponse.nombreAlias"></span>
+                    <label class="checkradio" ng-class="{'checked':$index == RadioFijo2}">
+                        <input type="radio" name="ioption" ng-click="myCtrServPrincipal.clickFijo2($index)" ng-model="$parent.selected" ng-value="numFijo2" />
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="result" ng-show="errorDivServiciosFijos">
+            <er-Customerror texto="textoFija" on-Refresh="refreshPortlet('6')"></er-Customerror>
+        </div>
+    </div>
+    <div class="filter clearfix" ng-show="errorDivFijos">
+        <er-Customerror texto="textoFija" on-Refresh="refreshPortlet('5')"></er-Customerror>
+    </div>
+</div>
+<p>&nbsp;</p>
+<div class="body buttons" ng-show="showBotton">
+    <button type="button" style="margin-bottom: 40px" class="bt btouter bt-save-personalizar" ng-click="guardarServicioPrincipal()">Guardar Cambios</button>
+    <div id="idErrorGuardarServicio"></div>
+</div>
+<div ng-show="errorTotal">
+    <er-Customerrortotal></er-Customerrortotal>
+</div>

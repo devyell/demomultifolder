@@ -1,0 +1,108 @@
+<div class="tabs-home tabs-clean" ng-init="consultasOrdenDeServicioTecnicoCtr.inicializar()" ng-show="consultasOrdenDeServicioTecnicoCtr.statusResponseService">
+    <div class="tab-content noborder">
+        <br>
+        <br>
+        <div class="change-type on-mobile-switch" ng-show="showSwitch">
+            <label>Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label for="itype1"><span>Corporativo</span></label>
+        </div>
+        <div class="breadcrumb">
+            Consultas <span class="arrow"></span> <strong>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico"]</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico"]</h3>
+        <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico"]</p>
+        <div class="no-mobile">
+            <div class="resume clearfix">
+                <div class="tecnico-opts">
+                    <div class="col25">
+                        <img src="/wpstheme/miclaro/img/icon-stat-esperando.png" width="44">
+                        <p>Esperando Aprobación</p>
+                    </div>
+                    <div class="col25">
+                        <img src="/wpstheme/miclaro/img/icon-stat-rechazado.png" width="44">
+                        <p>Reparación Rechazada</p>
+                    </div>
+                    <div class="col25">
+                        <img src="/wpstheme/miclaro/img/icon-stat-reparacion.png" width="44">
+                        <p>Aprobado y en Reparación</p>
+                    </div>
+                    <div class="col25">
+                        <img src="/wpstheme/miclaro/img/icon-stat-recoger.png" width="44">
+                        <p>Equipo para Recoger</p>
+                    </div>
+                </div>
+            </div>
+            <div class="detail clearfix" ng-show="mostraListaReparacioTecnica">
+                <p>Tienes los siguientes equipos en reparación</p>
+                <table class="table shadow">
+                    <tr>
+                        <th class="center">Estado de Orden</th>
+                        <th>Línea</th>
+                        <th>Órden de Servicio</th>
+                        <th>Centro de Atención</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tr ng-repeat="estadoServicioTecnico in consultasOrdenDeServicioTecnicoCtr.estadoServicioTecnicoList | orderBy: 'idOrden':true">
+                        <td class="center"><img ng-src="/wpstheme/miclaro/img/{{estadoServicioTecnico.estadoReparacionImg}}" width="26"></td>
+                        <td>{{estadoServicioTecnico.linea}}</td>
+                        <td>{{estadoServicioTecnico.numeroOrden}}</td>
+                        <td>{{estadoServicioTecnico.centroAtencion}}</td>
+                        <td><a href ng-click="consultasOrdenDeServicioTecnicoCtr.verReporte(estadoServicioTecnico.idOrden,estadoServicioTecnico.linea)" class="bt bt-red">Ver reporte</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                </table>
+                <div class="more" ng-show="consultasOrdenDeServicioTecnicoCtr.estadoServicioTecnicoList.length >= 5 && consultasOrdenDeServicioTecnicoCtr.contBotonVerMas">
+                    <a href ng-click="consultasOrdenDeServicioTecnicoCtr.verMas()">ver mas</a>
+                </div>
+            </div>
+            <div class="detail clearfix" ng-show="errorReparacionTecnica">
+                <p class="error-server">
+                    <strong>{{mensaje_upps_titulo}}</strong>
+                    <br>{{mensaje_upps_descripcion01}}
+                    <br>{{mensaje_upps_descripcion02}}
+                    <br>
+                    <a href ng-click="consultasOrdenDeServicioTecnicoCtr.getOrdenesServicioTecnicoList()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+            </div>
+        </div>
+        <div class="on-mobile">
+            <div ng-show="mostraListaReparacioTecnica">
+                <p class="border-bottom">Detalle de órdenes</p>
+                <table class="table table-mobile shadow">
+                    <tr>
+                        <td ng-repeat="estadoServicioTecnico in consultasOrdenDeServicioTecnicoCtr.estadoServicioTecnicoList">
+                            Estado de Orden <span>{{estadoServicioTecnico.estadoReparacionDescripcion}}</span>
+                            <br> Línea <span>{{estadoServicioTecnico.linea}}</span>
+                            <br> Órden de Servicio <span><a href ng-click="consultasOrdenDeServicioTecnicoCtr.verReporte(estadoServicioTecnico.idOrden,estadoServicioTecnico.linea)">{{estadoServicioTecnico.numeroOrden}}</a></span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="more" ng-show="consultasOrdenDeServicioTecnicoCtr.estadoServicioTecnicoList.length >= 5 && consultasOrdenDeServicioTecnicoCtr.contBotonVerMas">
+                    <a href ng-click="consultasOrdenDeServicioTecnicoCtr.verMas()" class="more-data">ver mas</a>
+                </div>
+            </div>
+            <div class="detail clearfix" ng-show="errorReparacionTecnica">
+                <p class="error-server">
+                    <strong>{{mensaje_upps_titulo}}</strong>
+                    <br>{{mensaje_upps_descripcion01}}
+                    <br>{{mensaje_upps_descripcion02}}
+                    <br>
+                    <a href ng-click="consultasOrdenDeServicioTecnicoCtr.getOrdenesServicioTecnicoList()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+            </div>
+        </div>
+        <div class="resume clearfix" ng-if="consultasOrdenDeServicioTecnicoCtr.flagOrdenServicioTecnicoVacio">
+            <div class="tecnico-vacio">
+                <p class="red">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico - Sin Ordenes"]</p>
+                <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico - Sin Ordenes"]</p>
+                <p><a href ng-click="consultasOrdenDeServicioTecnicoCtr.openPagina()" class="bt bt-red">Ubica el CAC mas cercano</a></p>
+            </div>
+        </div>
+    </div>
+</div>

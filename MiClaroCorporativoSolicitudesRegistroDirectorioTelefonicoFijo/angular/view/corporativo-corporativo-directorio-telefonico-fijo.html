@@ -1,0 +1,153 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil "><a href="/wps/myportal/miclaro/corporativo/solicitudes/registrodirectoriotelefonico/movil"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/corporativo/solicitudes/registrodirectoriotelefonico/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/solicitudes/registrodirectoriotelefonico/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/corporativo/solicitudes/registrodirectoriotelefonico/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="fijo" class="tab active">
+            <div class="change-type on-mobile-switch" ng-show="mostrarSwitchCorporativos">
+                <label for="itype1">Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Servicios <span class="arrow"></span> <strong>Directorio Telefónico</strong>
+            </div>
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Directorio Telefonico"]</h3>
+            <div ng-show="mostrarFiltros">
+                <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Directorio Telefonico"]</p>
+                <form method="post" class="form-filter clearfix" ng-class="classBuscar">
+                    <div class="col33">
+                        <div class="pull pulldate" ng-class="desabledCombos">
+                            <div>{{selectIdDireccion.nombreAlias}}</div>
+                            <select name="icuenta" ng-model="selectIdDireccion" ng-options="direccion.nombreAlias for direccion in listadoDirecciones" ng-change="asCtrlDirectorioCorpoFijo.obtenerConsumosFijosxDireccion()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col33">
+                        <div class="pull pulldate" ng-class="desabledCombos">
+                            <div>{{selectLinea.ProductoServicioResponse.nombreAlias}}</div>
+                            <select name="irecibo" ng-model="selectLinea" ng-options="lineas.ProductoServicioResponse.nombreAlias for lineas in listadoServicios" ng-change="asCtrlDirectorioCorpoFijo.obtenerConsumosFijosxServicio()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col33 colsearch">
+                        <div class="pull pulldate">
+                            <div>{{lineaFijaSelect.nombreProducto}}</div>
+                            <select name="ifilter" ng-model="lineaFijaSelect" ng-options="lineasFijas.nombreProducto for lineasFijas in listadoLineasFijas" ng-change="asCtrlDirectorioCorpoFijo.obtenerConsumosxLineaFija()">
+                            </select>
+                        </div>
+                        <div class="input search">
+                            <input type="text" id="autocomplete-fijo" name="query" data-valid="required" placeholder="Línea" ng-keydown="$event.which === 13 && asCtrlDirectorioCorpoFijo.buscarServicioxXriterio()" ng-model="inputAutocomplete">
+                            <button type="button" class="bt bt-search" ng-click="asCtrlDirectorioCorpoFijo.buscarServicioxXriterio()"></button>
+                        </div>
+                        <a href ng-click="cambiarClassForm()" class="action"></a>
+                    </div>
+                </form>
+            </div>
+            <div ng-show="mostrarDirectorio">
+                <br class="both">
+                <p>Aquí le mostramos las primeras diez líneas de su recibo. Si desea una línea específica, por favor use el buscador.</p>
+                <div class="detail clearfix">
+                    <table class="table-plan">
+                        <tr>
+                            <th>Líneas</th>
+                            <th width="250" class="center">Registrar</th>
+                        </tr>
+                        <tr ng-repeat="directorio in listaDirectorioTelefonico">
+                            <td ng-bind="directorio.numeroTelefono"></td>
+                            <td>
+                                <label ng-attr-for="{{'iregistro' + $index}}">Desafiliar</label>
+                                <div class="switch">
+                                    <input type="checkbox" name="iregistro[]" class="switch-checkbox" ng-attr-id="{{'iregistro' + $index}}" ng-click="cambiarEstadoAfiliacion(directorio,$index)" ng-checked="{{directorio.estadoAfiliado}}">
+                                    <label class="switch-label" ng-attr-for="{{'iregistro' + $index}}"></label>
+                                </div>
+                                <label ng-attr-for="{{'iregistro' + $index}}"><span>Afiliar</span></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div ng-show="errorDirectorio">
+                <er-Customerror on-Refresh="refreshPortlet('1')"></er-Customerror>
+            </div>
+            <div ng-show="errorTotalRedirect">
+                <div class="resume box clearfix" style="text-align: center;">
+                    <div class="col100">
+                        <h3>{{mensaje_error_titulo}}</h3>
+                        <p>
+                            {{mensaje_error_descripcion01}}.
+                            <br /> {{mensaje_error_descripcion02}}
+                            <br />
+                            <br />
+                            <a href="{{urlInicio}}"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="showSinServicios">
+                <div class="resume box clearfix">
+                    <div class="col100">
+                        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/Fijo - Sin Plan"]</h3>
+                        <p>
+                            [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/Fijo - Sin Plan"]
+                            <br> &nbsp;
+                        </p>
+                        <p><a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio" class="bt bt-red">Solicitar Nuevo Servicio</a></p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="afiliar" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cancelarAfiliacion()"></button>
+        <div class="content afiliarPopUp">
+            <h3>Directorio Telefónico</h3>
+            <p>¿Estás seguro que deseas afiliarte al Directorio Telefónico?
+                <br>&nbsp;</p>
+            <p>
+                <a href="" class="bt bt-gris" id="btafiliacancelar" ng-click="cancelarAfiliacion()">Cancelar</a>
+                <a href="" class="bt bt-red" id="btafiliaaceptar" ng-click="aceptarAfiliacion()">Aceptar</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="desafiliar" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cancelarDesafiliacion()"></button>
+        <div class="content desafiliarPopUp">
+            <h3>Directorio Telefónico</h3>
+            <p>¿Estás seguro que deseas desafiliarte al Directorio Telefónico?
+                <br>&nbsp;</p>
+            <p>
+                <a href="" class="bt bt-gris" id="btafiliacancelar" ng-click="cancelarDesafiliacion()">Cancelar</a>
+                <a href="" class="bt bt-red" id="btafiliaaceptar" ng-click="aceptarDesafiliacion()">Aceptar</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="errorDirectorio" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cancelarDesafiliacion()"></button>
+        <div class="content desafiliarPopUp">
+            <h3>{{mensaje_ups}}</h3>
+            <p>{{ups_descripcion1}}. {{ups_descripcion2}}.
+                <br>&nbsp;</p>
+            <p>
+                <a href="" class="bt bt-red" ng-click="cancelarDesafiliacion()">ok</a>
+            </p>
+        </div>
+    </div>
+</div>

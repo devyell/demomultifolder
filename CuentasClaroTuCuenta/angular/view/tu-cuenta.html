@@ -1,0 +1,329 @@
+﻿<div style="display: block;" id="layerPopup" ng-hide="estadoPopup" class="hideErrortuCuenta">
+    <div id="layerBlock">
+        <a href="javascript:void(0)" ng-click="cerrarPopup()" id="layerClose">X</a>
+        <div id="layerContent">
+            <h1>¡Felicitaciones!</h1>
+            <div class="text">Tu registro se relizó con éxito
+                <br><b>Ahora puede ingresar a cualquiera de estas plataformas.</b></div>
+            <div id="layerLogos">
+                <a href="https://mi.claro.com.pe" target="_blank" class="mi-claro"><span></span>mi.claro.com.pe</a>
+                <a href="https://comunidad.claro.com.pe" target="_blank" class="comunidad-claro"><span></span>comunidad.claro.com.pe</a>
+                <a href="http://www.claroplay.com/pe/" target="_blank" class="claro-play"><span></span>claroplay.com</a>
+                <a href="https://www.clarovideo.com/peru/homeuser" target="_blank" class="claro-video"><span></span>clarovideo.com</a>
+                <div class="both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="errorTuCuenta" style="display:none"></div>
+<div class="top" id="retornarClaro" style="padding-left: 0px ! important;">
+    <a href="#" class="back" id="regresaClaro"><span class="icon-sh icon-sh_backArrow"></span>Regresa a <strong>Mi Claro</strong></a>
+</div>
+<loading></loading>
+<div class="body hideErrortuCuenta" id="perfilFormulario" style="margin-top:0px">
+    <h2 class='tucuenta'>{{cuenta}}</h2>
+    <div class="perfil clearfix">
+        <div class="img-perfil">
+            <div class="drag-drop">
+                <input name="archivo" type="file" accept="image/*" image="image" id="btnUpload" alt="" title="" />
+                <img class="mask" ng-src="{{image.url}}" type="{{image.file.type}}" id="imgPhoto" on-error-src="foto" />
+            </div>
+            </br>
+            <a ng-click="cambiaFoto(image); $event.stopPropagation()" id="btnChangeSave" class="TuCuentafoto">Cambia tu foto</a>
+            <div><img src="/wpstheme/miclaro/img/loader.gif" style="display:none; width: 30px; height: 30px; margin-top: 10px;" id="loaderFoto"></div>
+            <div class="statusError"><span class="icon-sh"></span>Tu foto no debe pesar más de 2MB</div>
+            <div class="statusError"><span class="icon-sh"></span>Tu foto debe tener al menos 250 pixeles por 256 pixeles.</div>
+            <div class="statusError"><span class="icon-sh"></span>No se admite el tipo de archivo, por favor selecciona un archivo JPG o PNG.</div>
+        </div>
+        <div class="resume-perfil">
+            <strong>{{nombreApellido}}</strong>
+            <div class="puntos" ng-show="hidePuntos"><span>{{claroClub}} Claro Puntos</span><a href="" id="urlClaroPunto">Canjear mis Claro Puntos</a></div>
+            <ul>
+                <li>
+                    <span>{{nombreDocumento}}:</span>
+                    <div class="input-text">{{numeroDocumento}}</div>
+                </li>
+                <li>
+                    <form method="post" action="" id="frPhoneContact">
+                        <span>Teléfono de Contacto:</span>
+                        <div class="input text" id="estiloidataphone">
+                            <input type="text" name="idataphone" id="idataphone" maxlength="9" ng-model="phone" ng-click="addPhoneFocus(); $event.stopPropagation()">
+                        </div>
+                        <a id="idPhone" ng-click="addPhone(); $event.stopPropagation()" ng-class="estiloPhone" style="cursor:pointer;">editar</a>
+                        <div class="loader"><span></span></div>
+                    </form>
+                </li>
+                <li id="showCambiarClave">
+                    <span>Contraseña:</span>
+                    <div class="input-text">*******</div>
+                    <a href="#" id="urlCambiarClave">editar</a>
+                </li>
+                <li id="hidePrincipal">
+                    <span class="srv_prin_tu_cuenta">Servicio principal:</span>
+                    <div class="input-text">{{txtServicioPrincipal}}</div>
+                    <a href="/wps/myportal/cuentasclaro/servicioprincipal/">editar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p class="txt-alert hideErrortuCuenta" ng-show="hideEmpleado">
+        No tienes servicios a tu nombre. Si utilizas un número Claro, pero no eres el titular, puedes afiliar tu número <a href="/wps/myportal/cuentasclaro/afilialineausuaria">aquí</a>.
+    </p>
+    <div ng-show="hideCliente" class="hideErrortuCuenta">
+        <h3>Direcciones de despacho y facturación</h3>
+        <div class="div-search">
+            <form method="post" id="frBuscar" ng-submit="buscarDireccion();$event.stopPropagation()">
+                <div class="input search">
+                    <input type="text" id="Autocomplete" data-valid="required" placeholder="Busca su dirección o correo" ng-model="searchText">
+                    <button type="button" class="bt bt-search" ng-click="buscarDireccion(); $event.stopPropagation()"></button>
+                </div>
+                <div class="loader"><span></span></div>
+            </form>
+        </div>
+        <div class="mobile">
+            <p>Por favor, ingresa desde una tablet, laptop o pc para poder editar tus direcciones.
+                <br>&nbsp;</p>
+        </div>
+    </div>
+</div>
+<div ng-show="hideCliente">
+    <div class="red" ng-hide="funcional">{{funcionalDescripcion}}</div>
+    <div class="no-mobile hideErrortuCuenta">
+        <div class="table main">
+            <div class="row">
+                <div class="col col40 "><strong>Dirección de Recibo</strong></div>
+                <div class="col col30 no-mobile"><strong>Tipo de Factura</strong></div>
+                <div class="col col20 no-mobile"><strong>Asociado a</strong></div>
+                <div class="col col10 no-mobile">&nbsp;</div>
+            </div>
+            <div class="red" ng-hide="tecnico"><span>{{tecnicoDescripcion}}</span></div>
+            <div id="errorAllProductoServicios" class="mobile loaderimagenDisplay centerDireccion">
+                <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('1')"></er-Customerror>
+            </div>
+            <div id="errorAllProductoServiciosNoData" class="mobile loaderimagenDisplay">
+                <er-Customerrornodata texto="textGeneral" on-Refresh="refreshPortlet('1')"></er-Customerror>
+            </div>
+            <div><img src="/wpstheme/miclaro/img/loader.gif" class="loaderimagenDisplay" id="loaderAllProductoServicios"> </div>
+            <div ng-repeat="listar in allProductoServicios " ng-model="listar" ng-class="estilos[listar.id]" class="row allProductoServicios">
+                <div class="col col40">{{listar.direccion}}</div>
+                <div class="col col30">{{listar.tipoDireccion}} </div>
+                <div class="col col15">{{listar.nombre}}</div>
+                <div class="col col15 no-mobile" ng-show="listar.ocultarDireccion"><a class="edit" ng-click="addFormulario(listar.id); $event.stopPropagation()" style="cursor:pointer">editar <span class="icon-sh icon-sh_arrowDrop"></span></a></div>
+                <div ng-show="estadorowd[listar.id]" class="form over">
+                    <h4>Edita tu dirección </h4>
+                    <div ng-class="classMsgError[listar.id]" style="display: block;">{{msgError[listar.id]}}</div>
+                    <div class="p">
+                        <label ng-class="estiloafiliado[listar.id]">
+                            <input ng-class="estiloafiliado[listar.id]" type="checkbox" ng-model="listar.afiliado" ng-click="checkAfiliado(listar.id)" />
+                        </label>
+                        <label for="ifacturacion1">Quiero cambiarme a Recibo por e-mail</label>
+                    </div>
+                    <form method="post" action="" id="formEditDirEle01" class="form-direccion-electronica" ng-hide="correo[listar.id]">
+                        <label ng-if="listar.tipo == 1 || listar.tipo == 2 ">{{listar.direccionElectronica}}</label>
+                        <div class="p clearfix">
+                            <div class="col99">
+                                <label>Correo electrónico *</label>
+                                <div class="input" ng-class="classCorreo[listar.id]">
+                                    <input type="text" name="icorreo" id="icorreo" data-valid="email" ng-model="electronica[listar.id]" maxlength="45">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <label ng-class="checkClassTermino[listar.id]">
+                                <input type="checkbox" name="iterminos" data-valid="required" ng-model="checkTermino[listar.id]" ng-click="requiereCheck(listar.id)" />
+                            </label>
+                            <label for="iterminos">Acepto los <a ng-click="popterminos(listar.id)" class="mouse">términos y condiciones</a></label>
+                        </div>
+                        <div class="bts">
+                            <a style="cursor:pointer" class="bt-save-form red" ng-click="guardarCorreoElectronico(listar.id); $event.stopPropagation()">guardar</a>
+                            <div class="loader"><span></span></div>
+                            <a style="cursor:pointer" class="bt-cancel-form" ng-click="cancelar(listar.id); $event.stopPropagation()">cancelar</a>
+                        </div>
+                    </form>
+                    <form method="post" action="#" id="formEditDirFis01" class="form-direccion-fisica" ng-hide="direccion[listar.id]">
+                        <label ng-if="listar.tipo == 3">{{listar.direccionCompleta}}</label>
+                        <div class="p">
+                            <div class="col33">
+                                <label>Tipo de Via </label>
+                                <div class="pull" ng-class="classtipoVia[listar.id]">
+                                    <div style="cursor: text">{{SeleccionarVia}}{{tipoVia[listar.id].etiqueta}}</div>
+                                    <select name="ipull" ng-model="tipoVia[listar.id]" ng-change="changeTipoVia(listar.id)" ng-options="tipoVia as tipoVia.etiqueta for tipoVia in listarTipoVia | orderBy : 'etiqueta'">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <label>Nombre Dirección </label>
+                                <div class="input" ng-class="classnombreDireccion[listar.id]">
+                                    <input type="text" class="nombreDireccion" ng-attr-id="{{ 'nombreDireccion' + listar.id }}" ng-model="nombreDireccion[listar.id]" data-valid="required" maxlength="45">
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <label>Número </label>
+                                <div class="input" ng-class="classnumero[listar.id]">
+                                    <input type="text" name="ifield03" ng-model="numero[listar.id]" data-valid="required" maxlength="8">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="col33">
+                                <label>Manzana</label>
+                                <div class="input" ng-class="classManzana[listar.id]">
+                                    <input type="text" name="ifield04" ng-model="manzana[listar.id]" maxlength="8">
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <label>Lote</label>
+                                <div class="input" ng-class="classLote[listar.id]">
+                                    <input type="text" name="ifield05" ng-model="lote[listar.id]" maxlength="5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="col33">
+                                <label>Tipo</label>
+                                <div class="pull">
+                                    <div style="cursor: text">{{SeleccionarTipo}}{{tipoVivienda[listar.id].etiqueta}}</div>
+                                    <select name="ipull" ng-model="tipoVivienda[listar.id]" ng-change="changeTipo(listar.id)" ng-options="tipoVivienda as tipoVivienda.etiqueta for tipoVivienda in listarTipoVivienda track by tipoVivienda.id">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <label>Número</label>
+                                <div class="input">
+                                    <input type="text" name="ifield07" ng-model="numeroDepartamento[listar.id]" maxlength="8">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="col33">
+                                <label>Tipo de Urbanización</label>
+                                <div class="pull" ng-class="classTipoUrbanizacion[listar.id]">
+                                    <div style="cursor: text">{{SeleccionarTipoUrbanizacion}}{{tipoUrbanizacion[listar.id].etiqueta}}</div>
+                                    <select name="ipull" ng-model="tipoUrbanizacion[listar.id]" ng-change="changeTipoUrbanizacion(listar.id)" ng-options="tipoUrbanizacion as tipoUrbanizacion.etiqueta for tipoUrbanizacion in listarTipoUrbanizacion track by tipoUrbanizacion.id">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col66">
+                                <label>Nombre de Urbanización</label>
+                                <div class="input" ng-class="classNUrbanizacion[listar.id]">
+                                    <input type="text" name="ifield09" ng-model="nombreUrbanizacion[listar.id]" maxlength="35">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="col33">
+                                <label>Zona</label>
+                                <div class="input" ng-class="classZona[listar.id]">
+                                    <input type="text" ng-keypress="validarNumero($event)" name="ifield10" ng-model="zona[listar.id]" maxlength="5">
+                                </div>
+                            </div>
+                            <div class="col66">
+                                <label>Nombre de zona</label>
+                                <div class="input" ng-class="classNombreZona[listar.id]">
+                                    <input type="text" name="ifield11" ng-model="nombreZona[listar.id]" maxlength="35">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="col33">
+                                <label>Departamento </label>
+                                <div class="pull" ng-class="classDepartamento[listar.id]">
+                                    <div style="cursor: text">{{SeleccionarDepartamento}}{{departamento[listar.id].etiqueta}}</div>
+                                    <select name="ipull" ng-model="departamento[listar.id]" ng-change="changeDepartamento(listar.id)" ng-options="departamento as departamento.etiqueta for departamento in listaDepartamento | orderBy:'etiqueta'  track by departamento.codest">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <label>Provincia </label>
+                                <div class="pull" ng-class="classProvincia[listar.id]">
+                                    <div style="cursor: text">{{SeleccionarProvincia}}{{provincia[listar.id].etiqueta}}</div>
+                                    <select name="ipull" ng-model="provincia[listar.id]" ng-change="changeProvincia(listar.id)" ng-options="provincia as provincia.etiqueta for provincia in listarProvincia | orderBy:'etiqueta' track by provincia.codpvc">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <label>Distrito </label>
+                                <div class="pull" ng-class="classDistrito[listar.id]">
+                                    <div style="cursor: text">{{SeleccionarDistrito}}{{distrito[listar.id].etiqueta}}</div>
+                                    <select name="ipull" ng-model="distrito[listar.id]" ng-change="changeDistrito(listar.id)" ng-options="distrito as distrito.etiqueta for distrito in listarDistrito | orderBy:'etiqueta' track by distrito.coddst">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="col99">
+                                <label>Referencia</label>
+                                <div class="input" ng-class="classReferencia[listar.id]">
+                                    <input type="text" name="ifield11" ng-model="referencia[listar.id]" maxlength="50">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bts">
+                            <a style="cursor:pointer" class="bt-save-form red" ng-click="guardarDireccion(listar.id); $event.stopPropagation()">guardar</a>
+                            <div class="loader"><span></span></div>
+                            <a style="cursor:pointer" class="bt-cancel-form" ng-click="cancelar(listar.id); $event.stopPropagation()">cancelar</a>
+                            <div ng-class="classMsgError[listar.id]" style="display: block;">{{msgError[listar.id]}}</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="errorAllProductoServiciosMas loaderimagenDisplay centerDireccion">
+                <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('2')"></er-Customerror>
+            </div>
+        </div>
+        <div class="table">
+            <div class="row bts" ng-show="hidePagina">
+                <a href="javascript:void(0)" ng-click="paginacion(); $event.stopPropagation()" class="bt-ver-mas mouse">Ver más</a>
+            </div>
+        </div>
+    </div>
+    <div class="mobile hideErrortuCuenta">
+        <div id="errorAllProductoServiciosNoDataMo" class="mobile loaderimagenDisplay">
+            <er-Customerrornodata texto="textGeneral" on-Refresh="refreshPortlet('1')"></er-Customerror>
+        </div>
+        <div class="table-mobile main">
+            <div ng-repeat="listar in allProductoServicios" class="row allProductoServicios">
+                <strong>{{listar.direccionCompleta}}</strong> Tipo de Dirección <span>{{listar.tipoDireccion}} </span>
+                <br> Asociado a: <span>{{listar.nombre}} </span>
+            </div>
+            <div class="errorAllProductoServiciosMas loaderimagenDisplay centerDireccion">
+                <er-Customerror texto="textGeneral" on-Refresh="refreshPortlet('2')"></er-Customerror>
+            </div>
+        </div>
+        <div class="table-mobile" ng-show="hidePagina">
+            <div class="row bts">
+                <a href="javascript:void(0)" ng-click="paginacion(); $event.stopPropagation()" class="bt-ver-mas-mobile red">Ver más</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="body hideErrortuCuenta" id="eliminarCuenta">
+    [Element key="Subtitulo" type="content" context="selected" name="mi claro content library/cuentas claro/tu cuenta/elimina tu cuenta"]
+</div>
+<div class="popup" id="modal_status">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose"></button>
+        <div id="popupConfirmacion" class="content" style="position :static !important">
+            <h3 class="terminos">Términos y Condiciones</h3>
+            <p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+            <div class="frame">
+                <div class="text" id="terminosCondiciones">
+                </div>
+            </div>
+            <p>
+                <!--<a href="#" class="bt bt-gris" id="btterminoscancel">Cancelar</a>-->
+                <a href="#" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div ng-show="errorTotal" class="width: 70%;margin: 0 auto;">
+    <er-Customerrortotal></er-Customerrortotal>
+</div>

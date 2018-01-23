@@ -1,0 +1,253 @@
+<div class="tabs tabs-home">
+		
+		<ul class="tab-links clearfix">
+			<li class="movil active"><a href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/movil"><span></span> Móvil</a></li>
+			<li class="fijo"><a href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/fijo/"><span></span> Fijo</a></li>
+			<li class="internet"><a href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/internet/"><span></span> Internet</a></li>
+			<li class="tv"><a href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/tv/"><span></span> TV</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="movil" class="tab active">
+
+				<div class="change-type on-mobile" id="wps_switchmobile" style="display: none;">
+					<label>Consumer</label>
+					<div class="switch">
+						<input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+						<label class="switch-label" for="itype1"></label>
+					</div>
+					<label for="itype1"><span>Corporativo</span></label>
+				</div>
+
+				<div class="breadcrumb">
+					Consultas <span class="arrow"></span> <strong>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Servicios Contratados"]</strong>
+				</div>
+				<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Servicios Contratados"]</h3>
+
+				<div id="show_panel" style="display: none">
+					<div class="resume box clearfix">
+					
+						<div class="col50" id="show_servicios" style="display: none">
+							<p>
+	                            <span class="type" ng-if="servicioSelect.ProductoServicioResponse.tipoLinea == 1">Línea Prepago</span>
+	                            <span class="type" ng-if="servicioSelect.ProductoServicioResponse.tipoLinea == 2">Línea Postpago</span>
+	                            <span class="type" ng-if="servicioSelect.ProductoServicioResponse.tipoLinea == 3">Línea Control</span>
+	                    	</p>
+							<div class="pull pullservicio">
+								<div>{{servicioSelect.ProductoServicioResponse.nombreAlias}}</div>
+								<select
+								  ng-model="servicioSelect"
+								  ng-options="rsServicio.ProductoServicioResponse.nombreAlias for rsServicio in lsServicio"
+								  ng-change="changeServicio()">
+								</select>
+							</div>
+							<p>{{wps_direccionCompleta}}</p>
+						</div>
+						
+						<div class="col50" id="show_servicios_error" style="display: none">
+	                        <p class="error-server" style="text-align: center">
+	                            <strong>{{mensaje_upps_titulo}}</strong><br>
+                                {{mensaje_upps_descripcion01}}<br>{{mensaje_upps_descripcion02}}<br>
+	                            <a href="" ng-click="init()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+	                        </p>
+	                    </div>
+						
+						<div class="col50" ng-show="show_datosadicionales_tipoLinea_postpago">
+							<p>
+								&nbsp;<br>
+								<p ng-show="wps_show_fecha_activacion">
+									Fecha de Activación: <strong>{{wps_fechaActivacion | limitTo: 10 | date:"dd-MM-yyyy"}}</strong><br>
+								</p>
+								<p ng-show="wps_show_estado">
+									Estado: <strong>{{wps_estado}}</strong><br>
+								</p>
+								<p ng-show="wps_show_fin_contrato">
+									Fin de Contrato de Equipo: <span class="help" title="{{mensaje_tooltip}}"></span> <strong>En {{wps_finContratoEquipo}} día(s)</strong>
+								</p>																
+							</p>
+						</div>
+						
+						<div class="col50" ng-show="show_datosadicionales_tipoLinea_prepago">
+	                        <p>
+	                            &nbsp;<br>
+	                            <p ng-show="wps_show_fecha_activacion">
+	                            	Fecha de Activación: <strong>{{wps_fechaActivacion | limitTo: 10 | date:"dd-MM-yyyy"}}</strong><br>
+	                            </p>
+	                            <p ng-show="wps_show_fecha_expiracion">
+	                            	Fecha de Expiración: <strong>{{wps_fechaExpiracion | limitTo: 10 | date:"dd-MM-yyyy"}}</strong> <span class="help" title="{{mensaje_tooltip}}"></span><br>
+	                            </p>
+	                            <p ng-show="wps_show_estado">
+	                            	Estado: <strong>{{wps_estado}}</strong>
+	                            </p>
+	                        </p>
+	                    </div>
+
+						<div class="col50" ng-show="show_datosadicionales_error">
+	                        <p class="error-server" style="text-align: center">
+	                            <strong>{{mensaje_upps_titulo}}</strong><br>
+                                {{mensaje_upps_descripcion01}}<br>{{mensaje_upps_descripcion02}}<br>
+	                            <a href="" ng-click="getObtenerDatosAdicionalesServicioMovilWS()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+	                        </p>
+	                    </div>
+	                    
+					</div>
+					<div class="detail clearfix">
+						
+						<div class="col70 box" >
+							<div class="detalle-plan">
+								<p class="border-bottom">Detalle del plan</p>
+								<table class="table-plan">
+																	
+									<tr ng-show="show_detalleplan_head_postpago">
+										<th>Plan Contratado: {{wps_planActual}}</th>
+										<th width="40%">Cargo Fijo Mensual: {{wps_simboloMonedaCargo}} {{wps_cargoFijo}}</th>
+									</tr>
+
+									<tr ng-show="show_detalleplan_head_prepago">
+										<th>Servicios</th>
+										<th width="40%">Tarifas</th>
+									</tr>
+
+									<tr ng-repeat="model in wps_listadoDetalle">
+		                                <td>{{model.etiqueta}}</td>
+		                                <td>{{model.descripcion}}</td>
+		                            </tr>
+									
+									<tr ng-show="show_detalleplan_tabla_error">
+										<td colspan="2">
+											<p class="error-server">
+			                                    <strong>{{mensaje_upps_titulo}}</strong><br>
+			                                    {{mensaje_upps_descripcion01}}<br>{{mensaje_upps_descripcion02}}<br>
+			                                    <a href="" ng-click="getObtenerDetallePlanMovilWS()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+			                                </p>
+										</td>
+									</tr>
+
+		                            <tr>
+										<td colspan="2" class="bts">
+											<a href="" ng-click="dataLayerVerSaldosConsumos()" class="bt bt-white">Ver saldos y consumos</a>
+											<a href="" ng-click="dataLayerCambiarPlan()" id="btnCambiarPlan" class="bt bt-red">Cambiar de plan</a>
+										</td>
+									</tr>
+									
+								</table>
+							</div>
+						</div>
+						
+						<div class="col30 box" id="show_serviciosadicionales" style="display: none">
+							<div class="more-plan">
+								<p class="border-bottom">Servicios Adicionales</p>															
+								<div class="lista-plan">
+		                            
+		                            <div ng-class="model.status == 'true' ? 'row' : 'row nobg'" ng-repeat="model in wps_lsServicioAdicional">
+		                                
+										<div ng-if="model.status == 'true'">
+											<script type='text/javascript'>
+											    $(document).ready(function() {
+											        $('.help').tooltip({placement: "top"});
+											    });
+											</script>
+											<span>{{model.etiqueta}}</span> <span class="help" title="{{model.tooltip}}"></span>
+										</div>
+										
+		                                <div ng-if="model.status == 'false'">
+		                                	<script type='text/javascript'>
+											    $(document).ready(function() {
+											        $('.help').tooltip({placement: "top"});
+											    });
+											</script>
+											<span>{{model.etiqueta}}</span> <span class="help" title="{{model.tooltip}}"></span>
+											<a href="" class="activar" ng-click="open_activarservicio(model)">Activar</a>
+										</div>
+		                                
+		                            </div>
+		                            
+		                        </div>		                        
+							</div>
+						</div>
+						
+						<div class="col30 box" id="show_serviciosadicionales_error" style="display: none">
+	                        <div class="more-plan">
+	                            <p class="border-bottom">Servicios Adicionales</p>
+	                            <div class="shadow">
+	                                <p class="error-server">
+	                                    <strong>{{mensaje_upps_titulo}}</strong><br>
+	                                    {{mensaje_upps_descripcion01}}<br>{{mensaje_upps_descripcion02}}<br>
+	                                    <a href="" ng-click="getObtenerServiciosAdicionalesWS()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+	                                </p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    
+					</div>
+					<div class="col100">
+						<div class="publicidad box">
+							<p>Publicidad</p>
+							<div class="big-ad" id="imgPublicidad"></div>
+						</div>
+					</div>			
+				</div>
+
+				<div class="resume box clearfix" id="show_notiene" style="display: none">
+                    <div class="col100">
+                        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Movil - Sin Plan"]</h3>
+                        <p>
+                            [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Movil - Sin Plan"]<br>
+                            &nbsp;
+                        </p>
+                        <p>
+                            <a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="resume box clearfix" style="text-align: center; display: none" id="show_error">
+		            <div class="col100">
+		                <h3>{{mensaje_error_titulo}}</h3>
+		                <p>
+		                    {{mensaje_error_descripcion01}}. <br />
+							{{mensaje_error_descripcion02}} <br /><br />
+							<a href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/movil"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+		                </p>
+		                <br>
+		            </div>
+		        </div>
+
+		        <div class="resume box clearfix" style="text-align: center; display: none" id="show_error_root">
+		            <div class="col100">
+		                <h3>{{mensaje_error_titulo}}</h3>
+		                <p>
+		                    {{mensaje_error_descripcion01}}. <br />
+							{{mensaje_error_descripcion02}} <br /><br />
+							<a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+		                </p>
+		                <br>
+		            </div>
+		        </div>
+
+			</div>
+		</div>
+        
+	</div>
+<script>
+$(document).ready(function() {
+     $('.help').tooltip({placement: "top"});
+});
+</script>
+
+<div class="popup" id="view_activarservicio">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="close_activarservicio()"></button>
+        <div class="content">
+            <h3>{{modal_titulo}}</h3>
+			<p>{{modal_descripcion}}<br>&nbsp;</p>
+			<p>
+			    <a href="" class="bt bt-gris" id="btactivarcancelar" ng-click="close_activarservicio()">Cancelar</a>
+			    <a href="" class="bt bt-red" id="btactivaraceptar" ng-click="request_activarservicio()">Aceptar</a>
+			</p>
+        </div>
+    </div>
+</div>
+

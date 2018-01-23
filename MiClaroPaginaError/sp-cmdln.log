@@ -1,0 +1,80 @@
+2016-12-26 16:42:37 -- Script Portlet command line version: 1.3
+
+2016-12-26 16:42:37 -- Home folder: C:\IBM_WPS_BATCH\sp_cmdln
+
+2016-12-26 16:42:37 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_80\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_80
+
+2016-12-26 16:42:37 -- Effective configuration properties:
+
+	contentRoot = MiClaroPaginaError
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroPaginaError
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2016-12-26 16:42:37 -- Begin content push to Portal.
+
+2016-12-26 16:42:38 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2016-12-26 16:42:38 -- Virtual Portal ID: null
+
+2016-12-26 16:42:38 -- Project ID: null
+
+2016-12-26 16:42:38 -- WCM content ID: null
+
+2016-12-26 16:42:38 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroPaginaError
+
+2016-12-26 16:42:38 -- WCM Content Title: null
+
+2016-12-26 16:42:38 -- Main HTML file: index.html
+
+2016-12-26 16:42:38 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-2046791880441570698.zip
+	(558 bytes in 1 files)
+
+	index.html
+
+2016-12-26 16:42:38 -- Response status: HTTP/1.1 200 OK
+
+2016-12-26 16:42:38 -- Content-Type: application/json
+
+2016-12-26 16:42:38 -- Effective charset of body: UTF-8
+
+2016-12-26 16:42:38 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : {
+
+            "filename" : "HTML\/index.html"
+         }
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2016-12-26 16:42:38 -- Target authentication state: SUCCESS
+
+2016-12-26 16:42:38 -- Target authentication scheme: BASIC
+
+2016-12-26 16:42:38 -- Target authentication credentials: [principal: wpsadmin]
+
+2016-12-26 16:42:38 -- Content push was successful.
+
+2016-12-26 16:42:38 -- End content push to Portal.
+

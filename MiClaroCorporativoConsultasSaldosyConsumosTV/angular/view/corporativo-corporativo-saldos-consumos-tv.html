@@ -1,0 +1,29 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/movil"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/internet"><span></span> Internet</a></li>
+        <li class="tv active"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tv" class="tab active">
+            <div class="change-type on-mobile" ng-show="mostrarSwitch">
+                <label for="itype1">Consumer</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Saldos y Consumos</strong>
+            </div>
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Aviso Claro - Sin Opcion - TV"]</h3>
+            <p>
+                [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Aviso Claro - Sin Opcion - TV"]
+                <br> &nbsp;
+            </p>
+            <p><a href="/wps/myportal/miclaro/corporativo/consultas/servicioscontratados/" class="bt bt-red">servicios contratados</a></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+<div class="tabs tabs-home">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/movil"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="breadcrumb">
+            Otros <span class="arrow"></span> <strong>Números Frecuentes</strong>
+        </div>
+        <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Otros/Registrar Numeros Frecuentes"]</h3>
+        <div id="fijo" class="tab active" style="display:none">
+            <div class="resume box clearfix">
+                <div class="col50">
+                    <p><span class="type">{{planActual}}</span></p>
+                    <div class="pull pullservicio">
+                        <div id="txtMobile"></div>
+                        <select name="ilineamovil" id="ilineamovil" ng-model="servicio" ng-options="servicio as servicio.ProductoServicioResponse.nombre for servicio in serviciosList track by servicio.ProductoServicioResponse.idProductoServicio" ng-change="cambioServicio();$event.stopPropagation()">
+                        </select>
+                    </div>
+                    <p class="no-mobile">&nbsp;</p>
+                </div>
+                <div class="col50">
+                    <p>
+                        <span class="no-mobile">&nbsp;<br></span>
+                        <strong>Opción Actual:</strong> {{opcionActual}}
+                    </p>
+                </div>
+            </div>
+            <div class="table-frecuentes">
+                <div class="detail clearfix" id="contmovilplan">
+                    <h4 class="tit-border">Conoce cuáles son las opciones de los números frecuentes para tu línea</h4>
+                    <table class="table shadow">
+                        <tr ng-repeat="objeto in OpcionesNumerosFrecuentes" id="idNumerosFrecuente">
+                            <td class="col01">
+                                <label ng-class="objeto.seleccionado == 'true' ? 'radio checked' : 'radio'" ng-attr-id="{{ 'opcion' + $index }}" class='selecionar'>
+                                    <input type="radio" name="iopcion" id="iopcion" ng-click="selecionarOpcion($index);$event.stopPropagation()">
+                                </label>
+                            </td>
+                            <td class="col02"><strong>{{objeto.nombre}}</strong></td>
+                            <td>
+                                <p>{{objeto.descripcion}}</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h4 class="tit-border" id="ititstep2">Ingresa o Edita tus números frecuentes:</h4>
+                    <div id="editarNumero">
+                        <div id="opt02">
+                            <form method="post">
+                                <div class="col50" id="grupo1">
+                                    <table class="table shadow table-frecuente">
+                                        <tr>
+                                            <th colspan="2">{{NumerosFrecuentesGrupo1.titulo}}</th>
+                                        </tr>
+                                        <tr ng-repeat="grupo1 in listarGrupo1">
+                                            <td>
+                                                <div ng-class="grupo1.estado == '' ? 'input' : 'input text'" ng-attr-id="{{ 'idGrupo1' + $index }}">
+                                                    <input ng-keypress="validarNumero($event)" type="text" name="inumero1" class="numerico" maxlength="9" data-valid="phone" ng-model='grupo1.numero' ng-click="focusNumeroGrupo1($index); $event.stopPropagation()">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a class="red">
+                                                    <div class="mouse" ng-show="grupo1.estado !=''" ng-attr-id="{{ 'editarGrupo1' + $index }}" ng-click="editarNumeroGrupo1($index); $event.stopPropagation()">
+                                                        editar</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col50" id="grupo2">
+                                    <table class="table shadow table-frecuente">
+                                        <tr>
+                                            <th colspan="2">{{NumerosFrecuentesGrupo2.titulo}}</th>
+                                        </tr>
+                                        <tr ng-repeat="grupo2 in listarGrupo2">
+                                            <td>
+                                                <div ng-class="grupo2.estado == '' ? 'input' : 'input text'" ng-attr-id="{{ 'idGrupo2' + $index }}">
+                                                    <input ng-keypress="validarNumero($event)" type="text" ng-attr-id="{{ 'inumero2' + $index }}" class='numerico' maxlength="9" data-valid="phone" ng-model='grupo2.numero' ng-click="focusNumeroGrupo2($index); $event.stopPropagation()">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a class="red">
+                                                    <div class="mouse" ng-show="grupo2.estado !=''" ng-attr-id="{{ 'editarGrupo2' + $index }}" ng-click="editarNumeroGrupo2($index); $event.stopPropagation()">
+                                                        editar</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col50" id="grupo3">
+                                    <table class="table shadow table-frecuente">
+                                        <tr>
+                                            <th colspan="2">{{NumerosFrecuentesGrupo3.titulo}}</th>
+                                        </tr>
+                                        <tr ng-repeat="grupo3 in listarGrupo3">
+                                            <td>
+                                                <div ng-class="grupo3.estado == '' ? 'input' : 'input text'" ng-attr-id="{{ 'idGrupo3' + $index }}">
+                                                    <input ng-keypress="validarNumero($event)" type="text" ng-attr-id="{{ 'inumero3' + $index }}" class='numerico' maxlength="9" data-valid="phone" ng-model='grupo3.numero' ng-click="focusNumeroGrupo3($index); $event.stopPropagation()">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a class="red">
+                                                    <div class="mouse" ng-show="grupo3.estado !=''" ng-attr-id="{{ 'editarGrupo3' + $index }}" ng-click="editarNumeroGrupo3($index); $event.stopPropagation()">
+                                                        editar</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br class="both">
+                                <p>{{comentario}}</p>
+                        </div>
+                        <div>
+                            <p class="center">
+                                <button type="button" class="bt bt-red btguardar" ng-click="guardarNumeroFrecuente();$event.stopPropagation()">Guardar</button>
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                    <br class="both">
+                </div>
+                <div class="resume box clearfix" class="col50" ng-show="errorFuncional != 0" style="display:none" id="errorTotal">
+                    <p class="error-server" style="padding-bottom: 20px; text-align: center;">
+                        <strong>{{upps}}!</strong>
+                        <br> {{upps_descripcion01}}
+                        <br>{{upps_descripcion02}}
+                        <br>
+                        <a href="" ng-click="init()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                </div>
+                <div class="resume box clearfix" class="col50" style="display:none" id="errorOpcionesNumerosFrecuentes">
+                    <p class="error-server" style="padding-bottom: 20px; text-align: center;">
+                        <strong>¡Este plan no cuenta con este beneficio!</strong>
+                        <br>Puedes revisar los servicios de tu plan en
+                        <p style="text-align: center;"><a class="bt bt-red" href="/wps/myportal/miclaro/consumer/consultas/servicioscontratados/fijo">servicios contratados</a></p>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <!-- 
+        ############################################
+        ######## No tiene servicios de Movil ########
+        ############################################-->
+        <div ng-show="flagServiciosMovil == 0 || flagServiciosFijo == 3">
+            <div class="resume box clearfix">
+                <div class="col100">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]</h3>
+                    <p>
+                        [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]
+                        <br> &nbsp;
+                    </p>
+                    <p>
+                        <a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;" ng-show="flagServiciosFijo == -1">
+            <div class="resume box clearfix">
+                <div class="col100">
+                    <h3>{{error_titulo}}</h3>
+                    <p>
+                        {{error_descripcion01}}
+                        <br /> {{error_descripcion02}}
+                        <br />
+                        <br />
+                        <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div style="display: block;" class="popup" id="popup">
+            <div class="bg"></div>
+            <div style="margin-top: 9px;" class="pop">
+                <button type="button" class="bt btclose"></button>
+                <div style="display: block;" class="content">
+                    <h3>Listo</h3>
+                    <p>
+                        [Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Otros/Modal - Numeros Frecuentes - Confirmacion"]
+                        <br>&nbsp;</p>
+                    <p><a class="bt bt-red" id="btfrecuentesaceptar">Aceptar</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<h3>Listo</h3>
+<p>Recuerda que si deseas cambiar tus números frecuentes se<br>aplicará un cargo de S/. 7.00 sobre tu saldo prepago.<br>&nbsp;</p>
+<p><a  class="bt bt-red" id="btfrecuentesaceptar">Aceptar</a></p>
+
+
+<script>
+$(document).ready(function(e) {
+    $('#btfrecuentesaceptar').click(function(e){
+         e.preventDefault();
+         var href='/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/movil';
+	   $(location).attr('href', href);
+		 
+    });
+    $('.popup .btclose, .popup .bg').click(function(){
+         var href='/wps/myportal/miclaro/consumer/otros/registranumerosfrecuentes/movil';
+	   $(location).attr('href', href);
+		 
+    });
+});
+</script>

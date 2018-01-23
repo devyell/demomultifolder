@@ -1,0 +1,119 @@
+2017-03-01 16:19:34 -- Script Portlet command line version: 1.3
+
+2017-03-01 16:19:34 -- Home folder: C:\jorge\IBM\Portal\sp_cmdln
+
+2017-03-01 16:19:34 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-03-01 16:19:34 -- Effective configuration properties:
+
+	contentRoot = CuentasClaroTuConfiguracion
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = CuentasClaroTuConfiguracion
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-03-01 16:19:34 -- Begin content push to Portal.
+
+2017-03-01 16:19:35 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-03-01 16:19:35 -- Virtual Portal ID: null
+
+2017-03-01 16:19:35 -- Project ID: null
+
+2017-03-01 16:19:35 -- WCM content ID: null
+
+2017-03-01 16:19:35 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/CuentasClaroTuConfiguracion
+
+2017-03-01 16:19:35 -- WCM Content Title: null
+
+2017-03-01 16:19:35 -- Main HTML file: index.html
+
+2017-03-01 16:19:35 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-7942927807120658306.zip
+	(28743 bytes in 7 files)
+
+	angular/app.js
+	angular/controller/TuConfiguracionController.js
+	angular/service/TuConfiguracionService.js
+	angular/view/tu-configuracion.html
+	assets/css/css.css
+	assets/validacion/validacion.js
+	index.html
+
+2017-03-01 16:19:49 -- Response status: HTTP/1.1 200 OK
+
+2017-03-01 16:19:49 -- Content-Type: application/json
+
+2017-03-01 16:19:49 -- Effective charset of body: UTF-8
+
+2017-03-01 16:19:49 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/tu-configuracion.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/validacion\/validacion.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/TuConfiguracionService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/TuConfiguracionController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/css.css"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-03-01 16:19:49 -- Target authentication state: SUCCESS
+
+2017-03-01 16:19:49 -- Target authentication scheme: BASIC
+
+2017-03-01 16:19:49 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-03-01 16:19:49 -- Content push was successful.
+
+2017-03-01 16:19:49 -- End content push to Portal.
+

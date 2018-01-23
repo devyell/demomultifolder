@@ -1,0 +1,205 @@
+<div class="tabs-home tabs-clean">
+    <div class="tab-content noborder">
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Paquetes Premium</strong>
+        </div>
+
+        <h3 id="wps_top">Paquetes Premium</h3>
+
+        <div id="show_panel" style="display: none;">
+            
+            <p>Si ya cuentas con un paquete Básico o Max, puedes solicitar cualquiera de los paquetes adicionales.<br>&nbsp;</p>
+            <div ng-show="show_paso1">
+                <div class="resume box clearfix">
+                    <div class="col50">
+                        <p><span class="type">Servicio</span></p>
+                        <div class="pull pullservicio">
+                            <div>{{servicioSelect.ProductoServicioResponse.nombreAlias}}</div>
+                            <select
+                              ng-model="servicioSelect"
+                              ng-options="rsServicio.ProductoServicioResponse.nombreAlias for rsServicio in lsServicio"
+                              ng-change="changeServicio()">
+                            </select>
+                        </div>
+                        <p class="wps_direccion_box"><strong>Dirección Asociada:</strong> {{wps_direccionCompleta}}<br></p>
+                    </div>
+                </div>
+                
+                <div class="detail" ng-show="show_listapaquetes">                
+                    <div ng-repeat="paquete in wps_lsPaquete">
+                        <table class="table-plan table-plan-mobile" >
+                            <tr>
+                                <td width="124" class="no-mobile">
+                                    <div class="img-paquete" ng-style="setThumbnailVideo(paquete)" ng-click="abrirVideo(paquete)" style="cursor: pointer;"></div>
+                                </td>
+                                <td>Paquete<br><strong>{{paquete.nombrePaquete}}</strong></td>
+                               
+								
+								  <td ng-if="paquete.cantidadCanales==1 || paquete.cantidadCanales==0">Cantidad de canales<br><strong>{{paquete.cantidadCanales}} canal</strong></td>
+									<td ng-if="paquete.cantidadCanales>1">Cantidad de canales<br><strong>{{paquete.cantidadCanales}} canales</strong></td>
+									
+                                <td>Precio:<br> <span class="price-paquete">{{paquete.simboloMoneda}} {{paquete.precio}}</span></td>
+                                <td width="60">
+                                    <label class="check" id="{{paquete.idPaqueteTV}}">
+                                        <input type="checkbox" name="" ng-model="actionPaquete" ng-click="agregarCanasta(actionPaquete, paquete)" />
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>                    
+                    <br>
+                    <div class="div-bts">
+                        <button type="button" class="bt bt-red bt-disabled" id="btcontratar" disabled="disabled" ng-click="irPaso2()">Contratar</button>
+                    </div>                    
+                </div>
+                
+                <div class="detail" ng-show="show_listapaquetes_vacio" style="text-align: center">
+                	No tienes Paquetes de TV disponibles
+                </div>
+                
+                <div class="detail" ng-show="show_listapaquetes_error">
+                	<div class="col100">
+                        <p class="error-server" style="text-align: center">
+                            <strong>{{mensaje_upps_titulo}}</strong><br>
+                               {{mensaje_upps_descripcion01}}<br>{{mensaje_upps_descripcion02}}<br>
+                            <a href="" ng-click="getObtenerPaquetesAdicionalesTV()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div ng-show="show_paso2">            
+                <h4 class="tit-border">Paquetes Seleccionados:</h4>
+                <div class="detail">
+                    <form method="post" id="formpaquetes">
+                        <div ng-repeat="rsCanasta in lsCanasta">
+                            <table class="table-plan table-plan-mobile">
+                                <tr>
+                                    <td width="124" class="no-mobile"><div class="img-paquete" ng-style="setThumbnailVideo(rsCanasta)" ng-click="abrirVideo(rsCanasta)" style="cursor: pointer;"></div></td>
+                                    <td>Paquete<br><strong>{{rsCanasta.nombrePaquete}}</strong></td>
+                                    <td ng-if="rsCanasta.cantidadCanales==1 || rsCanasta.cantidadCanales==0">Cantidad de canales<br><strong>{{rsCanasta.cantidadCanales}} canal</strong></td>
+									<td ng-if="rsCanasta.cantidadCanales>1">Cantidad de canales<br><strong>{{rsCanasta.cantidadCanales}} canales</strong></td>
+                                    <td>Precio:<br> <span class="price-paquete">{{rsCanasta.simboloMoneda}} {{rsCanasta.precio}}</span></td>
+                                    <td width="60">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </div>
+                        <p class="text-terminos">
+                            <label class="check"><input type="checkbox" data-valid="required" ng-model="modelAceptarTerminos" ng-click="aceptarTerminosCondiciones(modelAceptarTerminos)"></label>
+                            <label for="iterminos">Acepto los <a href="" class="aterms" ng-click="abrirTerminosCondiciones()">Términos y Condiciones</a></label>
+                        </p>
+                        <br>
+                        <div class="div-bts">
+                            <button type="button" class="bt bt-white" id="btregresar" ng-click="irPaso1()">Regresar</button>
+                            <button type="button" class="bt bt-red bt-disabled" id="btncontratar" disabled="disabled" ng-click="btnConfirmar()">Contratar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+
+        <div class="resume box clearfix" id="show_error" style="text-align: center; display: none;">
+            <div class="col100">
+                <h3>{{mensaje_error_titulo}}</h3>
+                <p>
+                    {{mensaje_error_descripcion01}} <br />
+                    {{mensaje_error_descripcion02}} <br /><br />
+                    <a href="/wps/myportal/miclaro/consumer/solicitudes/paquetestvadicionales/"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+                <br>
+            </div>
+        </div>
+
+        <div class="resume box clearfix" id="show_error_root" style="text-align: center; display: none;">
+            <div class="col100">
+                <h3>{{mensaje_error_titulo}}</h3>
+                <p>
+                    {{mensaje_error_descripcion01}} <br />
+                    {{mensaje_error_descripcion02}} <br /><br />
+                    <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+                <br>
+            </div>
+        </div>
+
+        <div class="resume box clearfix" id="show_notiene" style="display: none">
+            <div class="col100">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/TV - Sin Plan"]</h3>
+                <p>
+                    [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/TV - Sin Plan"]<br>
+                    &nbsp;
+                </p>
+                <p>
+                    <a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                </p>
+                <br>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="popup" id="view_terminos">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cerrarTerminosCondiciones()"></button>
+        <div class="content">
+            <h3 class="terminos">Términos y Condiciones</h3>
+            <p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+            <div class="frame">
+                <div class="text">
+                    [Element key="Texto Legal" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Terminos y Condiciones/Paquete Premium"]
+                </div>
+            </div>
+            <form method="post" id="iterminosformpop">
+                <p>
+                    <a href="" class="bt bt-gris" id="btterminoscancel" ng-click="cancelarTerminos()">Cancelar</a>
+                    <a href="" class="bt bt-red" id="bterminosaceptar" ng-click="aceptarTerminos()">Aceptar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="view_video">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cerrarVideo()"></button>
+        <div class="content">
+            <iframe width="100%" height="365" src="" id="ytvideo" frameborder="0" allowfullscreen></iframe>
+            <style>
+                #ytvideo { position: absolute; top: 0; left: 0; width: 100%; background: #000; }
+            </style>
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="view_listo">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cerrarListo()"></button>
+        <div class="content">
+            <h3>Listo</h3>
+            <p>Tu solicitud para activar el paquete Premium ha sido enviada, esta deberá pasar por una evaluación crediticia antes de ser activada.<br>&nbsp;</p>
+            <p><a href="/wps/myportal/miclaro/consumer/solicitudes/paquetestvadicionales" class="bt bt-red">Volver</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="view_error">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cerrarError()"></button>
+        <div class="content">
+            <h3>{{mensaje_upps_titulo}}</h3>
+            <p>{{mensaje_upps_descripcion01}}. {{mensaje_upps_descripcion02}} </p>
+            <p><a href="/wps/myportal/miclaro/consumer/solicitudes/paquetestvadicionales" class="bt bt-red">Volver</a></p>
+        </div>
+    </div>
+</div>

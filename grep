@@ -1,0 +1,9 @@
+commit 4f068a95bf76c7cf88093bff1cb27a78b5ea0ebb
+Author: SERGIO MAURICIO DIAZ SHEEN <smdiaz@pe.ibm.com>
+Date:   Tue Jan 16 10:38:08 2018 -0500
+
+    Upload ultima version Claro Puntos Latam - modificación de formato de fecha en vista mobile
+
+M	MiClaroConsumerConsultasClaroPuntosLatam/angular/controller/appControllerAlt.js
+M	MiClaroConsumerConsultasClaroPuntosLatam/angular/view/appView.html
+M	MiClaroConsumerConsultasClaroPuntosLatam/assets/css/styleClaroPuntos.css

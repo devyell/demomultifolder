@@ -1,0 +1,125 @@
+2016-12-30 17:06:10 -- Script Portlet command line version: 1.3
+
+2016-12-30 17:06:10 -- Home folder: C:\IBM_PUSH\sp_cmdln
+
+2016-12-30 17:06:10 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2016-12-30 17:06:10 -- Effective configuration properties:
+
+	contentRoot = CuentasClaroServicioPrincipal
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = CuentasClaroServicioPrincipal
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2016-12-30 17:06:10 -- Begin content push to Portal.
+
+2016-12-30 17:06:11 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2016-12-30 17:06:11 -- Virtual Portal ID: null
+
+2016-12-30 17:06:11 -- Project ID: null
+
+2016-12-30 17:06:11 -- WCM content ID: null
+
+2016-12-30 17:06:11 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/CuentasClaroServicioPrincipal
+
+2016-12-30 17:06:11 -- WCM Content Title: null
+
+2016-12-30 17:06:11 -- Main HTML file: index.html
+
+2016-12-30 17:06:11 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-9129356341554887171.zip
+	(15034 bytes in 8 files)
+
+	angular/app.js
+	angular/controller/controllers.js
+	angular/service/services.js
+	angular/view/consumercorporativo-servicio-principal.html
+	assets/css/error.css
+	assets/css/loading.css
+	assets/img/icon-actualizar.png
+	index.html
+
+2016-12-30 17:06:12 -- Response status: HTTP/1.1 200 OK
+
+2016-12-30 17:06:12 -- Content-Type: application/json
+
+2016-12-30 17:06:12 -- Effective charset of body: UTF-8
+
+2016-12-30 17:06:12 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumercorporativo-servicio-principal.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/services.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/controllers.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/loading.css"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/error.css"
+            }
+            ,
+            {
+
+               "filename" : "Images\/assets\/img\/icon-actualizar.png"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2016-12-30 17:06:12 -- Target authentication state: SUCCESS
+
+2016-12-30 17:06:12 -- Target authentication scheme: BASIC
+
+2016-12-30 17:06:12 -- Target authentication credentials: [principal: wpsadmin]
+
+2016-12-30 17:06:12 -- Content push was successful.
+
+2016-12-30 17:06:12 -- End content push to Portal.
+

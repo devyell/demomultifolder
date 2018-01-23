@@ -1,0 +1,253 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/movil"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+		<div class="breadcrumb" ng-show="errorTotal">
+                Consultas <span class="arrow"></span> <strong>Detalle de Consumos</strong>
+        </div>
+		<h3 class="mobile" ng-show="errorTotal" >[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Detalle de Consumos"]</h3>
+		<div class="resume box clearfix ng-hide" ng-show="errorTotal" style="text-align: center; ">		
+	           <div class="col100">
+	               <h3>{{mensaje_error_titulo}}</h3>
+	               <p>
+	                   {{mensaje_error_descripcion01}}. <br />
+						{{mensaje_error_descripcion02}} <br /><br />
+						<a href="/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/fijo"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+	               </p>
+	               <br>
+	           </div>
+	      	</div>
+	
+	
+        <div id="fijo" class="tab active" ng-show="mostrarInfoFijo" style="display:none">
+          
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Detalle de Consumos</strong>
+            </div>
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Detalle de Consumos"]</h3>
+            <form method="post" class="form-filter clearfix" ng-class="classBuscar" ng-show="mostrarDataServFija">
+                <div class="col25">
+                    <div class="pull" ng-class="desabledCombos">
+                        <div>{{selectIdDireccion.nombreAlias}}</div>
+                        <select name="icuenta" ng-model="selectIdDireccion" ng-options="direccion.nombreAlias for direccion in listadoDirecciones" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosFijosxDireccion()">
+                          
+                        </select>
+                    </div>
+                </div>
+                <div class="col25">
+                    <div class="pull" ng-class="desabledCombos">
+                        <div>{{selectLinea.ProductoServicioResponse.nombreAlias}}</div>
+                        <select select name="ifilter" ng-model="selectLinea" ng-options="lineas.ProductoServicioResponse.nombreAlias for lineas in listadoServicios" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosFijosxServicio()">
+                           
+                        </select>
+                    </div>
+                </div>
+                <div class="col25 colsearch">
+				
+                    <div class="pull pulldate" >
+                        <div>{{lineaFijaSelect.nombreProducto}}</div>
+                        <select name="ifilter" ng-model="lineaFijaSelect" ng-options="lineasFijas.nombreProducto for lineasFijas in listadoLineasFijas" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosxLineaFija()">
+                            
+                        </select>
+                    </div>
+					
+                    <div class="input search">
+						
+                        <input type="text" name="inumerofijo" data-valid="required" placeholder="Número" id="autocomplete-filtro-fijo" ng-model="searchText" >
+                        <button type="button" class="bt bt-search" ng-click="buscarLineaFija()"></button>
+						
+                    </div>
+					
+                    <a href ng-click="cambiarClassForm()" class="action"></a>
+					
+                </div>
+                <div class="col25">
+                   					
+					<div class="pull pulldate"  ng-class="desabledCombos" >
+                        <div>{{((selectPeriodo.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(selectPeriodo.fechaHasta | limitTo:10 | date:'dd/MM/yyyy'))}}</div>
+                        <select name="iperiodo" ng-model="selectPeriodo" ng-options="periodo as ((periodo.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(periodo.fechaHasta | limitTo:10 | date:'dd/MM/yyyy')) for periodo in listadoPeriodos" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosFijosxPeriodo()">
+       
+                        </select>
+                    </div> 
+                </div>
+            </form>
+            <div ng-show="!mostrarDataServFija">
+                <er-Customerror on-Refresh="refreshPortlet('1')"></er-Customerror>
+            </div>
+           
+            <div class="filter-lista" data-target="#cntrpta11">
+			<div ng-show="flagPlataforma == 0" >
+			<div class="tit">Seleccione un tipo de llamada</div>  
+			<label id='idLlamadaE' class="radio checked"><input type="radio" id='radio_1' name="calltype" value="llamadas-entrantes-fijo" ng-click="asCtrlSaldosyConsumosFijo.llamada('E');" ></label> Llamadas Entrantes 
+			<label id='idLlamadaS' class="radio"><input type="radio" id='radio_2' name="calltype" value="llamadas-salientes-fijo" ng-click="asCtrlSaldosyConsumosFijo.llamada('S');"></label> Llamadas Salientes 
+			</div>
+			
+			<div ng-show="flagPlataforma == 1" >
+			<div class="tit">Seleccione un tipo de llamada</div>
+			<label id='idLlamadaS' class="radio"><input type="radio" id='radio_2' name="calltype" value="llamadas-salientes-fijo" ng-click="asCtrlSaldosyConsumosFijo.llamada('S');"></label> Llamadas Salientes
+			</div>
+		 	 
+			</div>
+			<div class="result-lista" id="cntrpta11">
+			<div class="data data1"  id="mostrarConsumosFija" ng-show="mostrarConsumosFija">
+			<h4>
+			<img src="/wpstheme/miclaro/img/icon-llamadas-entrantes.png" width="21"> Llamadas Entrantes
+			<div class="bts">
+			<a  class="bt bt-white bt-send-mail" ng-click="asCtrlSaldosyConsumosFijo.Correo();">Enviar por correo</a>
+			<a class="bt bt-red" ng-click="asCtrlSaldosyConsumosFijo.Reporte();">Descargar Reporte</a>
+			</div>
+			</h4>
+
+			<table class="table">
+			<tr>
+			<th>Fecha y Hora</th>
+			<th>Línea entrante</th>
+			<th>Duración</th>
+			<th>Operador</th>
+			</tr>
+			<tr ng-repeat="lista in listarLlamadasFijo ">
+			<td>{{lista.fecha | limitTo:10 | date:'dd MMM'| uppercase}} {{'2000-01-01T'+lista.hora | date:'hh:mm a' | uppercase}}</td>
+			<td>{{lista.lineaEntranteDestino}}</td>
+			<td>{{lista.duracion}}</td>
+			<td>{{lista.operador}}</td>
+			
+			
+			</tr>
+			<tr>
+			
+			</table>
+
+			<div class="more"  ng-show="hidePagina">
+				<a href="javascript:void(0)" ng-click="paginacion();" class="more-data">ver mas</a>
+			</div>
+			
+			<h4>
+			
+			<div class="more ng-hide"  ng-show="hideCorreoLimite">
+
+			<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+
+			</div>
+			
+			<div class="bts" ng-show="hideCorreoLimite" >
+			<a  class="bt bt-white bt-send-mail" ng-click="asCtrlSaldosyConsumosFijo.Correo();">Enviar por correo</a>
+			<a class="bt bt-red" ng-click="asCtrlSaldosyConsumosFijo.Reporte();">Descargar Reporte</a>
+			</div>
+			</h4>
+
+		</div>
+		
+		
+		<div class="data data2"  id="mostrarConsumosFijaSaliente" ng-show="mostrarConsumosFijaSaliente" style="display:none;">
+			<h4>
+			<img src="/wpstheme/miclaro/img/icon-llamadas-entrantes.png" width="21"> Llamadas Salientes
+			<div class="bts">
+			<a  class="bt bt-white bt-send-mail" ng-click="asCtrlSaldosyConsumosFijo.Correo();">Enviar por correo</a>
+			<a class="bt bt-red" ng-click="asCtrlSaldosyConsumosFijo.Reporte();">Descargar Reporte</a>
+			</div>
+			</h4>
+
+			<table class="table">
+			<tr>
+			<th>Fecha y Hora</th>
+			<th>Línea de destino</th>
+			<th>Duración</th>
+			<th>Consumo</th>
+			<th>Saldo</th>
+			<th>Destino</th>
+			<th>Operador</th>
+			</tr>
+			<tr ng-repeat="lista in listarLlamadasFijo ">
+			<td>{{lista.fecha | limitTo:10 | date:'dd MMM'| uppercase}} {{'2000-01-01T'+lista.hora | date:'hh:mm a' | uppercase}}</td>
+			<td>{{lista.lineaEntranteDestino}}</td>
+			<td>{{lista.duracion}}</td>
+			<td>{{lista.consumo}}</td>
+			<td>{{lista.saldo}}</td>
+			<td>{{lista.destino}}</td>
+			<td>{{lista.operador}}</td>
+
+			
+			</tr>
+			<tr>
+			
+			</table>
+
+			<div class="more"  ng-show="hidePagina">
+				<a href="javascript:void(0)" ng-click="paginacion();" class="more-data">ver mas</a>
+			</div>
+			<h4>
+			<div class="more ng-hide"  ng-show="hideCorreoLimite">
+
+			<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+
+			</div>
+
+			<div class="bts" ng-show="hideCorreoLimite" >
+			<a  class="bt bt-white bt-send-mail" ng-click="asCtrlSaldosyConsumosFijo.Correo();">Enviar por correo</a>
+			<a class="bt bt-red" ng-click="asCtrlSaldosyConsumosFijo.Reporte();">Descargar Reporte</a>
+			</div>
+			</h4>
+
+		</div>
+		</div>
+			
+						
+		<div ng-show="!mostrarConsumosFijaData">
+		<p class="error-server"><strong> {{mensajeConsumoFijo}} </strong><br></p>
+		</div>
+            <div id='mostrarConsumosFija2'>
+                <er-Customerror on-Refresh="refreshPortlet('2')"></er-Customerror>
+            </div>
+        </div>
+       
+        <div ng-show="!mostrarInfoFijo">
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Saldos y Consumos</strong>
+            </div>
+            <h3>Aviso Claro</h3>
+            <p>
+                Este servicio no cuenta con esta opción.
+                <br> Para más información sobre tu servicio ingresa a:
+                <br> &nbsp;
+            </p>
+            <p><a href="#" class="bt bt-red">servicios contratados</a></p>
+        </div>
+    </div>
+</div>
+
+
+<div style="display:none" class="popup" id='IdPopup'>
+    <div class="bg"></div>
+    <div style="margin-top: 23px;" class="pop">
+        <button type="button" class="bt btclose"></button>
+        <div style="" class="content"><h3>Envío de reporte</h3>
+		<div style="" class="step1" id="idCorreo">
+			<p>
+				¿Quieres enviar el reporte al correo <strong>{{emailUsuario}}</strong><br>
+				o a otro correo electrónico?<br>&nbsp;
+			</p>
+			<p>
+				<a class="bt bt-gris" id="btothermail" ng-click="asCtrlSaldosyConsumosFijo.OtroCorreo();">Otro Correo</a>
+				<a  class="bt bt-red" id="btsendmail" ng-click="asCtrlSaldosyConsumosFijo.Enviar('E');">Enviar</a>
+			</p>
+		</div>
+		
+		<div style="display:none" class="step2"  id="idCorreo2">
+			<form method="post" action="" id="idformpop">
+				<p class="msg-error"></p>
+				<p>Ingresa el correo al que quieres enviar el reporte elegido</p>
+				<div class="input"><input name="icorreopop" id='idEmail' data-valid="email" type="text" ng-model="email"></div>
+				<p>
+					<a  class="bt bt-gris" ng-click="asCtrlSaldosyConsumosFijo.Cancelar();">Cancelar</a>
+					<a  class="bt bt-red" id="btothersendmail" ng-click="asCtrlSaldosyConsumosFijo.Enviar('O');">Enviar</a>
+				</p>
+			</form>
+		</div>
+	</div>
+</div>	
+</div>
+

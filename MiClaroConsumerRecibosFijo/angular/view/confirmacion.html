@@ -1,0 +1,28 @@
+<div class="content" id="imprimirConfirmacion">
+	<div class="tabs-home tabs-clean">
+		<div class="tab-content noborder">
+			<div class="breadcrumb">
+				[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Recibos/Ver y pagar recibos"]
+			</div>
+			<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Recibos/Ver y pagar recibos"]</h3>
+			<div class="compra-confirm box">
+				<p class="tit">Tu pago se realizó con éxito</p>
+				<p>La operación se actualizará en <span class="red">24 horas</span> en MiClaro</p>
+				<table>
+					<tr ng-repeat="recibo in confirmacionPagoCtr.confirmacionPagoObject">
+						<td ><strong ng-if="$first">Número de recibo(s):</strong></td>
+						<td>{{recibo.numeroRecibo}}</td>
+					</tr>
+					<tr><td><strong>Producto:</strong></td><td>Telefonía Móvil</td></tr>
+					<tr><td><strong>Fecha de pago:</strong></td><td>{{confirmacionPagoCtr.objetoSinListaRecibo.fechaCompra | limitTo: 10 | date:"dd 'de' LLLL 'de' yyyy"}}</td></tr>
+					<tr><td><strong>Monto pagado:</strong></td><td>{{confirmacionPagoCtr.objetoSinListaRecibo.simboloMoneda +" "+confirmacionPagoCtr.objetoSinListaRecibo.importePagado}}</td></tr>
+					<tr><td><strong>Modo de Pago:</strong></td><td>Tarjeta</td></tr>
+				</table>
+			</div>
+			<div class="compra-bts">
+				<a href ng-click="confirmacionPagoCtr.imprimir()" class="bt bt-white">Imprimir</a>
+				<a href="/wps/myportal/miclaro/consumer/recibos/fijo/" class="bt bt-red">Finalizar</a>
+			</div>
+		</div>
+	</div>
+</div>

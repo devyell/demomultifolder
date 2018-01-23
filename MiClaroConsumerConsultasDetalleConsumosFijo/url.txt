@@ -1,0 +1,22 @@
+http://9.6.109.64:10039/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/fijo
+
+http://192.168.5.165:10039/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/fijo
+
+http://192.168.5.165:10039/wps/myportal/miclaro/consumer/consultas/detalleconsumos/fijo
+
+Sergio Mauricio Diaz Sheen: 
+5:32:55 PM: 
+unificacion021@maileme101.com
+
+ --corporativo
+
+
+ unificacion019@maileme101.com
+ 
+ 
+ unificacion025@maileme101.com  ok 
+ 
+ -- consumer
+ 
+ 
+ unificacion027@maileme101.com

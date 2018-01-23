@@ -1,0 +1,350 @@
+.col.col35 {
+    width: 35%;
+}
+
+.on-mobile {
+    display: none;
+}
+
+.content .body p {
+    font-size: 15px;
+}
+
+.bt2.bt-rechazar {
+    margin-left: -8px;
+}
+
+#sinSecId {
+    text-align: center;
+    padding-top: 105px;
+    padding-bottom: 20px;
+}
+
+.bt2 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none !important;
+    font-family: 'dinAlternateMedium';
+    outline: none;
+    border-radius: 2px;
+    -webkit-transition: all .15s ease-in;
+    -moz-transition: all .15s ease-in;
+    -o-transition: all .15s ease-in;
+    transition: all .15s ease-in;
+    font-size: 13px;
+}
+
+.popAprobado {
+    text-align: center;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.popRechazado {
+    text-align: center;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.popDocs {
+    text-align: center;
+    padding-top: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 20px;
+}
+
+.divDocs {
+    text-align: left;
+}
+
+.pDocsList {
+    cursor: pointer;
+    text-decoration: underline;
+    margin-bottom: 0px;
+}
+
+.bt-blue-ok {
+    background: #1F96AE;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-size: 12px;
+    min-width: 100px;
+    height: 45px;
+    line-height: 45px;
+    border: solid 1px #1F96AE;
+    border-radius: 5px;
+}
+
+.errorPop {
+    padding-top: 70px;
+    text-align: center;
+}
+
+.gifloader {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.bt2.bt-blue {
+    background: #1F96AE;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-size: 12px;
+    min-width: 65px;
+    height: 45px;
+    line-height: 45px;
+    border: solid 1px #1F96AE;
+    border-radius: 5px;
+}
+
+.table .col {
+    font-size: 16px;
+}
+
+.bt2.bt-grey {
+    background: #B3B3B3;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    min-width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border: solid 1px #B3B3B3;
+    border-radius: 5px;
+}
+
+.table.list .row {
+    margin-right: 0px;
+}
+
+.table.list {
+    margin-bottom: 20px;
+}
+
+.col.stbl {
+    padding-bottom: 0px !important;
+}
+
+.greybg {
+    background: #F6F6F6;
+}
+
+.txtunderline {
+    padding: 3px;
+    text-decoration: underline !important;
+}
+
+.whitebg {
+    background: white;
+}
+
+@media only screen and (max-width: 980px) {
+    .popup .pop {
+        max-width: 740px;
+        margin: 150px auto 0;
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .table.list .row.row.rowSec {
+        margin-right: 0px;
+        margin-left: 0px;
+        border-left-width: 0px;
+        padding-left: 0px;
+        margin-right: 5px;
+    }
+    .on-mobile {
+        display: inline;
+    }
+    .popup .pop {
+        max-width: 600px;
+        margin: 150px auto 0;
+    }
+    .content {
+        padding: 0 20px 0 20px;
+    }
+    #footer {
+        margin-left: -20px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .popup .pop {
+        max-width: 440px;
+        margin: 60px auto 0;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .popup .pop {
+        max-width: 280px;
+        min-height: 250px;
+        margin: 60px auto 0;
+    }
+    .content {
+        padding: 0 20px 0 20px;
+    }
+    #footer {
+        margin-left: -20px;
+    }
+    body {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media only screen and (max-width: 319px) {
+    .table.list .row.row.rowSec {
+        margin-right: 0px;
+        margin-left: 0px;
+        border-left-width: 0px;
+        padding-left: 0px;
+        margin-right: 5px;
+    }
+    .content {
+        padding: 0 20px 0 20px;
+    }
+    #footer {
+        margin-left: -20px;
+    }
+    body {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    .bt2 {
+        font-size: 11px;
+    }
+    .bt2.bt-blue {
+        font-size: 12px;
+        min-width: 70px;
+    }
+}
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    display: none;
+}
+
+.popup .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(92, 92, 91, 0.65);
+}
+
+.popup .pop {
+    background: #fff;
+    width: 800px;
+    min-height: 250px;
+    z-index: 9;
+    position: relative;
+}
+
+.popup .btclose {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    z-index: 99;
+}
+
+.popup .btclose:hover {
+    opacity: 0.75;
+}
+
+.popup .pop .content {
+    padding: 20px;
+    margin: 0 20px;
+    min-height: 300px !important;
+    position: relative !important;
+}
+
+.popup .pop .content h3 {
+    text-align: center;
+    color: #d52b1e;
+    font-size: 30px;
+    font-family: "dinAlternateMedium";
+}
+
+.popup .pop .content h3.terminos {
+    margin-bottom: 0;
+}
+
+.popup .pop .content p {
+    text-align: center;
+    font-size: 16px;
+    color: #5c5c5b;
+}
+
+.popup .pop .content p a {
+    color: #5c5c5b;
+    text-decoration: underline;
+    font-family: "dinAlternateMedium";
+}
+
+.popup .pop .content p a:hover {
+    text-decoration: none;
+}
+
+.popup .pop .content .bt {
+    padding: 0;
+    width: 180px;
+    margin: 0 10px;
+}
+
+.popup .pop .content p.text-terminos {
+
+}
+
+.popup .pop .content label.error {
+    color: #d42b1e;
+}
+
+.popup .pop .frame {
+    border-radius: 2px;
+    height: 150px;
+    border: solid 1px #979797;
+    overflow-y: scroll;
+    padding: 0 0 18px;
+}
+
+.popup .pop .frame .text {
+    font-size: 13px;
+    color: #5c5c5b;
+    margin: 0 18px;
+}
+
+.popup .pop .frame .text p {
+    text-align: left;
+    font-size: 14px;
+}
+
+.popup .pop .frame .text h3 {
+    font-size: 16px;
+    color: #5c5c5b;
+    margin: 0;
+    text-align: left;
+    padding: 10px 0;
+    font-family: "dinAlternateMedium";
+}
+
+.popup .pop .frame .text h4 {
+    font-size: 14px;
+    color: #5c5c5b;
+    margin: 0;
+    font-weight: bold;
+}

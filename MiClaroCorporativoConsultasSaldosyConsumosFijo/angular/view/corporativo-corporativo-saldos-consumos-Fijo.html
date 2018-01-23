@@ -1,0 +1,256 @@
+<div class="tabs tabs-home tabs-corporate">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/movil"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/corporativo/consultas/saldosyconsumos/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="fijo" class="tab active" ng-show="mostrarInfoFijo">
+            <div class="change-type on-mobile-switch" mg-show="mostrarSwitch">
+                <label for="itype1">Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Saldos y Consumos</strong>
+            </div>
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Saldos y Consumos"]</h3>
+            <form method="post" class="form-filter clearfix" ng-class="classBuscar" ng-show="mostrarDataServFija">
+                <div class="col25">
+                    <div class="pull" ng-class="desabledCombos">
+                        <div>{{selectIdDireccion.nombreAlias}}</div>
+                        <select name="icuenta" ng-model="selectIdDireccion" ng-options="direccion.nombreAlias for direccion in listadoDirecciones" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosFijosxDireccion()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col25">
+                    <div class="pull" ng-class="desabledCombos">
+                        <div>{{selectLinea.ProductoServicioResponse.nombreAlias}}</div>
+                        <select select name="ifilter" ng-model="selectLinea" ng-options="lineas.ProductoServicioResponse.nombreAlias for lineas in listadoServicios" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosFijosxServicio()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col25 colsearch">
+                    <div class="pull pulldate">
+                        <div>{{lineaFijaSelect.nombreProducto}}</div>
+                        <select name="ifilter" ng-model="lineaFijaSelect" ng-options="lineasFijas.nombreProducto for lineasFijas in listadoLineasFijas" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosxLineaFija()">
+                        </select>
+                    </div>
+                    <div class="input search">
+                        <input type="text" name="inumerofijo" ng-model="inputAutocomplete" data-valid="required" placeholder="Número" id="autocomplete-filtro-fijo" ng-keydown="$event.which === 13 && buscarServicioxXriterio()">
+                        <button type="button" class="bt bt-search" ng-click="buscarServicioxXriterio()"></button>
+                    </div>
+                    <a href ng-click="cambiarClassForm()" class="action"></a>
+                </div>
+                <div class="col25">
+                    <div class="pull pulldate" ng-class="desabledCombos">
+                        <div>{{((selectPeriodo.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(selectPeriodo.fechaHasta | limitTo:10 | date:'dd/MM/yyyy'))}}</div>
+                        <select name="iperiodo" ng-model="selectPeriodo" ng-options="periodo as ((periodo.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(periodo.fechaHasta | limitTo:10 | date:'dd/MM/yyyy')) for periodo in listadoPeriodos" ng-change="asCtrlSaldosyConsumosFijo.obtenerConsumosFijosxPeriodo()">
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="resume box clearfix" ng-show="mostrarDatosAdicionales">
+                <div class="col50">
+                    <p><span class="type">&nbsp;</span></p>
+                    <div class="pull pullservicio disabled">
+                        <div>{{lineaPrincipal}}</div>
+                    </div>
+                    <p>{{mostrarDireccion}}</p>
+                </div>
+            </div>
+            <div ng-show="errorTotalRedirect">
+                <div class="resume box clearfix" style="text-align: center;">
+                    <div class="col100">
+                        <h3>{{mensaje_error_titulo}}</h3>
+                        <p>
+                            {{mensaje_error_descripcion01}}.
+                            <br /> {{mensaje_error_descripcion02}}
+                            <br />
+                            <br />
+                            <a href="{{urlInicio}}"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="result" id="divsaldosconsumosfijo" ng-show="mostrarConsumosFija">
+                <div class="no-mobile">
+                    <div class="detail box clearfix">
+                        <p class="border-bottom">
+                            Consumos Generales de Telefonía Fija
+                        </p>
+                        <table class="table shadow piechart">
+                            <tr>
+                                <th>Por Horario</th>
+                                <th>Por Tipo</th>
+                                <th>Por Destino</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="horarioNoMobile" class="pie-chart">
+                                        <div class="pie-canvas">
+                                            <canvas class="canvas" width="180" height="180"></canvas>
+                                            <div class="info" ng-if="totalConsumidosHorario != 0"><strong><span>{{totalConsumidosHorario}} min</span></strong>consumidos</div>
+                                        </div>
+                                        <ul class="pie-data">
+                                            <li data-color="#F6DFCF"><span class="square">Minutos</span>{{etiquetaNormal}}</li>
+                                            <li data-color="#E67831"><span class="square">Minutos</span>{{etiquetaNocturno}}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="tipoNoMobile" class="pie-chart">
+                                        <div class="pie-canvas">
+                                            <canvas class="canvas" width="180" height="180"></canvas>
+                                            <div class="info" ng-if="totalConsumoTipo != 0"><strong><span>{{totalConsumoTipo}} min</span></strong>consumidos</div>
+                                        </div>
+                                        <ul class="pie-data">
+                                            <li data-color="#E1D6F6"><span class="square">Minutos</span>{{etiquetaFijo}}</li>
+                                            <li data-color="#A23DFB"><span class="square">Minutos</span>{{etiquetaCelular}}</li>
+                                            <li data-color="#4C2F65"><span class="square">Minutos</span>{{etiquetaOtros}}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="destinoNoMobile" class="pie-chart">
+                                        <div class="pie-canvas">
+                                            <canvas class="canvas" width="180" height="180"></canvas>
+                                            <div class="info" ng-if="totalCantidadDestino != 0"><strong><span>{{totalCantidadDestino}} min</span></strong>consumidos</div>
+                                        </div>
+                                        <ul class="pie-data">
+                                            <li data-color="#2098A9"><span class="square">Minutos</span>{{etiquetaConsumoLocal}}</li>
+                                            <li data-color="#066360"><span class="square">Minutos</span>{{etiquetaConsumoNacional}}</li>
+                                            <li data-color="#D1EEE9"><span class="square">Minutos</span>{{etiquetaConsumoInternacional}}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="border-bottom">
+                            Información complementaria
+                        </p>
+                        <div class="info-complementa">
+                            <table>
+                                <tr>
+                                    <td><strong>{{totalMinutosConsumido}}</strong>Minutos Consumidos</td>
+                                    <td><strong><img ng-src="{{imgDestinoMostrar}}" height="29"></strong>Más llamadas a números {{desPrimero}}</td>
+                                    <td><strong><img ng-src="{{imgHorarioMostrar}}" width="29"></strong>Más llamadas en horario {{horPrimero}}</td>
+                                    <td><strong>{{totalLlamadasClaro}}</strong>Llamadas a números Claro</td>
+                                    <td><strong><img ng-src="{{imgTipoMostrar}}" width="29"></strong>Más llamadas a {{tipoPrimero}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="on-mobile">
+                    <div class="detail box clearfix">
+                        <p class="subtitle">Periodo Actual</p>
+                        <div class="slide-consumo">
+                            <div class="slides">
+                                <div class="slide">
+                                    <p>Por Horario</p>
+                                    <div id="horarioMobile" class="pie-chart">
+                                        <div class="pie-canvas">
+                                            <canvas class="canvas" width="180" height="180"></canvas>
+                                            <div class="info" ng-if="totalConsumidosHorario != 0"><strong><span>{{totalConsumidosHorario}} min</span></strong>consumidos</div>
+                                        </div>
+                                        <ul class="pie-data">
+                                            <li data-color="#F6DFCF"><span class="square"></span>{{etiquetaNormal}}</li>
+                                            <li data-color="#E67831"><span class="square"></span>{{etiquetaNocturno}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="slide">
+                                    <p>Por Tipo</p>
+                                    <div id="tipoMobile" class="pie-chart">
+                                        <div class="pie-canvas">
+                                            <canvas class="canvas" width="180" height="180"></canvas>
+                                            <div class="info" ng-if="totalConsumoTipo != 0"><strong><span>{{totalConsumoTipo}} min</span></strong>consumidos</div>
+                                        </div>
+                                        <ul class="pie-data">
+                                            <li data-color="#E1D6F6"><span class="square"></span>{{etiquetaFijo}}</li>
+                                            <li data-color="#A23DFB"><span class="square"></span>{{etiquetaCelular}}</li>
+                                            <li data-color="#4C2F65"><span class="square"></span>{{etiquetaOtros}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="slide">
+                                    <p>Por Destino</p>
+                                    <div id="destinoMobile" class="pie-chart">
+                                        <div class="pie-canvas">
+                                            <canvas class="canvas" width="180" height="180"></canvas>
+                                            <div class="info" ng-if="totalCantidadDestino != 0"><strong><span>{{totalCantidadDestino}} min</span></strong>consumidos</div>
+                                        </div>
+                                        <ul class="pie-data">
+                                            <li data-color="#2098A9"><span class="square"></span>{{etiquetaConsumoLocal}}</li>
+                                            <li data-color="#066360"><span class="square"></span>{{etiquetaConsumoNacional}}</li>
+                                            <li data-color="#D1EEE9"><span class="square"></span>{{etiquetaConsumoInternacional}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dots"></div>
+                            <button type="button" class="bt arrow-left"><img src="/wpstheme/miclaro/img/arrow-left.png" width="13"></button>
+                            <button type="button" class="bt arrow-right"><img src="/wpstheme/miclaro/img/arrow-right.png" width="13"></button>
+                        </div>
+                        <p class="border-bottom">
+                            Consumos Generales de Telefonía Fija
+                        </p>
+                        <div class="info-complementa">
+                            <table class="table table-mobile">
+                                <tr>
+                                    <td>
+                                        <strong>{{totalMinutosConsumido}}</strong> <span>Minutos Consumidos</span>
+                                        <br class="both">
+                                        <strong><img src="/wpstheme/miclaro/img/icon-complemento-phone.png" height="14"></strong> <span>Más llamadas a números {{desPrimero}}</span>
+                                        <br class="both">
+                                        <strong><img src="/wpstheme/miclaro/img/icon-complemento-noche.png" width="14"></strong> <span>Más llamadas en horario {{horPrimero}}</span>
+                                        <br class="both">
+                                        <strong>{{totalLlamadasClaro}}</strong> <span>Llamadas a números Claro</span>
+                                        <br class="both">
+                                        <strong><img src="/wpstheme/miclaro/img/icon-complemento-llamada.png" width="14"></strong> <span>Más llamadas a {{tipoPrimero}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="sinConsumosFijos">
+                <er-Total></er-Total>
+            </div>
+            <div ng-show="errorDetalleConsumo">
+                <er-Customerror on-Refresh="refreshPortlet('2')"></er-Customerror>
+            </div>
+        </div>
+        <div ng-show="sinServiciosFijos">
+            <div class="change-type on-mobile" mg-show="mostrarSwitchSinServicios">
+                <label for="itype1">Consumer</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Saldos y Consumos</strong>
+            </div>
+            <div class="resume box clearfix">
+                <div class="col100">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Aviso Claro - Sin Opcion - Fijo"]</h3>
+                    <p>
+                        [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Aviso Claro - Sin Opcion - Fijo"]
+                        <br> &nbsp;
+                    </p>
+                    <p><a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio" class="bt bt-red">Solicitar Nuevo Servicio</a></p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

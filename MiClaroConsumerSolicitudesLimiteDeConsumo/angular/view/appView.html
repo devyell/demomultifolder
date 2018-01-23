@@ -1,0 +1,137 @@
+<div class="tabs-home limiteConsumoPage">
+    <div class=" tab-content noborder">
+        <div class=" breadcrumb">
+            Solicitudes
+            <span class="arrow"></span>
+            <strong>Límite de consumo</strong>
+        </div>
+        <h3>Límite de consumo</h3>
+        <p>Ahora puedes cambiar tu Límite de consumo según tu preferencia.</p>
+        <div class="resume box clearfix">
+            <div class="col50">
+                <p>
+                    <span class="type">Línea Postpago</span>
+                </p>
+                <div class="pull pullservicio">
+                    <div>997509978</div>
+                    <select name="iservicio">
+                        <option value="1" selected>997509978</option>
+                        <option value="2">987632833</option>
+                    </select>
+                </div>
+                <p class="no-mobile">&nbsp;</p>
+            </div>
+            <div class="col50 no-mobile">
+                <p>
+                    <br> LÍMITE DE CONSUMO:
+                    <strong>EXACTO</strong>
+                    <span class="help" title="" data-original-title="Tienes un cambio de Límete de Consumo pendiente que se visualizará el día 24 de diciembre, 2017."></span>
+                </p>
+            </div>
+        </div>
+        <div>
+            <p class="border-bottom sub-title">¿QUIERES CAMBIAR TU LÍMITE DE CONSUMO?</p>
+            <p class="ng-binding sub-title">Selecciona el que deseas y luego dale clic en ACEPTAR.</p>
+            <p class="ng-binding sub-title-2">Recuerda que el cambio de tu límite de consumo se dará a partir del primer día de tu siguiente ciclo de facturación.</p>
+        </div>
+        <div class="content-boxes" id="boxes">
+            <div class="boxes-limites active" ng-click="showPopup()">
+                <div class="title-movil">
+                    <p class="title-limite">Límite de Consumo</p>
+                    <p class="subtitle-limite">Exacto</p>
+                </div>
+                <p>Nunca te llevarás sorpresas, porque lo tendrás todo bajo control.</p>
+                <p>
+                    <strong>¡No pagues más de tu plan contratado!</strong>
+                </p>
+            </div>
+            <div class="boxes-limites" ng-click="showPopup()">
+                <div class="title-movil">
+                    <p class="title-limite">Límite de Consumo</p>
+                    <p class="subtitle-limite">Adicional</p>
+                </div>
+                <p>Consume un saldo extra al de tu plan pero con el límite que tú elijas.</p>
+                <p>
+                    <strong>Sigue usando tus servicios, pero sin pasarte ¡Súper práctico!</strong>
+                </p>
+            </div>
+            <div class="boxes-limites" ng-click="showPopup()">
+                <div class="title-movil">
+                    <p class="title-limite">Límite de Consumo</p>
+                    <p class="subtitle-limite">Abierto</p>
+                </div>
+                <p>Mantente conectado con todos los megas, SMS y llamadas que necesites ¡sin límite!</p>
+                <p>
+                    <strong>Tu consumo adicional se incluirá en tu recibo. ¡Libertad total!</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup pop-limite ">
+    <div id="bgp" class="bg "></div>
+    <div class="pop">
+        <div class="content">
+            <h3>Límite de Consumo</h3>
+            <div>
+                <p class="text-millas-1"> ¿Estás seguro que quieres cambiar tu Límite de Consumo
+                    <span class="title-celes">EXACTO</span> a un Límite de Consumo
+                    <span class="title-celes">ABIERTO?</span>
+                </p>
+                <p class="text-millas-1"> Recuerda que este cambio se visualizará el primer día de tu ciclo de facturación</p>
+                <p class="btn-confirmar-claro-puntos">
+                    <a ng-click="showConfirmacion()" class="bt bt-red visible-xs">ESTOY SEGURO</a>
+                    <a ng-click="hidePopup()" class="bt bt-gris btn-cancelar">NO</a>
+                    <a ng-click="showConfirmacion()" class="bt bt-red hidden-xs">ESTOY SEGURO</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tabs-home tabs-clean confirmacionLimite" style="display:none">
+    <div class="tab-content noborder" id="printableArea">
+        <div class="breadcrumb">Solicitudes
+            <span class="arrow"></span>
+            <strong>Límite de consumo</strong>
+        </div>
+
+        <h3>Límite de consumo</h3>
+
+        <div class="compra-confirm box">
+            <p class="tit">Tú solicitud para cambio de límite de consumo se envío con éxito</p>
+            <p>Recuerda que tu cambio de límite de consumo se visualizará el día 24 de diciembre 2017.</p>
+            <table>
+                <tr>
+                    <td>
+                        <strong>Límite de consumo anterior:</strong>
+                    </td>
+                    <td> Adicional</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Límite de consumo nuevo:</strong>
+                    </td>
+                    <td>Exacto</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Fecha:</strong>
+                    </td>
+                    <td>02 de enero de 2018</td>
+                </tr>
+            </table>
+            <div class="compra-bts">
+                <input type="button" ng-click="finalizar()" value="Finalizar" class="bt bt-red visible-xs"
+                />
+                <input type="button" ng-click="printDiv('printableArea')" value="Imprimir" class="bt bt-white" />
+                <input type="button" ng-click="finalizar()" value="Finalizar" class="bt bt-red hidden-xs"
+                />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        $(document).ready(function () {
+            $('.help').tooltip({ placement: "top" });
+        });
+</script>

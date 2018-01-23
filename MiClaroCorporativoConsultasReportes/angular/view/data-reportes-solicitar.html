@@ -1,0 +1,85 @@
+<div id="solicitarReporteDiv" ng-show="consultaReporteCorporativoCtr.statusResponseService">
+<p>1. Escoja los reportes a solicitar</p>
+
+<ul class="list-filter">
+    <li>
+		<label class="check" ng-class="{'checked':consultaReporteCorporativoCtr.tipoReporte.facturacionDetallada}">
+			<input type="checkbox" name="ireporte" id="ireporte1" ng-model="consultaReporteCorporativoCtr.tipoReporte.facturacionDetallada"/>
+		</label> 
+		<label for="ireporte1">Facturación Detallada</label>
+	</li>
+	
+    <li>
+		<label class="check" ng-class="{'checked':consultaReporteCorporativoCtr.tipoReporte.detalleTodasLineas}">
+			<input type="checkbox" name="ireporte" id="ireporte2" ng-model="consultaReporteCorporativoCtr.tipoReporte.detalleTodasLineas"/>
+		</label> 
+		<label for="ireporte2">Detalle de Todas las líneas</label>
+	</li>
+	
+    <li>
+		<label class="check" ng-class="{'checked':consultaReporteCorporativoCtr.tipoReporte.consolidadoMinutos}">
+			<input type="checkbox" name="ireporte" id="ireporte3" ng-model="consultaReporteCorporativoCtr.tipoReporte.consolidadoMinutos"/>
+		</label> 
+		<label for="ireporte3">Consolidado de Minutos</label>
+	</li>
+	
+    <li>
+		<label class="check" ng-class="{'checked':consultaReporteCorporativoCtr.tipoReporte.relacionPlanes}">
+			<input type="checkbox" name="ireporte" id="ireporte4" ng-model="consultaReporteCorporativoCtr.tipoReporte.relacionPlanes"/>
+		</label> 
+		<label for="ireporte4">Relación de Planes</label>
+	</li>
+</ul>
+
+<p>2.  Seleccione el detalle</p>
+
+<form method="post" class="form-filter clearfix">
+    <div class="col33">
+        <div class="pull pulldate">
+			<div>{{consultaReporteCorporativoCtr.cuenta.nombreAlias}}</div>
+            <select name="icuenta" 
+					ng-change="consultaReporteCorporativoCtr.obtenerRecibos()" 
+					ng-model="consultaReporteCorporativoCtr.cuenta" 
+					ng-options="cuenta as cuenta.nombreAlias for cuenta in consultaReporteCorporativoCtr.cuentasCorporativasList track by cuenta.idCuenta">
+			</select>
+        </div>
+    </div>
+    <div class="col33">
+        <div class="pull pulldate">
+			<div>{{consultaReporteCorporativoCtr.recibo.nombreAlias}}</div>
+            <select name="irecibo" 
+					ng-change="consultaReporteCorporativoCtr.obtenerPeriodosFacturacion()"
+					ng-model="consultaReporteCorporativoCtr.recibo" 
+					ng-options="recibo as recibo.nombreAlias for recibo in consultaReporteCorporativoCtr.recibosCorporativosList track by recibo.idRecibo">
+			</select>
+        </div>
+    </div>
+    <div class="col33">
+        <div class="pull pulldate">
+			 <div>{{((consultaReporteCorporativoCtr.periodoFacturacion.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(consultaReporteCorporativoCtr.periodoFacturacion.fechaHasta | limitTo:10 | date:'dd/MM/yyyy'))}}</div>
+            <select name="iperiodo"
+			        ng-model="consultaReporteCorporativoCtr.periodoFacturacion"
+					ng-options="periodoFacturacion as ((periodoFacturacion.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(periodoFacturacion.fechaHasta | limitTo:10 | date:'dd/MM/yyyy')) for periodoFacturacion in consultaReporteCorporativoCtr.periodosFacturacionList ">				  
+            </select>
+        </div>
+    </div>
+	
+
+					
+	
+    <br class="both">
+	<div class="detail clearfix" ng-if="consultaReporteCorporativoCtr.flagErrorSolicitarReporte">
+		<p class="error-server" style="text-align:left;padding:0px">
+			<strong>{{mensaje_upps_titulo}}</strong>
+			{{mensaje_upps_descripcion01}}.
+			{{mensaje_upps_descripcion03}}.
+			<br>
+		</p>
+	</div> 
+    <div class="bts">
+        <button type="button" class="bt bt-red bt-solicitar-reporte" ng-class="{'bt-disabled':consultaReporteCorporativoCtr.deshabilitarBoton()}"
+				ng-disabled="consultaReporteCorporativoCtr.deshabilitarBoton()" 
+		ng-click="consultaReporteCorporativoCtr.solicitarReportes()">Solicitar</button>
+    </div>
+</form>
+</div>

@@ -1,0 +1,206 @@
+<div class="tabs tabs-home">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/consumer/home/movil/"><span></span> Móvil</a></li>
+        <li class="fijo active"><a href="/wps/myportal/miclaro/consumer/home/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/consumer/home/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/consumer/home/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="change-type on-mobile-switch" ng-show="showSwitch">
+            <label>Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label for="itype1"><span>Corporativo</span></label>
+        </div>
+        <div id="fijo" class="tab" style="display: none;">
+            <div ng-show="flagServiciosFijo != 0 && flagServiciosFijo != 2 && flagServiciosFijo != -1 && ErrorFlagFijo == 0 && errorFuncional == 0 && servPrincipalError == 0 ">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Servicios Fijos"]</h3>
+                <div class="resume box clearfix serviciosBox" style="padding-bottom: 20px;">
+                    <div class="col50">
+                        <p><span class="type">&nbsp;</span></p>
+                        <div ng-class="{'pull pullservicio':true}" id="textoo">
+                            <div id="textox">{{servicio.ProductoServicioResponse.nombreAlias}} - {{servicio.ProductoServicioResponse.numeroTelFijo | limitTo:7:3}}</div>
+                            <select name="iservicio" ng-model="servicio" ng-options="servicio as servicio.ProductoServicioResponse.nombreAlias for servicio in serviciosList track by servicio.ProductoServicioResponse.idProductoServicio" ng-change="miClaroHomeCtr.cambioServicio()">
+                            </select>
+                        </div>
+                        <div ng-show="estadoServicioFlag == 0">
+                            <p>
+                                {{estadoServicio.direccionCompleta}}
+                                <br> Estado del servicio: <strong><span id="estadoServicioFijo">{{estadoServicio.estadoServicio}}</span></strong>
+                                <br>
+                                <span class="alert">¡Faltan {{estadoServicio.diasFinCicloServicio}} día(s) para recibir tus servicios contratados!</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag == 0 && estadoServicio.deudaPendienteSaldo > 1 || estadoServicio.deudaPendienteSaldo < 0">
+                        <div class="list">
+                            <div class="row tit">
+                                <div class="col">Deuda Pendiente</div>
+                                <div class="col">
+                                    <strong>{{estadoServicio.simboloMoneda}} <span class="counter" ng-bind="estadoServicio.deudaPendienteSaldo | number:2"></span></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Estado de Cuenta:</div>
+                                <div class="col"><strong><span id="estadoCuentaFijo">{{estadoServicio.estadoCuenta}}</span></strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Vencimiento:</div>
+                                <div class="col">{{estadoServicio.fechaVencimientoExpiracion | limitTo: 10 | date:"dd 'de' MMMM, yyyy"}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Ciclo de Facturación:</div>
+                                <div class="col">{{cicloFacturacion}}</div>
+                            </div>
+                            <div class="bts">
+                                <a ng-if="estadoServicio.deudaPendienteSaldo > 1" href="" ng-click="pagarRecibo()" class="bt bt-red">Pagar</a>
+                                <a ng-if="estadoServicio.deudaPendienteSaldo < 0" href="/wps/myportal/miclaro/consumer/recibos/fijo" class="bt bt-red">Ver Recibos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag == 0 && estadoServicio.deudaPendienteSaldo > 0 && estadoServicio.deudaPendienteSaldo < 1">
+                        <div class="list">
+                            <div class="row tit">
+                                <div class="col">Deuda Pendiente</div>
+                                <div class="col"><strong>{{estadoServicio.simboloMoneda}} <span class="counter" ng-bind="estadoServicio.deudaPendienteSaldo | number:2"></span></strong></div>
+                            </div>
+                            <div class="miniDeuda">¡Tranquilo! Este monto NO amerita el corte de tu servicio y lo podrás pagar junto con tu próximo recibo.</div>
+                            <div class="bts">
+                                <a href="/wps/myportal/miclaro/consumer/recibos/fijo" class="bt bt-red">Ver Recibos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col50" ng-show="estadoServicioFlag == 0 && estadoServicio.deudaPendienteSaldo == 0">
+                        <div class="list">
+                            <div class="row tit">
+                                <div class="col">Deuda Pendiente</div>
+                                <div class="col"><strong>S/. <span class="no-counter">0.00</span></strong></div>
+                            </div>
+                            <div class="row alert">
+                                <div class="col">¡Estás al día en tus pagos! Mira tus últimos recibos.</div>
+                            </div>
+                            <div class="bts">
+                                <a href="/wps/myportal/miclaro/consumer/recibos/fijo" class="bt bt-red">Ver Recibos</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="estadoServicioFlag != 0 && estadoServicioFlag != null">
+                        <p class="error-server">
+                            <strong>{{mensaje_upps_titulo}}</strong>
+                            <br>{{mensaje_upps_descripcion01}}
+                            <br>{{mensaje_upps_descripcion02}}
+                            <br>
+                            <a href="" ng-click="recargarEstadoServicio()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="detail clearfix">
+                    <div class="col50 boxConsumos">
+                        <div class="consumos box" ng-show="consumosFijoFlag == 0">
+                            <p>Mis Consumos</p>
+                            <div class="pie-chart">
+                                <ul class="pie-data">
+                                    <li data-value="" data-color="#2095A8">
+                                        <span style="color: rgb(32, 149, 168);" ng-bind="consumoServicio.porDestino.consumoInternacional.etiqueta">    
+                                        </span>
+                                        <br>
+                                        <span>{{consumoServicio.porDestino.consumoInternacional.cantidadConsumida}} Min</span></li>
+                                    <li data-value="" data-color="#d52b1e">
+                                        <span style="color: rgb(213, 43, 30);" ng-bind="consumoServicio.porDestino.consumoNacional.etiqueta"></span>
+                                        <br>
+                                        <span>{{consumoServicio.porDestino.consumoNacional.cantidadConsumida}} Min</span></li>
+                                    <li data-value="" data-color="#F6A244">
+                                        <span style="color: rgb(246, 162, 68);" ng-bind="consumoServicio.porDestino.consumoLocal.etiqueta">   
+                                        </span>
+                                        <br>
+                                        <span>{{consumoServicio.porDestino.consumoLocal.cantidadConsumida}} Min</span>
+                                    </li>
+                                    <li data-value="28" data-color="#e7e7e7" class="hide"><span>Libres</span></li>
+                                </ul>
+                                <div class="pie-canvas">
+                                    <canvas class="canvas" width="180" height="180"></canvas>
+                                    <div class="info"><strong><span>{{minutosUsado}}</span>/{{consumoServicio.porDestino.cantidadTotal}}</strong>min usados</div>
+                                </div>
+                                <br class="both">
+                                <a href="" ng-click="saldosConsumos()" class="link">Ver saldos y consumos</a>
+                            </div>
+                        </div>
+                        <div class="consumos box" ng-show="consumosFijoFlag != 0 && consumosFijoFlag != null">
+                            <p>Mis Consumos</p>
+                            <p class="error-server">
+                                <strong>{{mensaje_upps_titulo}}</strong>
+                                <br>{{mensaje_upps_descripcion01}}
+                                <br>{{mensaje_upps_descripcion02}}
+                                <a href="" ng-click="recargarConsumos()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col50">
+                        <div class="publicidad box">
+                            <img src="" width="445" alt="publicidad" class="ad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="flagServiciosFijo == 0 || flagServiciosFijo == 2">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Servicios Fijos"]</h3>
+                <div class="resume box clearfix">
+                    <div class="col100">
+                        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]</h3>
+                        <p>
+                            [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Sin Plan"]
+                            <br> &nbsp;
+                        </p>
+                        <p>
+                            <a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="flagServiciosFijo == -1">
+                <div id="movil" class="tab active">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Servicios Fijos"]</h3>
+                    <div class="resume box clearfix" style="text-align: center;">
+                        <div class="col100">
+                            <h3>{{mensaje_error_titulo}}</h3>
+                            <p>
+                                {{mensaje_error_descripcion01}}
+                                <br /> {{mensaje_error_descripcion02}}
+                                <br />
+                                <br />
+                                <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="showUpps">
+                <div id="movil" class="tab active">
+                    <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Fijo - Servicios Fijos"]</h3>
+                    <div class="resume box clearfix" style="text-align: center;">
+                        <div class="col100">
+                            <h3>{{mensaje_error_titulo}}</h3>
+                            <p>
+                                {{mensaje_error_descripcion01}}
+                                <br /> {{mensaje_error_descripcion02}}
+                                <br />
+                                <br />
+                                <a href="/wps/myportal/miclaro/consumer/home/fijo"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="footerMiClaro box no-mobile">
+                    <img src="/wpstheme/miclaro/img/icon-reclamaciones.png"> <a href="" ng-click="libroReclamaciones()">Libro de Reclamaciones</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

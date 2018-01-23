@@ -1,0 +1,35 @@
+<p>Revisa el estado de su reportes o descárgalos directamente aquí:</p>
+<div class="detail clearfix" ng-if="consultaReporteCorporativoCtr.flagErrorDescargarReporte">
+	<p class="error-server" style="text-align:left;padding:0px">
+		<strong>{{mensaje_upps_titulo}}</strong>
+		{{mensaje_upps_descripcion01}}.
+		{{mensaje_upps_descripcion03}}.
+		<br>
+	</p>
+</div> 
+<table class="table">
+    <tr>
+        <th>Reporte</th>
+        <th>Recibo</th>
+        <th>Fecha Solicitada</th>
+        <th>Periodo</th>
+        <th class="center">Acciones</th>
+    </tr>
+	
+    <tr ng-repeat="estadoReporte in consultaReporteCorporativoCtr.estadoReportesList | orderBy: 'fecha' : true">
+        <td>{{estadoReporte.descripcionTipoReporte}}</td>
+        <td>{{estadoReporte.cuenta}}&nbsp;</td>
+        <td>{{estadoReporte.fecha | limitTo: 10 | date:"dd/MM/yyyy"}}</td>
+        <td>{{estadoReporte.periodo}}</td>
+        <td class="center">
+			<a href ng-if="estadoReporte.idDescarga != null && estadoReporte.idDescarga != ''" ng-click="consultaReporteCorporativoCtr.descargarReporte(estadoReporte.idDescarga)" class="download">descargar</a>
+			<span ng-if="estadoReporte.idDescarga == null || estadoReporte.idDescarga == ''">En Proceso</span>
+		</td>
+    </tr>
+</table>
+
+<!-- <table class="table" ng-if="!consultaReporteCorporativoCtr.estadoReportesList.length"> -->
+    <!-- <tr> -->
+        <!-- <td>No se encontraros registros</td> -->
+    <!-- </tr> -->
+<!-- </table> -->

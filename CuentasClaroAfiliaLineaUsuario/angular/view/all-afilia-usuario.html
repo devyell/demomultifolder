@@ -1,0 +1,50 @@
+<div class="top" id="retornarClaro" style="padding-left: 0px ! important;">
+	<a href="#" class="back" id="regresaClaro"><span class="icon-sh icon-sh_backArrow"></span>Regresa a <strong>Mi Claro</strong></a>
+</div>
+        
+        <div id="formularioBlock" class="body ">
+            <div class="contenido-claro container-md ph-0 text-center ">
+                <div class="mensaje-error pv-42 mt-7 text-success">
+                    
+                    <h1 class="fz-50 dinMed text-center">[Element key="Titulo" type="content" context="selected" name="mi claro content library/cuentas claro/tu cuenta/afilia tu linea usuaria"] </h1>
+					
+					
+                       [Element key="Subtitulo" type="content" context="selected" name="mi claro content library/cuentas claro/tu cuenta/afilia tu linea usuaria"]
+                   
+					 <div class="statusErrorInicio"></div>
+                    <form id="formAllLinkUser" class="form_inicio formDefault">
+                        <div class="statusError"></div>
+                        <span class="preloader"></span>                  
+						<div ><img src="/wpstheme/miclaro/img/loader.gif" style="display:none; width: 30px; height: 30px; margin-top: 10px;" id="loader"></div> 
+                        <div class="bg-white text-center">
+                            <div class="field-opt field-phone">
+                                  <p class="text-gray dinReg fz-18 text-left mb-7 ph-0">Ingresa tu número de celular.</p>
+                                  <input type="text" class="type-number btn-block text-success fz-13 ph-14 pv-7 dinLight mb-7" maxlength="9" placeholder="Número de celular" ng-model="celular" ng-disabled="estadoCelular" />
+                            </div>
+                            
+                            <div class="smsBlock hidden" >
+                                <div class="field-opt field-sms">
+                                      <p class="text-gray dinReg fz-18 text-left mb-7 ph-0">Ingresa el código enviado por SMS.</p>
+                                      <input type="text" class="type-number btn-block text-success fz-13 ph-14 pv-7 dinLight mb-7" maxlength="6" placeholder="Código SMS" ng-model="sms" id="idSms" />
+                                      <p class="bold text-left">Si aún no has recibido el SMS con tu código de 6 dígitos, haz click <a href="javascript:void(0)" ng-click="enviarToken()" >aquí</a> para enviarte uno nuevo.</p>
+                                </div>
+                                
+                            </div>
+                            
+                            <button class="btn btn-submit btn-default btn-block bg-primary fz-13 text-white dinReg text-uppercase mt-42 mb-14"  disabled="disabled"  ng-click="continuar()">continuar</button>
+
+                        </div>
+
+                    </form>
+                </div>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <br class="both" />
+            </div>
+        </div>
+        
+        
+        
+       
+	

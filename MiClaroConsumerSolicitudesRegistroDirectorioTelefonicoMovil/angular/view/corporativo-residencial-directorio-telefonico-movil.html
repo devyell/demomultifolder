@@ -1,0 +1,120 @@
+<div class="tabs tabs-home">
+    <ul class="tab-links clearfix">
+        <li class="movil active"><a href="/wps/myportal/miclaro/consumer/solicitudes/registrodirectoriotelefonico/movil"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="/wps/myportal/miclaro/consumer/solicitudes/registrodirectoriotelefonico/fijo"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/consumer/solicitudes/registrodirectoriotelefonico/internet"><span></span> Internet</a></li>
+        <li class="tv"><a href="/wps/myportal/miclaro/consumer/solicitudes/registrodirectoriotelefonico/tv"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="movil" class="tab active">
+            <div class="change-type on-mobile-switch" ng-show="mostrarSwitchConsumer">
+                <label>Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label for="itype1"><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                Servicios <span class="arrow"></span> <strong>Directorio Telefónico</strong>
+            </div>
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Solicitudes/Directorio Telefonico"]</h3>
+            <div ng-show="mostrarServicios">
+                <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Solicitudes/Directorio Telefonico"]</p>
+                <div class="detail clearfix">
+                    <table class="table-plan">
+                        <tr>
+                            <th>Líneas</th>
+                            <th width="250" class="center">Registrar</th>
+                        </tr>
+                        <tr ng-repeat="directorio in listaDirectorioTelefonico">
+                            <td ng-bind="directorio.aliasMovil"></td>
+                            <td>
+                                <label ng-attr-for="{{'iregistro' + $index}}">Desafiliado</label>
+                                <div class="switch">
+                                    <input type="checkbox" name="iregistro[]" class="switch-checkbox" ng-attr-id="{{'iregistro' + $index}}" ng-click="cambiarEstadoAfiliacion(directorio,$index)" ng-checked="{{directorio.estadoAfiliado}}">
+                                    <label class="switch-label" ng-attr-for="{{'iregistro' + $index}}"></label>
+                                </div>
+                                <label ng-attr-for="{{'iregistro' + $index}}"><span>Afiliado</span></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div ng-show="errorTotalRedirect">
+                <div class="resume box clearfix" style="text-align: center;">
+                    <div class="col100">
+                        <h3>{{mensaje_error_titulo}}</h3>
+                        <p>
+                            {{mensaje_error_descripcion01}}.
+                            <br /> {{mensaje_error_descripcion02}}
+                            <br />
+                            <br />
+                            <a href="{{urlInicio}}"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="mostrarSinServicios">
+                <div class="resume box clearfix">
+                    <div class="col100">
+                        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Movil - Sin Plan"]</h3>
+                        <p>
+                            [Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Movil - Sin Plan"]
+                            <br> &nbsp;
+                        </p>
+                        <p>
+                            <a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="afiliar" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cancelarAfiliacion()"></button>
+        <div class="content">
+            <h3>Directorio Telefónico</h3>
+            <p>¿Estás seguro que deseas afiliarte al Directorio Telefónico?
+                <br>&nbsp;</p>
+            <p>
+                <a href="" class="bt bt-gris" id="btafiliacancelar" ng-click="cancelarAfiliacion()">Cancelar</a>
+                <a href="" class="bt bt-red" id="btafiliaaceptar" ng-click="aceptarAfiliacion()">Aceptar</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="desafiliar" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cancelarDesafiliacion()"></button>
+        <div class="content">
+            <h3>Directorio Telefónico</h3>
+            <p>¿Estás seguro que deseas desafiliarte al Directorio Telefónico?
+                <br>&nbsp;</p>
+            <p>
+                <a href="" class="bt bt-gris" id="btafiliacancelar" ng-click="cancelarDesafiliacion()">Cancelar</a>
+                <a href="" class="bt bt-red" id="btafiliaaceptar" ng-click="aceptarDesafiliacion()">Aceptar</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="errorDirectorio" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cancelarDesafiliacion()"></button>
+        <div class="content">
+            <h3>{{mensaje_error_ups}}</h3>
+            <p>{{ups_descripcion01}}. {{ups_descripcion02}}.
+                <br>&nbsp;</p>
+            <p>
+                <a href="" class="bt bt-red" ng-click="cancelarDesafiliacion()">ok</a>
+            </p>
+        </div>
+    </div>
+</div>

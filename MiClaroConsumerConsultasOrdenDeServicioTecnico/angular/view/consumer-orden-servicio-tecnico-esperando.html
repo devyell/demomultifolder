@@ -1,0 +1,165 @@
+<div class="tabs-home tabs-clean">
+	<div class="tab-content noborder">
+		<div class="breadcrumb">
+			Consultas <span class="arrow"></span> <strong>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico"]</strong>
+		</div>
+
+		<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico"]</h3>
+		
+		<p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Orden de Servicio Tecnico"]</p>
+		
+		<div class="no-mobile">
+			<div class="resume clearfix">
+				<div class="tecnico-detail">
+					<div class="col25">
+						<img src="/wpstheme/miclaro/img/icon-stat-esperando.png" width="44">
+						<p>Esperando aprobación</p>
+					</div>
+					<div class="col75">
+						<table class="table-list">
+							<tr>
+								<td><strong>Línea</strong><br>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.linea}}</td>
+								<td><strong>Marca y Modelo</strong><br>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.marcaEquipo+" "+detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.modeloEquipo}}</td>
+								<td><strong>Estado de tu Equipo</strong><br>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.estadoReparacionDescripcion}}</td>
+								<td><strong>Garantía</strong><br>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.garantia}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		
+			<p class="msg-error">&nbsp;</p>
+		
+			<div class="detail clearfix">
+				<table class="table-report">
+					<tr class="sub">
+						<td width="33%"><strong>Número de Orden:&nbsp;</strong></td>
+						<td>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.numeroOrden}}</td>
+					</tr>
+					<tr class="sub">
+						<td><strong>Reporte de Averías</strong></td>
+						<td><a href ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.exportartReporteOrdenServicioTecnico(1)">Exportar reporte</a></td>
+					</tr>
+					<tr ng-repeat="reporte in detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.listadoProblemas">
+						<td><strong>Problema</strong><br>{{reporte.descripcionProblema}}</td>
+						<td><strong>Observaciones</strong><br>{{reporte.observacion}}</td>
+					</tr>
+					<tr class="sub">
+						<td><strong>Repuestos</strong></td>
+						<td><a href ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.exportartReporteOrdenServicioTecnico(2)">Exportar reporte</a></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<table class="table">
+								<tr>
+									<th>Cantidad</th>
+									<th>Repuesto</th>
+									<th>Costo</th>
+									<th>Motivo de Cambio</th>
+								</tr>
+								<tr ng-repeat="repuesto in detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.listadoRepuestos">
+									<td>{{repuesto.cantidadRespuestos}}</td>
+									<td>{{repuesto.descripcionRespuesto}}</td>
+									<td>{{repuesto.simboloMoneda}} {{repuesto.costo}}</td>
+									<td>{{repuesto.motivoCambio}}</td>
+								</tr>
+								
+								<div class="detail clearfix" ng-if="detalleConsultasOrdenDeServicioTecnicoCtr.flagErrorCambiarEstado">
+									<p class="error-server" style="text-align:left;padding:0px">
+										<strong>{{mensaje_upps_titulo}}</strong>
+										{{mensaje_upps_descripcion01}}.
+										{{mensaje_upps_descripcion02}}.
+										<br>
+									</p>
+								</div>
+								
+								<tr ng-show="detalleConsultasOrdenDeServicioTecnicoCtr.tipoPermiso == detalleConsultasOrdenDeServicioTecnicoCtr.tipoPermisoAdministrador">
+									<td colspan="4" class="bts">
+										<button type="button" id="btRechazaRepMov" class="bt bt-gris" ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.cambiarEstadoReparacion('0')">Rechazar Reparación</button>
+										<button type="button" id="btAceptaRepMov" class="bt bt-red" ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.cambiarEstadoReparacion('1')">Aprobar Reparación</button>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div class="on-mobile">
+			<div class="resume clearfix">
+				<div class="tecnico-detail">
+					<div class="col25">
+						<img src="/wpstheme/miclaro/img/icon-stat-esperando.png" width="44">
+					</div>
+					<div class="col75">
+						<table class="table-list table-mobile">
+							<tr>
+								<td>
+									Estado de orden <span>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.estadoReparacionDescripcion}}</span><br>
+									Línea <span>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.linea}}</span><br>
+									Órden de Servicio <span>{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.numeroOrden}}</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="detail clearfix">
+				<p class="msg-error">&nbsp;</p>
+				
+				<table class="table table-tecnico table-mobile">
+					<tr class="sub">
+						<td>
+							<strong>Número de Orden:&nbsp;{{detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.numeroOrden}}</strong>
+						</td>
+					</tr>
+					<tr class="sub">
+						<td>
+							<strong>Reporte de Averías</strong>
+							<span><a href ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.exportartReporteOrdenServicioTecnico(1)">Exportar reporte</a></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="zebra" ng-repeat="reporte in detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.listadoProblemas">
+							Problema <span>{{reporte.descripcionProblema}}</span><br>
+							Observaciones <span>{{reporte.observacion}}</span>
+						</td>
+					</tr>
+					<tr class="sub">
+						<td>
+							<strong>Repuestos</strong>
+							<span><a href ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.exportartReporteOrdenServicioTecnico(2)">Exportar reporte</a></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="zebra" ng-repeat="repuesto in detalleConsultasOrdenDeServicioTecnicoCtr.detalleEstadoServicioTecnico.listadoRepuestos">
+							Cantidad <span>{{repuesto.cantidadRespuestos}}</span><br>
+							Repuesto <span>{{repuesto.descripcionRespuesto}}</span><br>
+							Costo <span>{{repuesto.simboloMoneda+" "+repuesto.costo}}</span><br>
+							Motivo de Cambio <span>{{repuesto.motivoCambio}}</span>
+						</td>
+					</tr>
+					
+					<div class="detail clearfix" ng-if="detalleConsultasOrdenDeServicioTecnicoCtr.flagErrorCambiarEstado">
+						<p class="error-server" style="text-align:left;padding:0px">
+							<strong>{{mensaje_upps_titulo}}</strong>
+							{{mensaje_upps_descripcion01}}.
+							{{mensaje_upps_descripcion02}}.
+							<br>
+						</p>
+					</div>
+					
+					<tr ng-show="detalleConsultasOrdenDeServicioTecnicoCtr.tipoPermiso == detalleConsultasOrdenDeServicioTecnicoCtr.tipoPermisoAdministrador">
+						<td class="bts">
+							<button type="button" id="btRechazaRepMov" class="bt bt-gris" ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.cambiarEstadoReparacion(0)">Rechazar Reparación</button>
+							<button type="button" id="btAceptaRepMov" class="bt bt-red" ng-click="detalleConsultasOrdenDeServicioTecnicoCtr.cambiarEstadoReparacion(1)">Aprobar Reparación</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+</div>

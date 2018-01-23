@@ -1,0 +1,143 @@
+2017-03-01 16:19:50 -- Script Portlet command line version: 1.3
+
+2017-03-01 16:19:50 -- Home folder: C:\jorge\IBM\Portal\sp_cmdln
+
+2017-03-01 16:19:50 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-03-01 16:19:50 -- Effective configuration properties:
+
+	contentRoot = CuentasClaroTuCuenta
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = CuentasClaroTuCuenta
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-03-01 16:19:50 -- Begin content push to Portal.
+
+2017-03-01 16:19:50 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-03-01 16:19:50 -- Virtual Portal ID: null
+
+2017-03-01 16:19:50 -- Project ID: null
+
+2017-03-01 16:19:50 -- WCM content ID: null
+
+2017-03-01 16:19:50 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/CuentasClaroTuCuenta
+
+2017-03-01 16:19:50 -- WCM Content Title: null
+
+2017-03-01 16:19:50 -- Main HTML file: index.html
+
+2017-03-01 16:19:50 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-8889062621031338276.zip
+	(22443 bytes in 11 files)
+
+	angular/app.js
+	angular/controller/TuCuentaController.js
+	angular/service/TuCuentaService.js
+	angular/upload/imageupload.js
+	angular/view/pop.terminos-condiciones.html
+	angular/view/tu-cuenta.html
+	assets/css/css.css
+	assets/css/file.css
+	assets/js/angular-touch.min.js
+	assets/js/validacion.js
+	index.html
+
+2017-03-01 16:20:06 -- Response status: HTTP/1.1 200 OK
+
+2017-03-01 16:20:06 -- Content-Type: application/json
+
+2017-03-01 16:20:06 -- Effective charset of body: UTF-8
+
+2017-03-01 16:20:06 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/tu-cuenta.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/pop.terminos-condiciones.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/validacion.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/angular-touch.min.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/TuCuentaService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/TuCuentaController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/upload\/imageupload.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/file.css"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/css.css"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-03-01 16:20:06 -- Target authentication state: SUCCESS
+
+2017-03-01 16:20:06 -- Target authentication scheme: BASIC
+
+2017-03-01 16:20:06 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-03-01 16:20:06 -- Content push was successful.
+
+2017-03-01 16:20:06 -- End content push to Portal.
+

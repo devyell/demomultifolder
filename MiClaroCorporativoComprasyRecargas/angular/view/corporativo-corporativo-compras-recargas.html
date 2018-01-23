@@ -1,0 +1,301 @@
+﻿<div class="tabs-home tabs-clean">
+	<div class="tab-content noborder">
+
+		<div class="change-type on-mobile-switch" ng-show="showSelectorMixto">
+			<br><br>
+			<label for="itype1">Residencial</label>
+			<div class="switch">
+				<input type="checkbox" name="itype1" checked class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()">
+				<label class="switch-label" for="itype1"></label>
+			</div>
+			<label><span>Corporativo</span></label>
+		</div>
+
+		<h3>[Element key="titulo" type="content" context="selected" name="mi claro content library/mi claro/corporativo/compras y recargas/compras y recargas"]</h3>
+		<p>[Element key="subtitulo" type="content" context="selected" name="mi claro content library/mi claro/corporativo/compras y recargas/compras y recargas"]</p>
+
+		<div class="resume box clearfix" id="show_error" style="text-align: center; display: none ">
+           <div class="col100">
+               <h3>{{mensaje_error_titulo}}</h3>
+               <p>
+                   {{mensaje_error_descripcion01}}. <br />
+					{{mensaje_error_descripcion02}} <br /><br />
+					<a href="{{urlLocal}}"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+               </p>
+               <br>
+           </div>
+      	</div>
+
+		<form method="post" class="form-filter clearfix ng-hide" id="classBuscar" ng-show="showCmbModLineaSelec && showPantalla">
+	        <div class="col33">
+	            <div class="pull pulldate"  >
+	            	<div>{{selectCuenta.nombreAlias}}</div>
+	                <select name="icuenta" ng-model="selectCuenta" ng-options="cuenta as cuenta.nombreAlias for cuenta in listadoCuentas" ng-change="miClaroComprasyRecargasCtr.cambiarCuenta()">
+	                </select>
+	            </div>
+	        </div>
+	        <div class="col33">
+	            <div class="pull pulldate"  >
+	            	<div>{{selectRecibo.nombreAlias}}</div>
+	                <select name="irecibo" ng-model="selectRecibo" ng-options="recibo as recibo.nombreAlias for recibo in listadoRecibos" ng-change="miClaroComprasyRecargasCtr.cambiarRecibo()">
+	                    
+	                </select>
+	            </div>
+	        </div>
+	        <div class="col33 colsearch">
+
+				<div class="pull pulldate">
+					<div data-ng-bind="cmbModLineaSelec.ProductoServicioResponse.nombreAlias"></div>
+					<select name="iservicio" ng-init="cmbModLineaSelec" ng-model="cmbModLineaSelec" ng-options="servicio as servicio.ProductoServicioResponse.nombreAlias for servicio in listProductoPostpago" ng-change="miClaroComprasyRecargasCtr.cambiarLinea()">
+					</select>
+				</div>
+				
+	            <div class="input search">
+	                <input type="text" id="autocomplete-filtro" name="query" data-valid="required" data-holder="Celular" ng-model="searchText">
+	                <button type="button" class="bt bt-search"></button>
+	            </div>
+	            <a href="#"  class="action"></a>
+	            
+	        </div>
+	    </form>
+	    <div class="ng-hide"  ng-if="showPantalla && !showCmbModLineaSelec">
+			<er-Customerror texto="msgErrorConsumer" on-Refresh="refreshPortlet('1')"></er-Customerror>
+		</div>
+	            
+		<div class="resume box clearfix ng-hide" ng-show="showPantalla">
+			<div class="col50">
+				<p>
+					<span class="type" ng-if="cmbModLineaSelec.ProductoServicioResponse.tipoLinea == 1">Línea Prepago</span>
+					<span class="type" ng-if="cmbModLineaSelec.ProductoServicioResponse.tipoLinea == 2">Línea Postpago</span>
+	                <span class="type" ng-if="cmbModLineaSelec.ProductoServicioResponse.tipoLinea == 3">Línea Control</span>
+                </p>
+				<div class="pull pullservicio disabled" >
+					<div data-ng-bind="cmbModLineaSelec.ProductoServicioResponse.nombreAlias"></div>
+					
+				</div>
+				<p>&nbsp;</p>
+			</div>
+			
+			<div class="col50">
+				<div class="list">
+					<div class="row tit">						
+						<div class="col">{{textoCreditoSaldo}}</div>
+						<div class="col"><strong data-ng-show="showCreditoSaldo">{{simboloCreditoSaldo}} <span id="spanCounter" class="counter">{{montoCreditoSaldo}}</span></strong>
+						</div>						
+					</div>
+				</div>
+			</div>
+			
+			<div class="col50" ng-show="showCreditoSaldo_error">
+                <p class="error-server" style="text-align: center;">
+                    <strong>{{mensaje_upps_titulo}}</strong><br>
+                    {{mensaje_upps_descripcion01}}<br>{{mensaje_upps_descripcion02}}<br>
+                    <a href="" ng-click="refreshPortlet('2')"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+            </div>
+            
+		</div>
+
+		<div class="box" ng-show="showPantalla">
+			<h4 class="tit-border">¿Qué necesita hoy?</h4>
+
+			<div class="options clearfix" data-ng-show="showListaCategoriasDeCompra">
+				<div class="col25" ng-repeat="catComp in listaCategoriasDeCompra">
+
+						<div class="categoriacompra option" id="categoriaCompra{{catComp.idCategoriaDeCompra}}" data-href="compra-paquetes-internet" ng-click="miClaroComprasyRecargasCtr.seleccionarCategoria(this, catComp)">
+						<p><span class="{{miClaroComprasyRecargasCtr.obtenerClassDeCategoria(catComp,'icon-compra compra-')}}"></span>{{catComp.nombre}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="" data-ng-show="!showListaCategoriasDeCompra">
+			<er-Customerror texto="msgErrorConsumer" on-Refresh="refreshPortlet('3')" ></er-Customerror>
+			</div>
+			<br class="both">
+
+			<div class="box">
+				<div id="contentcompras" style="display: none;" >
+					<h4 class="tit-border">Elija su paquete</h4>
+					<div class="opts-select clearfix">
+					    <div class="col25" ng-repeat="prodComp in listaProductosDeCompra" ng-click="miClaroComprasyRecargasCtr.seleccionarPaquete(this,prodComp)" data-ng-show="showListaProductosDeCompra">
+					    <div class="productocompra opt" id="productocompra{{prodComp.idProductoDeCompra}}">	
+					    		<div>{{prodComp.nombre}} </div>					    		
+					    		<!--<div ng-if="prodComp.precioMoneda != '0'"> {{prodComp.simboloMoneda}} {{prodComp.precioMoneda}}.00</div>
+					    		<div ng-if="prodComp.precioMoneda == '0'"> {{prodComp.precioPuntos}} Puntos Claro Club</div>	-->				    		
+					    	</div>
+					    </div>
+					</div>
+					<er-Customerror texto="msgErrorConsumer" on-Refresh="refreshPortlet('4')" data-ng-show="!showListaProductosDeCompra"></er-Customerror>
+
+					<div style="display: none;" class="step-payment">
+					    <h4 class="tit-border">Elija su método de pago</h4>
+
+					    <div class="box-select" id="divMedioPuntos" ng-show="medioClaroPuntos.verMedioClaroPuntos">
+					        <div class="info" ng-click="miClaroComprasyRecargasCtr.seleccionarMedioPuntos('divMedioPuntos',medioClaroPuntos.nombre)">{{medioClaroPuntos.nombre}}</div>
+					        <div style="display: none;" class="data">
+					            <form method="post" id="frpaypuntos">
+					            
+								 <p>Tienes {{medioClaroPuntos.claroPuntos}} puntos<br>La compra de tu carrito equivale {{medioClaroPuntos.cantidad}} puntos<br>
+									 Mira los términos y condiciones   <a href=" http://www.claro.com.pe/personas/claro-club/catalogo-de-premios/" target="_blank" >aquí</a>
+									
+									</p>
+									
+					            <button type="button" class="bt bt-red bt-pagar" id="btMetodoPuntos" ng-click="miClaroComprasyRecargasCtr.elegirMetodo('btMetodoPuntos',medioClaroPuntos.response)">Canjear</button>
+					            </form>
+					        </div>
+					    </div>
+
+					    <div class="box-select" id="divMedioRecibos" ng-show="medioPagarRecibo.verMedioPagarRecibo">
+					        <div class="info" ng-click="miClaroComprasyRecargasCtr.seleccionarMedioRecibos('divMedioRecibos',medioPagarRecibo.nombre)">{{medioPagarRecibo.nombre}}</div>
+					        <div style="display: none;" class="data">
+					            <form method="post" id="frpayrecibo">
+					            <p ng-show="medioPagarRecibo.verTerminos">
+					                Tiene {{creditoSaldo.lblSimboloLineaCredito}}{{creditoSaldo.lineaCredito}} de crédito para realizar esta compra.<br>Recuerde que se cargará en su próximo recibo<br>&nbsp;<br>
+					                <label class="check"><input id="iterminos" name="iterminos" value="1" data-valid="required" type="checkbox"></label>
+					                Acepto los <a href="#" class="linkterminos">Términos y Condiciones</a>
+					            </p>
+					            <button type="button" class="bt bt-red bt-pagar bt-disabled" id="btMetodoRecibo" ng-click="miClaroComprasyRecargasCtr.elegirMetodo('btMetodoRecibo',medioPagarRecibo.response)">Aceptar</button>
+					            </form>
+					        </div>
+					    </div>
+
+					    <div class="box-select" id="divMedioCredito" ng-show="medioTarjetaCredito.verMedioTarjetaCredito">
+					        <div class="info" ng-click="miClaroComprasyRecargasCtr.seleccionarMedioCredito('divMedioCredito',medioTarjetaCredito.nombre)">{{medioTarjetaCredito.nombre}}</div>
+					        <div style="display: none;" class="data">
+					            <form method="post" id="frpaycc">
+					            <p>Puede pagar con su tarjeta Visa o Mastercard.</p>
+					            <button type="button" class="bt bt-red bt-pagar" id="btMetodoCredito" ng-click="miClaroComprasyRecargasCtr.elegirMetodo('btMetodoCredito',medioTarjetaCredito.response)">Continuar</button>
+					            </form>
+					        </div>
+					    </div>
+
+					    <div class="box-select" id="divMedioPrepago" ng-show="medioSaldoPrepago.verMedioSaldoPrepago">
+					        <div class="info" ng-click="miClaroComprasyRecargasCtr.seleccionarMedioPrepago('divMedioPrepago',medioSaldoPrepago.nombre)">{{medioSaldoPrepago.nombre}}</div>
+					        <div style="display: none;" class="data">
+					            <form method="post" id="frpaysaldo">
+					            <p>Tiene {{creditoSaldo.lblSimboloMonedaSaldoPrep}}{{creditoSaldo.lblSaldoPrepago}} para comprar<br>&nbsp;</p>
+					            <button type="button" class="bt bt-red bt-pagar" id="btMetodoPrepago" ng-click="miClaroComprasyRecargasCtr.elegirMetodo('btMetodoPrepago',medioSaldoPrepago.response)">Aceptar</button>
+					            </form>
+					        </div>
+					    </div>
+					    <div class="box-select" data-ng-show="!showListaProductosDePago" >
+					    <er-Customerror texto="msgErrorConsumer" on-Refresh="refreshPortlet('5')"></er-Customerror></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+ <div id="fijo" class="ng-scope" ng-show="flagServiciosMovil == 0 || flagServiciosMovil == 1">
+                <div class="resume box clearfix">
+                    <div class="col100">
+                        <h3 style="color: #d52b1e;font-family: DIN-MediumAlternate;">Aviso Claro</h3>
+                        <p>
+                            Todavía no tienes un plan Móvil.<br>
+¿Qué esperas? Mira nuestros productos y promociones y disfruta del mejor servicio. 
+                            <br> &nbsp;
+                        </p>
+                        <p>
+                            <a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio/movil" class="bt bt-red">solicitar nuevo servicio</a>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+   </div>
+			
+<div class="popup">
+    <div class="bg" id="divBackPopup"></div>
+    <div class="pop">
+        <button type="button" id="btcloseX" class="bt btclose"></button>
+        <div class="content compra-confirm-popup" id="id">
+            <h3>Confirmar Compra</h3>
+			<p>Por favor, confirme que desea realizar la compra de:</p>
+			<table>
+			    <tbody>
+			        <tr><td><strong>Nombre de paquete:</strong></td><td>{{categoriaSeleccionada.nombre}}</td></tr>
+			        <tr><td><strong>Producto:</strong></td><td>{{productoSeleccionado.lblNombre}}</td></tr>
+			        <tr><td><strong>Fecha de Vigencia:</strong></td><td>{{ prodSeleccionadoFechaSeleccionada | limitTo:10 | date:"dd 'de' MMMM yyyy" }}</td></tr>
+					<tr ng-show="medioSeleccionado.codigo==1"><td><strong>Costo:</strong></td><td>{{productoSeleccionado.lblCosto}}</td></tr>
+					 <tr ng-show="medioSeleccionado.codigo!=1"><td><strong>Costo:</strong></td><td>{{productoSeleccionado.simboloMoneda}}{{productoSeleccionado.precioMoneda | number:2 }}</td></tr>
+			    </tbody>
+			</table>
+			<br>
+			<p>
+			    <button type="button" class="bt bt-gris" id="btcomprarecargacancel">Cancelar</button>
+			    <button type="button" class="bt bt-red" id="btcomprarecargaaceptar" data-ng-click="miClaroComprasyRecargasCtr.hacerCompra()">Aceptar</button>
+			</p>
+			<script>
+			$('#btcomprarecargacancel').click(function(){
+			    ocultarPopUp();
+			});
+			$('#btcloseX').click(function(){
+			    ocultarPopUp();
+			});
+			$('#divBackPopup').click(function(){
+			    ocultarPopUp();
+			});
+			
+			</script>
+        </div>
+
+      
+        <div style="display: none;" class="content compra-confirm-popup-progress"><p>&nbsp;</p>
+			<p><img src="/wpstheme/miclaro/img/loader.gif" height="32" width="32"></p>
+			<p>&nbsp;</p>
+			<h3>Realizando transacción</h3>
+			<p>Espere un momento, por favor...</p>
+			<style>
+			    .popup .pop .content h3 { font-size: 25px; margin: 0; }
+			</style>
+		</div>
+
+		<div style="display: none;" class="content compra-confirm-popup-progress-error" id="ErrorProgreso"><p>&nbsp;</p>
+			
+			<p>&nbsp;</p>
+			<h3>
+			  <strong>{{mensaje_upps_titulo}}!</strong>
+			  </h3>
+			  <p>
+			 <br> {{mensaje_upps_descripcion01}}
+                <br>{{mensaje_upps_descripcion02}}
+                        <br>
+			 </p>
+				<form method="post" id="iterminosformpop">
+			    <p>
+			        <a href="#" class="bt bt-red" id="btterminoscancel">Aceptar</a>
+			        
+			    </p>
+			</form>
+			
+		</div>
+   
+         <div class="content compra-confirm-popup-condiciones" style="display: block;"><h3 class="terminos">Términos y Condiciones</h3>
+			<p>Lea detenidamente los Términos y Condiciones de MiClaro.</p>
+			<div class="frame">
+			    <div class="text" id="divTermsCondiciones">
+			    	
+			    </div>
+			</div>
+			<form method="post" id="iterminosformpop">
+			    <p>
+			        <a href="#" class="bt bt-gris" id="btterminoscancel">Cancelar</a>
+			        <a href="#" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+			    </p>
+			</form>
+			<script>
+			$(document).ready(function(e) {
+			    $('#btterminoscancel').click(function(e){
+			        e.preventDefault();
+			        ocultarPopUp();
+			        marcarCheckTerminos(false);
+			    });
+			    $('#bterminosaceptar').click(function(e){
+			        e.preventDefault();
+			        marcarCheckTerminos(true);
+			        ocultarPopUp();
+			    });
+			});
+			</script>
+		</div>
+    </div>
+</div>

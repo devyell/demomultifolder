@@ -1,0 +1,146 @@
+<div class="tabs-home tabs-clean">
+    <div class="tab-content noborder">
+        <div class="breadcrumb">
+            Consultas <span class="arrow"></span> <strong>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Reportes"]</strong>
+        </div>
+        <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Reportes"]</h3>
+        <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Reportes"]</p>
+        <div class="detail clearfix">
+            <div class="filter-lista" data-target="#cntrpta">
+                <span>
+                    <label class="radio" ng-class="{'checked': checkRadioSolicitudes}">
+                        <input  type="radio" name="filtrotipo" ng-click="cambiarClaseRadioButton('101')">
+                    </label> Solicite sus reportes
+                </span>
+                <span>
+                    <label class="radio" ng-class="{'checked': checkRadioReportes}">
+                        <input type="radio" name="filtrotipo" ng-click="cambiarClaseRadioButton('202')">
+                    </label> Consulte el estado de sus reportes
+                </span>
+            </div>
+            <div class="shadow-content">
+                <div class="result-lista" id="cntrpta">
+                    <div ng-show="mostrarSolicitudes">
+                        <p>1. Escoja los reportes a solicitar</p>
+                        <ul class="list-filter">
+                            <li>
+                                <label class="check" ng-class="{'checked': tipoReporte.facturacionDetallada}">
+                                    <input type="checkbox" name="ireporte" id="ireporte1" ng-model="tipoReporte.facturacionDetallada">
+                                </label>
+                                <label for="ireporte1">Facturación Detallada</label>
+                            </li>
+                            <li>
+                                <label class="check" ng-class="{'checked':tipoReporte.detalleTodasLineas}">
+                                    <input type="checkbox" name="ireporte" id="ireporte2" ng-model="tipoReporte.detalleTodasLineas">
+                                </label>
+                                <label for="ireporte2">Detalle de Todas las líneas</label>
+                            </li>
+                            <li>
+                                <label class="check" ng-class="{'checked':tipoReporte.consolidadoMinutos}">
+                                    <input type="checkbox" name="ireporte" id="ireporte3" ng-model="tipoReporte.consolidadoMinutos">
+                                </label>
+                                <label for="ireporte3">Consolidado de Minutos</label>
+                            </li>
+                            <li>
+                                <label class="check" ng-class="{'checked':tipoReporte.relacionPlanes}">
+                                    <input type="checkbox" name="ireporte" id="ireporte4" ng-model="tipoReporte.relacionPlanes">
+                                </label>
+                                <label for="ireporte4">Relación de Planes</label>
+                            </li>
+                        </ul>
+                        <p>2. Seleccione el detalle</p>
+                        <form method="post" class="form-filter clearfix">
+                            <div class="col33">
+                                <div class="pull">
+                                    <div>{{selectIdCuenta.nombreAlias}}</div>
+                                    <select name="icuenta" ng-model="selectIdCuenta" ng-options="cuentas.nombreAlias for cuentas in cuentasCorporativasList" ng-change="changeCuenta()">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <div class="pull">
+                                    <div>{{selectIdRecibo.nombreAlias}}</div>
+                                    <select name="irecibo" ng-model="selectIdRecibo" ng-options="recibos.nombreAlias for recibos in recibosCorporativosList" ng-change="changeRecibo()">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col33">
+                                <div class="pull">
+                                    <div>{{((periodoFacturacion.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(periodoFacturacion.fechaHasta | limitTo:10 | date:'dd/MM/yyyy'))}}</div>
+                                    <select name="iperiodo" ng-model="periodoFacturacion" ng-options="periodoFacturacion as ((periodoFacturacion.fechaDesde | limitTo:10 | date:'dd/MM/yyyy')+' - '+(periodoFacturacion.fechaHasta | limitTo:10 | date:'dd/MM/yyyy')) for periodoFacturacion in periodosFacturacionList">
+                                    </select>
+                                </div>
+                            </div>
+                            <br class="both">
+                            <div class="bts">
+                                <button type="button" class="bt bt-red bt-solicitar-reporte" ng-click="solicitarReportes()">Solicitar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-show="mostrarReportes">
+                        <p>Revisa el estado de su reportes o descárgalos directamente aquí:</p>
+                        <table class="table">
+                            <tr>
+                                <th>Reporte</th>
+                                <th>Recibo</th>
+                                <th>Fecha Solicitada</th>
+                                <th>Periodo</th>
+                                <th class="center">Acciones</th>
+                            </tr>
+                            <tr ng-repeat="estadoReporte in estadoReportesList | orderBy: 'fecha' : true">
+                                <td ng-bind="estadoReporte.descripcionTipoReporte"></td>
+                                <td ng-bind="estadoReporte.cuenta">&nbsp;</td>
+                                <td ng-bind="estadoReporte.fecha | limitTo: 10 | date:'dd/MM/yyyy'"></td>
+                                <td ng-bind="estadoReporte.periodo"></td>
+                                <td class="center"><a href class="download" ng-show="estadoReporte.idDescarga != null && estadoReporte.idDescarga != ''" ng-click="descargarReporte(estadoReporte.idDescarga)">descargar</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="idPopupNuevoServicio" class="popup">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="cerrarPopup()"></button>
+        <div class="content">
+            <div id="idProcesando">
+                <p>&nbsp;</p>
+                <p><img src="/wpstheme/miclaro/img/preloader.gif" width="32" height="32"></p>
+                <p>&nbsp;</p>
+                <h3 id="idGifProc">Realizando transacción</h3>
+                <p>Espera un momento, por favor...</p>
+            </div>
+            <div id="idConfirmacion">
+                <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Modal - Reportes - Solicitud exitosa"]</h3>
+                <p>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Consultas/Modal - Reportes - Solicitud exitosa"]<a href ng-click="cambiarClaseRadioButton('202')">aquí</a></p>
+                <p>
+                    <button type="button" class="bt bt-red" ng-click="cerrarPopup()">Ok</button>
+                </p>
+            </div>
+            <div id="popupMensaje3">
+                <h3>¡Solicitud exitosa!</h3>
+                <p>{{mensajeServicio3}}<a href ng-click="cambiarClaseRadioButton('202')">aquí</a>.</p>
+                <p>
+                    <button type="button" class="bt bt-red" ng-click="cerrarPopup()">Ok</button>
+                </p>
+            </div>
+            <div id="popupMensaje4">
+                <h3>{{ayCaramba}}</h3>
+                <p>{{mensajeServicio4}}<a href ng-click="cambiarClaseRadioButton('202')">aquí</a>.</p>
+                <p>
+                    <button type="button" class="bt bt-red" ng-click="cerrarPopup()">Ok</button>
+                </p>
+            </div>
+            <div id="idConfirmacionError">
+                <h3>{{mensaje_upps_titulo}}</h3>
+                <p>{{mensaje1}}{{mensaje3}}{{mensaje5}}
+                    <p>
+                        <button type="button" class="bt bt-red" ng-click="cerrarPopup()">Ok</button>
+                    </p>
+            </div>
+        </div>
+    </div>
+</div>

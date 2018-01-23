@@ -1,0 +1,47 @@
+<div class="content">
+    <div class="tabs-home tabs-clean">
+        <div class="tab-content noborder">
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Tope de Consumo/Cambio Tope de Consumo"]</h3>
+            <div class="resume clearfix">
+                <p><strong>[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Tope de Consumo/Cambio Tope de Consumo"]</strong></p>
+                <p>
+                    <br> Línea: {{movil}}
+                    <br> Nuevo tope de consumo asignado: {{nuevoTopeConsumo}} minutos
+                    <br> Tipo de Ajuste: {{tipoAjustoDescr}}
+                    <br> &nbsp;
+                </p>
+            </div>
+            <form method="post" action="#" id="frConfirmarTope">
+                <div class="div-bts">
+                    <button type="button" class="bt bt-white" id="btcanceltope">Cancelar</button>
+                    <button type="button" class="bt bt-red" id="btaceptartope">Aceptar</button>
+                </div>
+            </form>
+            <div class="popup" style="display: block;" id="terminos">
+                <div class="bg"></div>
+                <div class="pop">
+                    <button type="button" class="bt btclose"></button>
+                    <div class="bg"></div>
+                    <div style="margin-top: 37px;" class="pop">
+                        <button type="button" class="bt btclose"></button>
+                        <div style="display: none;" class="content">
+                            <h3 class="terminos">Términos y Condiciones</h3>
+                            <p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+                            <div class="frame">
+                                <div class="text">
+                                    [Element key="Texto Legal" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Terminos y Condiciones/Cambio de Tope de Consumos"]
+                                </div>
+                            </div>
+                            <form method="post" id="iterminosformpop">
+                                <p>
+                                    <a href="#" class="bt bt-gris" id="btterminoscancel">Cancelar</a>
+                                    <a href="#" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

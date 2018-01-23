@@ -1,0 +1,101 @@
+<div class="tabs-home tabs-clean" id="solicitud">
+	<div class="tab-content noborder">
+	
+	
+		<div class="change-type on-mobile" ng-show="showSelectorMixto">
+				
+				<label id="lblConsumer" for="itype1">Consumer</label>
+				<div class="switch">
+					<input type="checkbox" name="itype1"  class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+					<label class="switch-label" for="itype1"></label>
+				</div>
+				<label id="lblCorporativo"><span>Corporativo</span></label>
+</div>
+		
+		<div class="breadcrumb">
+			Solicitudes <span class="arrow"></span> <strong>Solicitudes en Línea</strong>
+		</div>
+		
+		<h3>Solicitudes en Línea</h3>
+		<p>Solicita información sobre productos, reclamos o cambios en tu servicio.<br>&nbsp;</p>
+		<p class="msg-error">Upps, los campos resaltados contienen errores</p>
+		<div class="msgerror" id="msgErrorCaptcha"  style="display: none;color:#d52b1e" >{{captcha_error}}</div>
+		<div class="msgerror" id="msgErrorFile"  style="display: none;color:#d52b1e" >{{archivo_ups}}</div>
+		<div class="msgerror" id="msgErrorFileSize"  style="display: none;color:#d52b1e" >{{archivo_error}}</div>
+		<div class="box">
+			<div class="form">
+				<form method="post">
+				<table class="table-sms">
+					
+					<tr>
+						<td colspan="3">
+							<div class="area areabig">
+								<textarea id="imensaje" name="imensaje" ng-model="motivo" data-valid="required" placeholder="Ingresa el motivo de tu solicitud"></textarea>
+								<div class="file">
+									<div class="txt">&nbsp;</div>
+									<input type="file" id="ifile" name="ifile">
+									<label for="ifile">Adjuntar Archivo</label>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="divcaptcha">
+							<img src="" id="captcha_image" height="35" width="100">
+							<img src="/wps/PA_loginclaro/assets/img/iconos/refresh.png" ng-click="recargarCaptcha()" alt="" class="refresh">
+						</div>
+						</td>
+						<td width="200"><p>Ingresa el código Captcha</p></td>
+						<td width="160"><div class="input" id="idCaptcha"><input type="text" id="icaptcha" name="icaptcha"  ng-model="captcha" ></div></td>
+					</tr>
+					<tr>
+						<td colspan="3" class="bts">
+							<br>&nbsp;
+							<button type="button" class="bt bt-red" id="btsendsolicitud"  ng-click="enviar()">Enviar</button>
+						</td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+ <div  style="text-align: center;" ng-show="errorServicios == -1" >
+			
+               
+                    <div class="resume box clearfix">
+                        <div class="col100">
+                            <h3>{{error_titulo}}</h3>
+                            <p>
+                                {{error_descripcion01}}
+                                <br /> {{error_descripcion02}}
+                                <br />
+                                <br />
+                                <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                            <br>
+                        </div>
+                    </div>
+               
+            </div>
+
+
+<div style="display:none" class="popup" id='IdPopup'>
+    <div class="bg"></div>
+    <div style="margin-top: 0px;" class="pop">
+        <button type="button" class="bt btclose"></button>
+			<div style="display: none;" class="content" id="correcto"  ><h3>Listo</h3>
+			<p>Su solicitud ha sido enviada.<br>&nbsp;</p>
+			<p><a  class="bt bt-red " id="btsolicitudaceptar">Aceptar</a></p>
+
+			</div>
+			
+			<div style="display: none;" class="content" id="error"><h3>{{upps}}</h3>
+			<p>{{mensaje1}}{{mensaje2}}{{mensaje3}}{{mensaje5}}<br>&nbsp;</p>
+			<p><a  class="bt bt-red " id="btsolicitudaceptarError">Aceptar</a></p>
+
+			</div>
+    </div>
+</div>

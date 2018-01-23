@@ -1,0 +1,282 @@
+<div class="tabs tabs-home" ng-init="recibosTvCtr.inicializar()" ng-show="recibosTvCtr.statusResponseService">
+    <ul class="tab-links clearfix">
+        <li class="movil"><a href="/wps/myportal/miclaro/consumer/recibos/movil/"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="/wps/myportal/miclaro/consumer/recibos/fijo/"><span></span> Fijo</a></li>
+        <li class="internet"><a href="/wps/myportal/miclaro/consumer/recibos/internet/"><span></span> Internet</a></li>
+        <li class="tv active"><a href="/wps/myportal/miclaro/consumer/recibos/tv/"><span></span> TV</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tv" class="tab active">
+            <div class="change-type on-mobile-switch" ng-if="recibosTvCtr.flagMostrarSwitch">
+                <label>Residencial</label>
+                <div class="switch">
+                    <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                    <label class="switch-label" for="itype1"></label>
+                </div>
+                <label for="itype1"><span>Corporativo</span></label>
+            </div>
+            <div class="breadcrumb">
+                [Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Recibos/Ver y pagar recibos"]
+            </div>
+            <h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Recibos/Ver y pagar recibos"]</h3>
+            <div class="resume box clearfix">
+                <div class="col50">
+                    <p><span class="type">&nbsp;</span></p>
+                    <div class="pull pullservicio" ng-class="{'disabled': recibosTvCtr.lineasCorporativoList.length <= 1}">
+                        <div>{{recibosTvCtr.linea.ProductoServicioResponse.nombreAlias}}</div>
+                        <select name="iservicio" ng-if="recibosTvCtr.lineasCorporativoList.length > 1" ng-model="recibosTvCtr.linea" ng-change="motrarRecibosxServicio(recibosTvCtr.linea)" ng-options="linea as linea.ProductoServicioResponse.nombreAlias for linea in recibosTvCtr.lineasCorporativoList track by linea.ProductoServicioResponse.idProductoServicio">
+                        </select>
+                    </div>
+                    <p>
+                        {{recibosTvCtr.datosAdicionales.direccionCompleta}}
+                    </p>
+                    <p class="no-mobile">&nbsp;</p>
+                </div>
+                <div class="col50">
+                    <div class="list">
+                        <div class="row" ng-show="mostrarDeudaPendiente" ng-class="{'tit': !recibosTvCtr.flagMensajeDeudaNoCorte,'sub':recibosTvCtr.flagMensajeDeudaNoCorte}">
+                            <div class="col">Deuda Pendiente <span class="help no-mobile" title="Es la suma de tus recibos y otros documentos de pago pendientes"></span></div>
+                            <div class="col colright"><strong>{{recibosTvCtr.simboloMoneda}}&nbsp;<span class="counter">{{recibosTvCtr.montoDeudaPendiente | number:2}}</span></strong></div>
+                            <div class="col100" ng-if="recibosTvCtr.flagMensajeDeudaNoCorte">¡Tranquilo! Este monto NO amerita el corte de tu servicio y lo podrás pagar junto con tu próximo recibo.</div>
+                        </div>
+                        <div class="row" ng-show="errorDeudaPendiente">
+                            <p class="error-server" style="text-align: center;">
+                                <strong>{{mensaje_upps_titulo}}</strong>
+                                <br>{{mensaje_upps_descripcion01}}, {{mensaje_upps_descripcion02}}
+                                <br>
+                                <a href ng-click="recibosTvCtr.buscarDatosRecibo()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col100" ng-show="mostrarSwitchEmailElectronico">
+                                Afíliate al recibo por e-mail
+                                <div class="change-recibo">
+                                    <label for="irecibomovil">No</label>
+                                    <div class="switch">
+                                        <input type="checkbox" name="irecibo" class="switch-checkbox" id="irecibomovil" ng-model="recibosTvCtr.afiliacionFacturaElectronicaFlag" ng-change="recibosTvCtr.actualizarAfiliacionFacturaElectronica()" checked="{{recibosTvCtr.afiliacionFacturaElectronicaFlag}}">
+                                        <label class="switch-label" for="irecibomovil"></label>
+                                    </div>
+                                    <label for="irecibomovil"><span>Si</span></label>
+                                </div>
+                            </div>
+                            <div class="col100" ng-show="errorSwitchEmailElectronico">
+                                <p class="error-server" style="text-align: center;">
+                                    <strong>{{mensaje_upps_titulo}}</strong>
+                                    <br>{{mensaje_upps_descripcion01}}, {{mensaje_upps_descripcion02}}
+                                    <br>
+                                    <a href ng-click="recibosTvCtr.obtenerAfiliacionFacturacionElectronica()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bts" ng-show="flagPagarDeudaTotal">
+                            <a href ng-click="recibosTvCtr.pagarTotalDeuda()" class="bt bt-red-min" id="btpagartodosrecibosmovil">Pagar toda la deuda</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cntrptaTv" class="box" ng-show="mostrarListadeFacturasaPagar">
+                <h4 class="tit-border">
+                    Seis últimos recibos
+                </h4>
+                <div class="no-mobile">
+                    <form method="post">
+                        <div class="shadow-content">
+                            <table class="table nomargin">
+                                <tr>
+                                    <th>Nro Recibo</th>
+                                    <th>Emitido</th>
+                                    <th>Vencimiento</th>
+                                    <th>Estado</th>
+                                    <th>Cargo del Mes</th>
+                                    <th>Monto a Pagar</th>
+                                    <th>Acciones</th>
+                                    <th>Pagar</th>
+                                </tr>
+                                <tr ng-repeat="reciboObjeto in recibosTvCtr.recibosProductoList">
+                                    <td>{{reciboObjeto.numeroRecibo}}</td>
+                                    <td>{{reciboObjeto.fechaEmision | limitTo: 10 | date: "dd MMM yyyy" }}</td>
+                                    <td>{{reciboObjeto.fechaVencimiento | limitTo: 10 | date: "dd MMM yyyy" }}</td>
+                                    <td>{{reciboObjeto.estado}}</td>
+                                    <td>{{reciboObjeto.simboloMonedaMontoFact}}&nbsp;{{reciboObjeto.montoFacturado | number:2}}</td>
+                                    <td>{{reciboObjeto.simboloMonedaMontoPend}}&nbsp;{{reciboObjeto.montoPendiente | number:2}}</td>
+                                    <td style="padding-left: 15px;">
+                                        <a href ng-click="recibosTvCtr.descargarRecibo(reciboObjeto,'1')" class="download" ng-show="reciboObjeto.flagReciboDispDescarga == 'true'">descargar</a>
+                                    </td>
+                                    <td ng-show="reciboObjeto.codEstado != 4 && reciboObjeto.montoPendiente >= 1 && reciboObjeto.codEstado != 2">
+                                        <label class="check" ng-class="{'checked': recibosTvCtr.isExists(reciboObjeto)}">
+                                            <input type="checkbox" name="irecibomovil[]" ng-checked="recibosTvCtr.isExists(reciboObjeto)" ng-click="recibosTvCtr.palanca(reciboObjeto)">
+                                        </label>
+                                    </td>
+                                    <td ng-show="reciboObjeto.codEstado == 4 || reciboObjeto.montoPendiente < 1 || reciboObjeto.codEstado == 2">
+                                        <img src=" /wpstheme/miclaro/img/img-check-gris.png " width="12 ">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="bts-table ">
+                            <button type="button " class="bt bt-red bt-payselected " ng-class="{ 'bt-disabled': !recibosTvCtr.recibosSeleccionadosList || !recibosTvCtr.recibosSeleccionadosList.length} " ng-click="recibosTvCtr.pagarRecibosSeleccionados() ">Pagar Seleccionados</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="on-mobile ">
+                    <form method="post ">
+                        <table class="table table-recibos ">
+                            <tr ng-repeat="reciboObjeto in recibosTvCtr.recibosProductoList ">
+                                <td>
+                                    Nro Recibo <span>{{reciboObjeto.numeroRecibo}}</span>
+                                    <br> Emitido <span>{{reciboObjeto.fechaEmision | limitTo: 10 | date: "dd MMM yyyy" }}</span>
+                                    <br> Vencimiento <span>{{reciboObjeto.fechaVencimiento | limitTo: 10 | date: "dd MMM yyyy" }}</span>
+                                    <br> Estado <span>{{reciboObjeto.estado}}</span>
+                                    <br> Cargo del Mes <span>{{reciboObjeto.simboloMonedaMontoFact}}&nbsp;{{reciboObjeto.montoFacturado | number:2}}</span>
+                                    <br> Monto a Pagar <span>{{reciboObjeto.simboloMonedaMontoPend}}&nbsp;{{reciboObjeto.montoPendiente | number:2}}</span>
+                                    <br> &nbsp;
+                                    <br>
+                                    <a href ng-click="recibosTvCtr.descargarRecibo(reciboObjeto,'1') " class="download " ng-show="reciboObjeto.flagReciboDispDescarga == 'true'">descargar</a>
+                                    <span ng-show="reciboObjeto.codEstado != 4">
+                                        <strong>PAGAR</strong>
+                                        <label class="check" ng-class="{'checked': recibosTvCtr.isExists(reciboObjeto)}">
+                                            <input type="checkbox" name="irecibomovil[]" ng-checked="recibosTvCtr.isExists(reciboObjeto)" ng-click="recibosTvCtr.palanca(reciboObjeto)">
+                                        </label>
+                                        </span>
+                                    <span ng-show="reciboObjeto.codEstado == 4"><strong>PAGAR</strong> &nbsp; <img src="/wpstheme/miclaro/img/img-check-gris.png" width="12"></span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="bts-table">
+                            <button type="button" class="bt bt-red bt-payselected" ng-class="{'bt-disabled': !recibosTvCtr.recibosSeleccionadosList || !recibosTvCtr.recibosSeleccionadosList.length}" ng-click="recibosTvCtr.pagarRecibosSeleccionados()">Pagar Seleccionados</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col100" ng-show="errorListaFacturasaPagar">
+                <p class="error-server">
+                    <strong>{{mensaje_upps_titulo}}</strong>
+                    <br>{{mensaje_upps_descripcion01}}
+                    <br>{{mensaje_upps_descripcion02}}
+                    <br>
+                    <a href ng-click="recibosTvCtr.obtenerRecibosProducto()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup">
+    <div class="bg" ng-click="recibosTvCtr.ocultarPopUp(false)"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="recibosTvCtr.ocultarPopUp(false)"></button>
+        <div class="content">
+            <div class="step-01">
+                <h3>Afiliación a Facturación Electrónica</h3>
+                <form method="post" action="" id="idformpoprecibo1">
+                    <p class="msg-error"></p>
+                    <p>¿Quieres enviar el recibo al correo <strong>{{recibosTvCtr.emailUsuarioEnProceso}}</strong>
+                        <br>o a otro correo electrónico?</p>
+                    <p class="text-terminos">
+                        <label class="check" ng-class="{'checked':recibosTvCtr.checkTermAfiliacion}">
+                            <input type="checkbox" id="iterminospop1" name="iterminos" value="1" data-valid="required" ng-model="recibosTvCtr.checkTermAfiliacion">
+                        </label>
+                        <label for="iterminospop1">Acepto los <a href ng-click="recibosTvCtr.terminosCondiciones()" class="linkred">Términos y Condiciones</a></label>
+                    </p>
+                    <p>
+                        <a href ng-click="recibosTvCtr.otroCorreo()" class="bt bt-gris" id="btreciboothermail">Otro Correo</a>
+                        <a href ng-click="recibosTvCtr.enviarEmail()" class="bt bt-red" id="btrecibosendmail">Enviar</a>
+                    </p>
+                </form>
+            </div>
+            <div class="step-02">
+                <h3>Afiliación a Facturación Electrónica</h3>
+                <form method="post" action="" id="idformpoprecibo2">
+                    <p class="msg-error"></p>
+                    <p>Ingresa el correo al que quieres enviar el recibo electrónico elegido</p>
+                    <div class="input">
+                        <input type="email" maxlength="45" name="icorreopop" data-valid="email" ng-model="recibosTvCtr.emailOtro">
+                    </div>
+                    <p class="text-terminos">
+                        <label class="check" ng-class="{'checked':recibosTvCtr.checkTermAfiliacionOtro}">
+                            <input type="checkbox" id="iterminospop2" name="iterminos" value="1" data-valid="required" ng-model="recibosTvCtr.checkTermAfiliacionOtro">
+                        </label>
+                        <label for="iterminospop2">Acepto los <a href ng-click="recibosTvCtr.terminosCondicionesOtros()" class="linkred">Términos y Condiciones</a></label>
+                    </p>
+                    <p>
+                        <a href ng-click="recibosTvCtr.cancelarOtros()" class="bt bt-gris" id="btreciboothercancel">Cancelar</a>
+                        <a href ng-click="recibosTvCtr.enviarOtroEmail()" class="bt bt-red" id="btreciboothersendmail">Enviar</a>
+                    </p>
+                </form>
+            </div>
+            <div class="step-term">
+                <h3 class="terminos">Términos y Condiciones</h3>
+                <p>Lee detenidamente los Términos y Condiciones de MiClaro.</p>
+                <div class="frame">
+                    <div class="text" id="terminosCondiciones">
+                        
+                    </div>
+                </div>
+                <form method="post" id="iterminosformpop">
+                    <p>
+                        <a href ng-click="recibosTvCtr.terminosCondicionesCancelar()" class="bt bt-gris" id="btterminoscancel">Cancelar</a>
+                        <a href ng-click="recibosTvCtr.terminosCondicionesAceptar()" class="bt bt-red" id="bterminosaceptar">Aceptar</a>
+                    </p>
+                </form>
+            </div>
+            <div class="step-direccion-fisica">
+                <h3>Confirma la dirección de envío</h3>
+                <form method="post" action="" id="idformpoprecibo3">
+                    <p class="msg-error"></p>
+                    <p>{{recibosTvCtr.direccionFisica}}</p>
+                    <br>
+                    <p>
+                        <a ng-click="IrCuentasClaro()" class="bt bt-gris wpsViewProfile">Otra Dirección</a>
+                        <a href ng-click="recibosTvCtr.actualizarAfiliarDireccionFisica()" class="bt bt-red" id="btrecibosendmail">Confirmar</a>
+                    </p>
+                </form>
+            </div>
+            <div class="step-progreso">
+                <p>&nbsp;</p>
+                <p><img src="/wpstheme/miclaro/img/preloader.gif" width="32" height="32"></p>
+                <p>&nbsp;</p>
+                <h3>Realizando transacción</h3>
+                <p>Espere un momento, por favor...</p>
+                <style>
+                .popup .step-progreso h3 {
+                    font-size: 25px;
+                    margin: 0;
+                }
+                </style>
+            </div>
+            <style>
+            .popup .pop .step-01 {
+                display: block;
+            }
+            
+            .popup .pop .step-02 {
+                display: none;
+            }
+            
+            .popup .pop .step-term {
+                display: none;
+            }
+            
+            .popup .pop .step-progreso {
+                display: none;
+            }
+            
+            .popup .pop .input {
+                width: 70%;
+                min-width: 200px;
+                margin: 0 auto;
+            }
+            
+            .popup .pop .content p a.linkred {
+                color: #d42b1e;
+                font-family: 'DIN-RegularAlternate';
+            }
+            
+            .msg-error {
+                color: #d52b1e !important;
+                font-family: 'DIN-RegularAlternate';
+                margin: 0;
+            }
+            </style>
+        </div>
+    </div>
+</div>

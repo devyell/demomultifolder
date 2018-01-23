@@ -1,0 +1,29 @@
+<div class="tabs-home tabs-clean" >
+	<div class="tab-content noborder">
+	<div >
+		<h3>[Element key="titulo" type="content" context="selected" name="mi claro content library/mi claro/consumer/compras y recargas/compras y recargas"]</h3>
+		<p>[Element key="subtitulo" type="content" context="selected" name="mi claro content library/mi claro/consumer/compras y recargas/compras y recargas"]</p>
+
+		<div class="compra-confirm box" id="imprimir">
+			<p class="tit" ng-show="pagarCompraResponse.esExito">{{pagarCompraResponse.descripcion}}</p>
+			<p class="titred" ng-show="!pagarCompraResponse.esExito">{{pagarCompraResponse.descripcion}}</p>
+			<p  >La operación se actualizará en <span class="red">{{pagarCompraResponse.tiempoActualizacion}}</span>MiClaro</p>
+			<table>
+				<tbody>
+				<tr><td><strong>Nombre de paquete:</strong></td><td>{{pagarCompraResponse.nombreCat}}</td></tr>
+			    <tr><td><strong>Producto:</strong></td><td>{{pagarCompraResponse.nombreProd}}</td></tr>
+				<tr ng-show="showFecha"><td><strong>Fecha de Compra:</strong></td><td>{{pagarCompraResponse.fechaCompra | limitTo:10 | date:"dd 'de' MMMM yyyy"}}</td></tr>
+			    <tr ng-show="showfechaVigencia"><td><strong>Fecha de Vigencia:</strong></td><td>{{pagarCompraResponse.fecVigProd | limitTo:10 | date:"dd 'de' MMMM yyyy"}}</td></tr>
+			    <tr ng-show="pagarCompraResponse.codigo==1" ><td><strong>Costo:</strong></td><td>{{pagarCompraResponse.lblCosto}}</td></tr>
+				<tr ng-show="pagarCompraResponse.codigo!=1"><td><strong>Costo:</strong></td><td>{{pagarCompraResponse.simboloMoneda}}{{pagarCompraResponse.precioMoneda | number:2 }}</td></tr>
+				<tr><td><strong>Modo de pago:</strong></td><td>{{pagarCompraResponse.metodoPago}}</td></tr>
+
+			</tbody></table>
+		</div>
+	</div>
+		<div class="compra-bts">
+			<a href="javascript:void(0)" onclick="imprimirPagina()" class="bt bt-white">Imprimir</a>
+			<a href="/wps/myportal/miclaro/consumer/comprasyrecargas" class="bt bt-red">Finalizar</a>
+		</div>
+	</div>
+</div>

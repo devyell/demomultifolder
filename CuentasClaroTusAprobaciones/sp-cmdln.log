@@ -1,0 +1,131 @@
+2017-02-27 13:55:57 -- Script Portlet command line version: 1.3
+
+2017-02-27 13:55:57 -- Home folder: C:\jorge\IBM\Portal\sp_cmdln
+
+2017-02-27 13:55:57 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-02-27 13:55:57 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerOtrosRegistranumerosFrecuentesMovil
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroConsumerOtrosRegistraNumerosFrecuentesMovil
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-02-27 13:55:57 -- Begin content push to Portal.
+
+2017-02-27 13:55:58 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-02-27 13:55:58 -- Virtual Portal ID: null
+
+2017-02-27 13:55:58 -- Project ID: null
+
+2017-02-27 13:55:58 -- WCM content ID: null
+
+2017-02-27 13:55:58 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerOtrosRegistraNumerosFrecuentesMovil
+
+2017-02-27 13:55:58 -- WCM Content Title: null
+
+2017-02-27 13:55:58 -- Main HTML file: index.html
+
+2017-02-27 13:55:58 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-6210914689768912596.zip
+	(11011 bytes in 9 files)
+
+	angular/app.js
+	angular/controller/appController.js
+	angular/service/appService.js
+	angular/view/MiClaroConsumerOtrosRegistraNumerosFrecuentesMovil.html
+	angular/view/popup/pop.numero_Frecuente.html
+	angular/view/popup/pop.numero_Frecuente_error.html
+	assets/css/css.css
+	assets/js/validar.js
+	index.html
+
+2017-02-27 13:56:08 -- Response status: HTTP/1.1 200 OK
+
+2017-02-27 13:56:08 -- Content-Type: application/json
+
+2017-02-27 13:56:08 -- Effective charset of body: UTF-8
+
+2017-02-27 13:56:08 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/MiClaroConsumerOtrosRegistraNumerosFrecuentesMovil.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/popup\/pop.numero_Frecuente_error.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/popup\/pop.numero_Frecuente.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/validar.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/appService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/appController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/css.css"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-02-27 13:56:08 -- Target authentication state: SUCCESS
+
+2017-02-27 13:56:08 -- Target authentication scheme: BASIC
+
+2017-02-27 13:56:08 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-02-27 13:56:08 -- Content push was successful.
+
+2017-02-27 13:56:08 -- End content push to Portal.
+

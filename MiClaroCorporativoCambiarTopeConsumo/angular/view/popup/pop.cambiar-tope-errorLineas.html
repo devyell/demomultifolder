@@ -1,0 +1,22 @@
+<h3 id="uppsCambioTope"></h3>
+<p id="uppsIntentarlo"><br>&nbsp;</p>
+<p><a href="#" class="bt bt-red" id="bttopeaceptar">Volver</a></p>
+<script>
+$(document).ready(function(e) {
+   
+	$("#uppsCambioTope").append(WPSMensajeError.upps);
+	$("#uppsIntentarlo").append(WPSTCambiarTopeConsumo.MENSAJEIDF09);
+	
+	$('#bttopeaceptar').click(function(e){
+         e.preventDefault();
+          hidePopUp();
+		 
+    });
+	
+	var $popup = $('.popup');
+	function hidePopUp() {
+		$popup.fadeOut(250); 
+	}
+	
+});
+</script>

@@ -1,0 +1,54 @@
+.mouse { cursor:pointer; }
+.edit-pull .info2 { display: inline-block; filter: alpha(opacity=0);  height: 46px; line-height: 46px; -webkit-transition: all .15s ease-in; -moz-transition: all .15s ease-in; -o-transition: all .15s ease-in; transition: all .15s ease-in;  }*/
+
+.colsearch { }
+.colsearch .action { float: right; color: #5c5c5b; font-size: 12px; font-family: 'DIN-MediumAlternate'; text-decoration: underline; margin-right: 10px; margin-top: -16px; }
+.colsearch .action:hover { text-decoration: none; }
+.colsearch .action:after { content: ""; }
+.colsearch .input { display: none; }
+
+form.search-column .colsearch .input { display: block; }
+form.search-column .colsearch .pull { display: none; }
+form.search-column .colsearch .action:after { content: ""; }
+form.search-column .input.disabled { opacity: 0.5; }
+form.search-column .pull.disabled { opacity: 0.5; }
+form.search-column .pull.disabled select { display: none; }
+
+.pulldate div { font-size: 16px; }
+
+.form-filter .col25 { min-width: 220px; }
+.form-filter .col25 .pull { width: calc(100% - 10px); margin-bottom: 16px; }
+.form-filter .col25 .input { width: calc(100% - 10px); margin-bottom: 16px; }
+.form-filter .col33 { min-width: 280px; }
+.form-filter .col33 .pull { width: calc(100% - 10px); margin-bottom: 16px; }
+.form-filter .col33 .input { width: calc(100% - 10px); margin-bottom: 16px; }
+.form-filter .col50 { max-width: 400px; }
+.form-filter .col50 .pull { width: calc(100% - 10px); margin-bottom: 16px; }
+.form-filter .col50 .input { width: calc(100% - 10px); margin-bottom: 16px; }
+
+.subtitleAsignaPerfil {border-bottom: solid 1px #979797; font-size: 24px; font-weight: normal; padding: 14px 0;}
+
+.centerError {
+text-align:center
+}
+
+.loaderTu {float: right; margin-right: 30px;}
+.loaderimagen {display:none; width: 15px; height: 15px; margin-top: 15px;}
+.mensajeError { width: 15px; height: 15px; margin: 0px 0px 0px 10px;padding-top: 15px;}
+.loaderTuPerfil{float: right; margin-right: 30px;width: 46%;}
+.loaderimagenDisplay{display:none}
+
+a.disabled {
+  opacity: 0.5
+  pointer-events: none
+  cursor: default
+}
+
+
+input:focus { outline: none !important; }
+
+@media only screen (min-width: 0px) and (max-width: 540px) {
+	div#hideVincularProceso{
+			display: none;
+	}
+}

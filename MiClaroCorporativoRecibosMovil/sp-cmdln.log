@@ -1,0 +1,173 @@
+2017-01-16 15:50:55 -- Script Portlet command line version: 1.3
+
+2017-01-16 15:50:55 -- Home folder: C:\IBM_PORTLET_BATCH\sp_cmdln
+
+2017-01-16 15:50:55 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-01-16 15:50:55 -- Effective configuration properties:
+
+	contentRoot = MiClaroCorporativoRecibosMovil
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroCorporativoRecibosMovil
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-01-16 15:50:55 -- Begin content push to Portal.
+
+2017-01-16 15:50:56 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-01-16 15:50:56 -- Virtual Portal ID: null
+
+2017-01-16 15:50:56 -- Project ID: null
+
+2017-01-16 15:50:56 -- WCM content ID: null
+
+2017-01-16 15:50:56 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroCorporativoRecibosMovil
+
+2017-01-16 15:50:56 -- WCM Content Title: null
+
+2017-01-16 15:50:56 -- Main HTML file: index.html
+
+2017-01-16 15:50:56 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-1472295287920607176.zip
+	(22744 bytes in 16 files)
+
+	angular/app.js
+	angular/controller/confirmacionPagoController.js
+	angular/controller/recibosMovilController.js
+	angular/service/recibosMovilService.js
+	angular/view/confirmacion.html
+	angular/view/consumer-recibos-confirmacion-error-pasarela.html
+	angular/view/consumer-recibos-confirmacion-error.html
+	angular/view/consumer-recibos.html
+	angular/view/error.html
+	angular/view/errorGeneral.html
+	angular/view/nuevoServicio.html
+	angular/view/procesando-corporativo.html
+	assets/js/angular-file-saver.min.js
+	assets/js/Blob.js
+	assets/js/FileSaver.min.js
+	index.html
+
+2017-01-16 15:51:08 -- Response status: HTTP/1.1 200 OK
+
+2017-01-16 15:51:08 -- Content-Type: application/json
+
+2017-01-16 15:51:08 -- Effective charset of body: UTF-8
+
+2017-01-16 15:51:08 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumer-recibos-confirmacion-error-pasarela.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/confirmacion.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/nuevoServicio.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumer-recibos-confirmacion-error.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/consumer-recibos.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/errorGeneral.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/error.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/procesando-corporativo.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/angular-file-saver.min.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/FileSaver.min.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/js\/Blob.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/recibosMovilService.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/confirmacionPagoController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/recibosMovilController.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/app.js"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-01-16 15:51:08 -- Target authentication state: SUCCESS
+
+2017-01-16 15:51:08 -- Target authentication scheme: BASIC
+
+2017-01-16 15:51:08 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-01-16 15:51:08 -- Content push was successful.
+
+2017-01-16 15:51:08 -- End content push to Portal.
+

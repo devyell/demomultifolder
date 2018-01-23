@@ -1,0 +1,556 @@
+﻿
+
+<div class="tabs tabs-home">
+    <ul class="tab-links clearfix">
+        <li class="movil active"><a href="{{urlDetalleConsumoMov}}"><span></span> Móvil</a></li>
+        <li class="fijo"><a href="{{urlDetalleConsumoFij}}"><span></span> Fijo</a></li>
+        <li class="internet"><a href="{{urlDetalleConsumoInt}}"><span></span> Internet</a></li>
+        <li class="tv"><a href="{{urlDetalleConsumoTv}}"><span></span> TV</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="movil" class="tab active">
+        	<div class="change-type on-mobile-switch" ng-show="showSelectorMixto">
+				
+				<label id="lblConsumer" for="itype1">Residencial</label>
+				<div class="switch">
+					<input type="checkbox" name="itype1"  class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+					<label class="switch-label" for="itype1"></label>
+				</div>
+				<label id="lblCorporativo"><span>Corporativo</span></label>
+			</div>
+            <div class="breadcrumb">
+                Consultas <span class="arrow"></span> <strong>Detalle de Consumos</strong>
+            </div>
+			
+
+            <h3 class="mobile">[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Consultas/Detalle de Consumos"]</h3>
+
+            <div class="resume box clearfix ng-hide" ng-show="!showPantalla && (showErrorGeneral || !showCombos) && showCombos != null" style="text-align: center; ">
+	           <div class="col100">
+	               <h3>{{mensaje_error_titulo}}</h3>
+	               <p>
+	                   {{mensaje_error_descripcion01}}. <br />
+						{{mensaje_error_descripcion02}} <br /><br />
+						<a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.inicio()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+	               </p>
+	               <br>
+	           </div>
+	      	</div>
+
+			<div id="sinServicios" style="display: none;" >
+				<div class="resume box clearfix">
+					<div class="ng-hide col100" ng-show="esCorporativo">
+						<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/Movil - Sin Plan"]</h3>
+						<p>
+							[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Corporativo/Home/Movil - Sin Plan"]
+							<br> &nbsp;
+						</p>
+						<p>
+							<a href="/wps/myportal/miclaro/corporativo/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+						</p>
+						<br>
+					</div>
+					<div class="ng-hide col100" ng-show="esConsumer">
+						<h3>[Element key="Titulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Movil - Sin Plan"]</h3>
+						<p ng-show="esConsumer">
+							[Element key="Subtitulo" type="content" context="selected" name="/Mi Claro Content Library/Mi Claro/Consumer/Home/Movil - Sin Plan"]
+							<br> &nbsp;
+						</p>
+						<p>
+							<a href="/wps/myportal/miclaro/consumer/solicitudes/nuevoservicio" class="bt bt-red">Solicitar nuevo servicio</a>
+						</p>
+						<br>
+					</div>
+				</div>
+			</div>
+			<form method="post" class="form-filter clearfix ng-hide" ng-show="showPantalla && showCombos && esCorporativo">
+                <div class="col25">
+                    <div class="pull pulldate disabled">
+                        <div id="textoCuenta"></div>
+		                <select name="icuenta" ng-model="selectCuenta" ng-options="cuenta as cuenta.nombreAlias for cuenta in listadoCuentas" ng-change="miClaroDetConsMovilCtr.cambiarCuenta()">
+		                </select>
+                    </div>
+                </div>
+                <div class="col25">
+                    <div class="pull pulldate disabled">
+                        <div>{{selectRecibo.nombreAlias}}</div>
+		                <select name="irecibo" ng-model="selectRecibo" ng-options="recibo as recibo.nombreAlias for recibo in listadoRecibos" ng-change="miClaroDetConsMovilCtr.cambiarRecibo()">
+		                </select>
+                    </div>
+                </div>
+                <div class="col25 colsearch">
+                	<div class="pull pulldate">
+	                    <div data-ng-bind="selectLinea.ProductoServicioResponse.nombreAlias"></div>
+							<select name="iservicio" ng-model="selectLinea" ng-options="servicio as servicio.ProductoServicioResponse.nombreAlias for servicio in listProductoPostpago" ng-change="miClaroDetConsMovilCtr.cambiarLinea()">
+							</select>
+						</div>
+                    <div class="input search">
+                        <input autocomplete="off" name="inumero" data-holder="Celular" data-valid="required" id="autocomplete-filtro" type="text">
+                        <button type="button" class="bt bt-search"></button>
+                    </div>
+                    <a href="#" class="action"></a>
+                </div>
+                <div class="col25">
+                    <div class="pull pulldate" ng-show="esPostpago"><div>{{selectPeriodo.periodoLabel}}</div>
+                        <select name="ifilter" ng-model="selectPeriodo" ng-options="periodo as periodo.periodoLabel for periodo in listadoPeriodos" ng-change="miClaroDetConsMovilCtr.cambiarPeriodo()">
+                            
+                        </select>
+                    </div>
+                    <div class="pull pulldate" ng-show="!esPostpago"><div>{{selectPeriodo.descripcion}}</div>
+                        <select name="ifilter" ng-model="selectPeriodo" ng-options="periodo as periodo.descripcion for periodo in listadoPeriodos" ng-change="miClaroDetConsMovilCtr.cambiarPeriodo(periodo)">
+                            
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <form method="post" class="form-filter clearfix ng-hide" ng-show="showPantalla && !showCombos">
+                <div class="col100" ng-show="esCorporativo">
+		            <er-Customerror texto="msgErrorConsumer" on-click="miClaroDetConsMovilCtr.inicio()"></er-Customerror>
+	        	</div>
+	        </form>
+
+            <div class="resume box clearfix ng-hide" ng-show="showPantalla && esConsumer">
+                <div class="col50">
+                    <p>
+		                <span class="type" ng-if="selectLinea.ProductoServicioResponse.tipoLinea == 1">Línea Prepago</span>
+                    	<span class="type" ng-if="selectLinea.ProductoServicioResponse.tipoLinea == 2">Línea Postpago</span>
+                    </p>
+                    <div class="pull pullservicio" ng-show="showComboLinea">
+                        <div data-ng-bind="selectLinea.ProductoServicioResponse.nombreAlias"></div>
+						<select name="iservicio" ng-model="selectLinea" ng-options="servicio as servicio.ProductoServicioResponse.nombreAlias for servicio in listProductoPostpago" ng-change="miClaroDetConsMovilCtr.cambiarLinea()">
+						</select>
+
+                    </div>
+                    <div class="pull pullservicio ng-hide" ng-show="!showComboLinea">
+                        <er-Customerror texto="msgErrorConsumer" on-click="miClaroDetConsMovilCtr.inicio()"></er-Customerror>
+                    </div>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="col50">
+                    <p ng-show="show_datosadicionales && show_datosadicionales != null">
+						&nbsp;<br>
+						Fecha de Activación: <strong>{{wps_fechaActivacion|limitTo:10|date:'dd-MM-yyyy'}}</strong><br>
+						Estado: <strong>{{wps_estado}}</strong><br>
+						<div id="contradoEquipo"> Fin de Contrato de Equipo: <span class="help" title="Indica la fecha de termino de tu contrato, el cual firmaste con Claro para recibir un descuento especial en la compra de tu equipo móvil"></span> <strong>En {{wps_finContratoEquipo}} días</strong> </div>
+					</p>
+					<div ng-show="!show_datosadicionales && show_datosadicionales != null">
+						&nbsp;<br>
+						<er-Customerror texto="msgErrorConsumer" on-Refresh="miClaroDetConsMovilCtr.recargarDatosAdicioServMovil()"></er-Customerror>
+					</div>
+                </div>
+            </div>
+
+            <div class="ng-hide no-mobile " ng-show="showPantalla">
+
+                <div class="detail clearfix">
+                    <form method="post" class="ng-hide form-filter clearfix " ng-show="showPantalla && showCombos && esConsumer && showCombos != null">
+                        <div class="col50">
+                            <div class="pull pulldate" ng-show="esPostpago"><div>{{selectPeriodo.periodoLabel}}</div>
+                                <select name="ifilter" ng-model="selectPeriodo" ng-options="periodo as periodo.periodoLabel for periodo in listadoPeriodos" ng-change="miClaroDetConsMovilCtr.cambiarPeriodo()">
+                                    
+                                </select>
+                            </div>
+                            <div class="pull pulldate" ng-show="!esPostpago"><div>{{selectPeriodo.descripcion}}</div>
+                                <select name="ifilter" ng-model="selectPeriodo" ng-options="periodo as periodo.descripcion for periodo in listadoPeriodos" ng-change="miClaroDetConsMovilCtr.cambiarPeriodo()">
+                                    
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <form method="post" class="form-filter clearfix ng-hide" ng-show="!showCombos && esConsumer && showCombos != null">
+                        <div class="col25">
+                    	<er-Customerror texto="msgErrorConsumer" on-Refresh="miClaroDetConsMovilCtr.inicio()" ></er-Customerror>
+						</div></form>
+                    <div class="tabs tabs-consumos" ng-show="showPantalla && showCombos  && showCombos != null">
+                        <ul class="tab-links clearfix">
+                            <li class="tabL active"><a href="#consumo-llamadas" ng-click="miClaroDetConsMovilCtr.selectDetLlamadas()"><span class="icon-llamadas"></span> Llamadas</a></li>
+                            <li class="tabM"><a href="#consumo-mensajes" ng-click="miClaroDetConsMovilCtr.selectDetMensajes()"><span class="icon-mensajes"></span> Mensajes</a></li>
+                            <li class="tabT"><a href="#consumo-internet" ng-click="miClaroDetConsMovilCtr.selectDetTrafico()"><span class="icon-internet"></span> Internet</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="consumo-llamadas" class="tab active">
+
+                                <div class="filter-lista" data-target="#cntrpta01">
+                                    <div class="tit">Selecciona un tipo de llamada</div>
+                                    <label class="radio checked">
+                                    	<input name="calltype" ng-model="tipoLlamadaRadio" value="2" type="radio" ng-click="miClaroDetConsMovilCtr.obtenerLlamadasMovil()" checked="checked" ng-checked="true"></label> <label>Llamada Saliente</label>
+                                    <label class="radio">
+                                    	<input name="calltype" ng-model="tipoLlamadaRadio" value="1" type="radio"ng-click="miClaroDetConsMovilCtr.obtenerLlamadasMovil()"></label> <label>Llamada Entrante</label>
+                                    <label class="radio" ng-show="esConsumer">
+                                    	<input name="calltype" ng-model="tipoLlamadaRadio" value="3" type="radio"ng-click="miClaroDetConsMovilCtr.obtenerLlamadasMovil()"></label> <label ng-show="esConsumer">Llamada Por Cobrar</label>
+                                </div>
+
+                                <div class="result-lista" id="cntrpta01">
+
+                                	<div class="data data1" style="display:none;">
+                                		<h4>
+										    <img src="/wpstheme/miclaro/img/icon-llamadas-entrantes.png" width="21"> Entrantes
+										    <div class="bts ng-hide" ng-show="showLlamadasMovil">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()"  class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+
+										<table class="table" ng-show="showLlamadasMovil">
+										    <tr>
+										        <th>Fecha y Hora</th>
+										        <th>Línea entrante</th>
+										        <th>Duración</th>
+										    </tr>
+										    <tr ng-repeat="lista in listarLlamadasMovil ">
+												<td>{{lista.fecha | limitTo:10 | date:'dd MMM'| uppercase}} {{'2000-01-01T'+lista.hora | date:'hh:mm a' | uppercase}}</td>
+
+												<td ng-if="lista.lineaEntranteAlias != null && lista.lineaEntranteAlias != ''">{{lista.lineaEntranteAlias}}</td>
+												<td ng-if="lista.lineaEntranteAlias == null || lista.lineaEntranteAlias == ''">{{lista.lineaEntrante}}</td>
+												<td>{{lista.duracion}}</td>
+											</tr>
+										</table>
+										
+										<div class="more" ng-show="listarLlamadasMovil.length>=cantidadPorPagina && paginaActual < paginaMaxima">
+										    <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verMas()" class="more-data">ver mas</a>
+										</div>
+										
+										<div ng-show="listarLlamadasMovil.length>cantidadPorPagina && paginaActual == paginaMaxima" id="showListarLlamadasMovil1">
+										    <div class="more ng-hide"  ng-show="showLlamadasMovil2">
+											
+											<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+											
+											</div>
+										</div>
+										
+										
+										<h4 ng-show="listarLlamadasMovil.length>cantidadPorPagina && paginaActual == paginaMaxima">
+										    <div class="bts ng-hide" ng-show="showLlamadasMovil2">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+										
+										
+                                	</div>
+
+                                	<div class="data data2" style="display:block;" >
+                                		<h4>
+										    <img src="/wpstheme/miclaro/img/icon-llamadas-salientes.png" width="21"> Salientes
+										    <div class="bts ng-hide" ng-show="showLlamadasMovil">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()"  class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+
+										<table class="table" ng-show="showLlamadasMovil">
+										    <tr>
+										        <th>Fecha y Hora</th>
+										        <th>Línea de destino</th>
+										        <th>Duración</th>
+										        <th>Consumo</th>
+										        <th>Saldo</th>
+										        <th>Destino</th>
+										        <th>Operador</th>
+										    </tr>
+										    <tr ng-repeat="lista in listarLlamadasMovil ">
+												<td>{{lista.fecha|limitTo:10 | date:'dd MMM'| uppercase}} {{'2000-01-01T'+lista.hora | date:'hh:mm a' | uppercase}}</td>
+												<td ng-if="lista.lineaDestinoAlias != null && lista.lineaDestinoAlias != ''">{{lista.lineaDestinoAlias}}</td>
+												<td ng-if="lista.lineaDestinoAlias == null || lista.lineaDestinoAlias == ''">{{lista.lineaDestino}}</td>
+												<td>{{lista.duracion}}</td>
+												<td>{{lista.consumo}}</td>
+												<td>{{lista.saldo}}</td>
+												<td>{{lista.destino}}</td>
+												<td>{{lista.operador}}</td>
+											</tr>
+										</table>
+
+										<div class="more" ng-show="listarLlamadasMovil.length>=cantidadPorPagina && paginaActual < paginaMaxima">
+										    <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verMas()" class="more-data">ver mas</a>
+										</div>
+										<div ng-show="listarLlamadasMovil.length>cantidadPorPagina && paginaActual == paginaMaxima" id="showListarLlamadasMovil2">
+										    <div class="more ng-hide"  ng-show="showLlamadasMovil2">
+											
+											<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+											
+											</div>
+										</div>
+										
+										<h4 ng-show="listarLlamadasMovil.length>cantidadPorPagina && paginaActual == paginaMaxima">
+										    <div class="bts ng-hide" ng-show="showLlamadasMovil2">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+                                	</div>
+
+                                	<div class="data data3" style="display:none;">
+                                		<h4>
+										    Por Cobrar
+										    <div class="bts ng-hide" ng-show="showLlamadasMovil">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+										<p>
+										    <strong>¡Tu llamas, Él paga!</strong><br>
+										    Revisa el detalle de las llamadas que has realizado o recibido bajo la modalidad de llamadas por cobrar. <br>
+										    Recuerda que el registro de llamadas tiene un desfase de 1 día.
+										</p>
+										<p class="info">
+										    <span class="arrow green"></span> Las llamadas por cobrar que has solicitado y que NO vas a pagar<br>
+										    <span class="arrow red"></span> Las llamadas por cobrar que has aceptado y que vas a pagar
+										</p>
+
+										<table class="table" ng-show="showLlamadasMovil">
+										    <tr>
+										        <th>Fecha</th>
+										        <th>Hora</th>
+										        <th>Línea de origen</th>
+										        <th>Tipo de Servicio</th>
+										        <th>Línea de destino</th>
+										        <th>Duración</th>
+										        <th>Costo</th>
+										    </tr>
+										    <tr ng-repeat="lista in listarLlamadasMovil ">
+												<td>{{lista.fecha | limitTo:10 | date:'dd-MMM' | uppercase}}</td>
+												<td>{{'2000-01-01T'+lista.hora | date:'hh:mm a' | uppercase}}</td>
+
+												<td ng-if="lista.lineaEntranteAlias != null && lista.lineaEntranteAlias != ''">{{lista.lineaEntranteAlias}}</td>
+												<td ng-if="lista.lineaEntranteAlias == null || lista.lineaEntranteAlias == ''">{{lista.lineaEntrante}}</td>
+												<td ng-if="lista.tipoServicio == '1'"><span class="arrow green"></td>
+												<td ng-if="lista.tipoServicio == '2'"><span class="arrow red"></td>
+												<td ng-if="lista.lineaDestinoAlias != null && lista.lineaDestinoAlias != ''">{{lista.lineaDestinoAlias}}</td>
+												<td ng-if="lista.lineaDestinoAlias == null || lista.lineaDestinoAlias == ''">{{lista.lineaDestino}}</td>
+												<td>{{lista.duracion}}</td>
+												<td>{{lista.simboloMoneda}} {{lista.costo|number:2}}</td>
+											</tr>
+										</table>
+										
+										<div class="more" ng-show="listarLlamadasMovil.length>=cantidadPorPagina && paginaActual < paginaMaxima">
+										    <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verMas()" class="more-data">ver mas</a>
+										</div>
+										
+										
+										
+										<div ng-show="listarLlamadasMovil.length>cantidadPorPagina && paginaActual == paginaMaxima">
+										    <div class="more ng-hide"  ng-show="showLlamadasMovil2">
+											
+											<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+											
+											</div>
+										</div>
+										
+										<h4 ng-show="listarLlamadasMovil.length>cantidadPorPagina && paginaActual == paginaMaxima">
+										    <div class="bts ng-hide" ng-show="showLlamadasMovil2">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+										
+                                	</div>
+
+                                	<!--p class="center" ng-show="listaLlamadasVacio">{{mensaje_error_aycaramba}}</p-->
+									<p class="center" ng-show="listaLlamadasVacio" >{{listaVaciaMensaje}}</p>
+                                	<div ng-show="!showLlamadasMovil && !listaLlamadasVacio && showLlamadasMovil != null" id="showListaLlamadasVacio">
+										<er-Customerror texto="msgErrorConsumer" on-Refresh="miClaroDetConsMovilCtr.obtenerLlamadasMovil()"></er-Customerror>
+									</div>
+	                            </div>
+                        	</div>
+
+	                        <div id="consumo-mensajes" class="tab">
+	                            <div class="filter-lista" data-target="#cntrpta02">
+	                                <div class="tit">Selecciona un tipo de mensajería</div>
+	                                <label class="radio checked"><input name="msgtype" ng-model="tipoMensajeRadio" value="1" type="radio" checked="checked" ng-click="miClaroDetConsMovilCtr.obtenerMensajes()"></label> SMS
+	                                <label class="radio"><input name="msgtype" ng-model="tipoMensajeRadio" value="2" type="radio" ng-click="miClaroDetConsMovilCtr.obtenerMensajes()"></label> MMS
+	                            </div>
+
+	                            <div class="result-lista" id="cntrpta02">
+	                            	<div class="data data1" style="display:block;" >
+		                            	<h4>
+										    SMS
+										    <div class="bts ng-hide" ng-show="showListaMensajes">
+										        <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+
+										<table class="table" ng-show="showListaMensajes">
+										    <tbody><tr>
+										        <th>Fecha y Hora</th>
+										        <th>Teléfono de destino</th>
+										        <th>Saldo</th>
+										        <th>Operador</th>
+										    </tr>
+										    <tr ng-repeat="mensaje in listaMensajesMovil ">
+												<td>{{mensaje.fecha | limitTo:10 | date:'dd-MMM' | uppercase}} {{'2000-01-01T'+mensaje.hora | date:'hh:mm a' | uppercase}}</td>
+												<td>{{mensaje.lineaDestino}}</td>
+												<td>{{mensaje.saldo}}</td>
+												<td>{{mensaje.operador}}</td>
+											</tr>
+										</tbody></table>
+
+										<!--p class="center" ng-show="listaMensajesVacio">{{mensaje_error_aycaramba}}</p-->
+										<p class="center" ng-show="listaMensajesVacio">{{listaVaciaMensaje}}</p>
+										<div class="more" ng-show="listaMensajesMovil.length>=cantidadPorPagina && paginaActual < paginaMaximaMensaje">
+										    <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verMasMensajes()" class="more-data">ver mas</a>
+										</div>
+										
+										<div ng-show="listaMensajesMovil.length>cantidadPorPagina && paginaActual == paginaMaximaMensaje">
+										    <div class="more ng-hide"  ng-show="showListaMensajes2">
+											<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+											</div>
+										</div>
+										
+										<h4 ng-show="listaMensajesMovil.length>cantidadPorPagina && paginaActual == paginaMaximaMensaje">
+										    <div class="bts ng-hide" ng-show="showListaMensajes2">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+									</div>
+
+									<div class="data data2" style="display: none;" ><h4>
+										    MMS
+										    <div class="bts ng-hide" ng-show="showListaMensajes">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+
+										<table class="table" ng-show="showListaMensajes">
+										    <tbody><tr>
+										        <th>Fecha y Hora</th>
+										        <th>Teléfono de destino</th>
+										        <th>Saldo</th>
+										        <th>Operador</th>
+										    </tr>
+										    <tr ng-repeat="mensaje in listaMensajesMovil ">
+												<td>{{mensaje.fecha | limitTo:10 | date:'dd-MMM' | uppercase}} {{'2000-01-01T'+mensaje.hora | date:'hh:mm a' | uppercase}}</td>
+												<td>{{mensaje.lineaDestino}}</td>
+												<td>{{mensaje.saldo}}</td>
+												<td>{{mensaje.operador}}</td>
+											</tr>
+										</tbody></table>
+										
+										<p class="center" ng-show="listaMensajesVacio">{{listaVaciaMensaje}}</p>
+										<div class="more" ng-show="listaMensajesMovil.length>=cantidadPorPagina && paginaActual < paginaMaximaMensaje">
+										    <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verMasMensajes()" class="more-data">ver mas</a>
+										</div>
+										
+										<div ng-show="listaMensajesMovil.length>cantidadPorPagina && paginaActual == paginaMaximaMensaje">
+										    <div class="more ng-hide"  ng-show="showListaMensajes2">
+											<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+											</div>
+										</div>
+										
+										<h4 ng-show="listaMensajesMovil.length>cantidadPorPagina && paginaActual == paginaMaximaMensaje">
+										    <div class="bts ng-hide" ng-show="showListaMensajes2">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+										
+										
+									</div>
+									
+									<div ng-show="!showListaMensajes && !listaMensajesVacio" class="ng-hide">
+										<er-Customerror texto="msgErrorConsumer" on-Refresh="miClaroDetConsMovilCtr.obtenerMensajes()"></er-Customerror>
+									</div>
+								</div>
+	                		</div>
+	                		<div id="consumo-internet" class="tab">
+							    <div class="result-lista" id="cntrpta03">
+							    	<h4 class="tit-border">
+								    Detalle de consumo de internet
+									    <div class="bts ng-hide" ng-show="showListaInternet">
+									        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()"  class="bt bt-white bt-send-mail">Enviar por correo</a>
+									        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+									    </div>
+									</h4>
+
+									<table class="table" ng-show="showListaInternet">
+									    <tbody><tr>
+									        <th>Fecha y Hora</th>
+									        <th>Consumo (MB)</th>
+									        <th>Saldo</th>
+									        <th>Bolsa</th>
+									        <th>Grupo de cobro</th>
+									    </tr>									    
+									    <tr ng-repeat="datos in listaInternetMovil ">
+											<td>{{datos.fecha | limitTo:10 | date:'dd-MMM' | uppercase}} {{'2000-01-01T'+datos.hora | date:'hh:mm a' | uppercase}}</td>
+											<td>{{datos.consumo}}</td>
+											<td>{{datos.saldo}}</td>
+											<td>{{datos.bolsa}}</td>
+											<td>{{datos.grupoCobro}}</td>
+										</tr>
+									</tbody></table>
+									
+									<p class="center" ng-show="listaTraficoVacio">{{listaVaciaMensaje}}</p>
+									<div class="more" ng-show="listaInternetMovil.length>=cantidadPorPagina && paginaActual < paginaMaximaInternet">
+									    <a href="javascript:void(0)" ng-click="miClaroDetConsMovilCtr.verMasInternet()" class="more-data">ver mas</a>
+									</div>
+									
+										
+						
+										<div ng-show="listaInternetMovil.length>cantidadPorPagina && paginaActual == paginaMaximaInternet">
+										    <div class="more ng-hide"  ng-show="showListaInternet2">
+											<p class="limite">Has alcanzado el límite de consultas. Si deseas seguir revisando tu detalle de mensaje escoge alguna de estas dos opciones:</p>
+											</div>
+										</div>
+										
+										<h4 ng-show="listaInternetMovil.length>cantidadPorPagina && paginaActual == paginaMaximaInternet">
+										    <div class="bts ng-hide" ng-show="showListaInternet2">
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.verPopupEnviar()" class="bt bt-white bt-send-mail">Enviar por correo</a>
+										        <a href="javascript:void(0);" ng-click="miClaroDetConsMovilCtr.obtenerReporte()" class="bt bt-red">Descargar Reporte</a>
+										    </div>
+										</h4>
+										
+										
+										
+								</div>
+								
+								<div ng-show="!showListaInternet && !listaTraficoVacio" class="ng-hide">
+									<er-Customerror texto="msgErrorConsumer" on-Refresh="miClaroDetConsMovilCtr.selectDetTrafico()" ></er-Customerror>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" class="popup">
+    <div class="bg"></div>
+    <div style="margin-top: 78px;" class="pop">
+        <button type="button" class="bt btclose"></button>
+        <div style="display: block;" class="content"><h3>Envío de reporte</h3>
+
+
+		<div class="step2">
+		    <form method="post" action="" id="idformpop">
+		        <p class="msg-error"></p>
+		        <p>Ingresa el correo al que quieres enviar el reporte elegido</p>
+		        <div class="input"><input name="icorreopop" data-valid="email" type="text" ng-model="mailEnvioReporte"></div>
+		        <p>
+		            <a href="javascript:void(0);" class="bt bt-gris" id="btothercancel" ng-click="miClaroDetConsMovilCtr.limpiarEnvioReporte()">Cancelar</a>
+		            <a href="javascript:void(0);" class="bt bt-red" id="btothersendmail" ng-click="miClaroDetConsMovilCtr.enviarACorreoAjeno()">Enviar</a>
+		        </p>
+		    </form>
+		</div>
+		<style>
+		    .popup .pop .step1 { display: block; }
+		    .popup .pop .step2 { display: none; }
+		    .popup .pop .input { width: 70%; min-width: 200px; margin: 0 auto; }
+		    .msg-error { color: #d52b1e !important; font-family: 'DIN-RegularAlternate'; margin: 0; }
+		</style>
+		<div class="step1">
+		    <p>
+		        ¿Quieres enviar el reporte al correo <strong>{{usuarioSession.email}}</strong><br>
+		        o a otro correo electrónico?<br>&nbsp;
+		    </p>
+		    <p>
+		        <a href="javascript:void(0);" class="bt bt-gris" id="btothermail">Otro Correo</a>
+		        <a href="javascript:void(0);" class="bt bt-red" id="btsendmail" ng-click="miClaroDetConsMovilCtr.enviarACorreoPropio()">Enviar</a>
+		    </p>
+		</div>
+		</div>
+		    </div>
+		</div>
+    </div>
+</div>

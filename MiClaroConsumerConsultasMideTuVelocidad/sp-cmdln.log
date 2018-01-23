@@ -1,0 +1,80 @@
+2016-09-26 20:04:24 -- Script Portlet command line version: 1.3
+
+2016-09-26 20:04:24 -- Home folder: C:\IBM_WPS_BATCH\sp_cmdln
+
+2016-09-26 20:04:24 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_80\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_80
+
+2016-09-26 20:04:24 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerConsultasMideTuVelocidad
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.64:10039
+	wcmContentName = MiClaroConsumerConsultasMideTuVelocidad
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2016-09-26 20:04:24 -- Begin content push to Portal.
+
+2016-09-26 20:04:25 -- Push URL: POST http://9.6.109.64:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2016-09-26 20:04:25 -- Virtual Portal ID: null
+
+2016-09-26 20:04:25 -- Project ID: null
+
+2016-09-26 20:04:25 -- WCM content ID: null
+
+2016-09-26 20:04:25 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerConsultasMideTuVelocidad
+
+2016-09-26 20:04:25 -- WCM Content Title: null
+
+2016-09-26 20:04:25 -- Main HTML file: index.html
+
+2016-09-26 20:04:25 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-8951705923980370068.zip
+	(433 bytes in 1 files)
+
+	index.html
+
+2016-09-26 20:04:27 -- Response status: HTTP/1.1 200 OK
+
+2016-09-26 20:04:27 -- Content-Type: application/json
+
+2016-09-26 20:04:27 -- Effective charset of body: UTF-8
+
+2016-09-26 20:04:27 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : {
+
+            "filename" : "HTML\/index.html"
+         }
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2016-09-26 20:04:27 -- Target authentication state: SUCCESS
+
+2016-09-26 20:04:27 -- Target authentication scheme: BASIC
+
+2016-09-26 20:04:27 -- Target authentication credentials: [principal: wpsadmin]
+
+2016-09-26 20:04:27 -- Content push was successful.
+
+2016-09-26 20:04:27 -- End content push to Portal.
+

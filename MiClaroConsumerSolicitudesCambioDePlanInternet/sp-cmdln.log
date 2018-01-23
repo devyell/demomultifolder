@@ -1,0 +1,119 @@
+2017-02-03 11:10:55 -- Script Portlet command line version: 1.3
+
+2017-02-03 11:10:55 -- Home folder: C:\IBM_PUSH\sp_cmdln
+
+2017-02-03 11:10:55 -- Java environment:
+
+	java.home = C:\Program Files\Java\jdk1.7.0_40\jre
+	java.vendor = Oracle Corporation
+	java.version = 1.7.0_40
+
+2017-02-03 11:10:55 -- Effective configuration properties:
+
+	contentRoot = MiClaroConsumerSolicitudesCambioDePlanInternet
+	excludes = [^bin$, ^lib$, ^src$, ^\.classpath$, ^\.project$, ^sp-config.json$, ^sp-cmdln.log$, ^sp.bat$, ^sp.sh$]
+	portalPassword = ********
+	portalUser = wpsadmin
+	scriptPortletServer = http://9.6.109.196:10039
+	wcmContentName = MiClaroConsumerSolicitudesCambioDePlanInternet
+	wcmSiteArea = Script Portlet Library/Script Portlet Applications/
+
+2017-02-03 11:10:55 -- Begin content push to Portal.
+
+2017-02-03 11:10:55 -- Push URL: POST http://9.6.109.196:10039/import_export/webengine/script_editing/ScriptPortletContentAPI/Action!doPushApp HTTP/1.1
+
+2017-02-03 11:10:55 -- Virtual Portal ID: null
+
+2017-02-03 11:10:55 -- Project ID: null
+
+2017-02-03 11:10:55 -- WCM content ID: null
+
+2017-02-03 11:10:55 -- WCM Content Path: Script Portlet Library/Script Portlet Applications/MiClaroConsumerSolicitudesCambioDePlanInternet
+
+2017-02-03 11:10:55 -- WCM Content Title: null
+
+2017-02-03 11:10:55 -- Main HTML file: index.html
+
+2017-02-03 11:10:55 -- Archive file:
+
+	C:\Users\IBM_ADMIN\AppData\Local\Temp\sp-content-4469984790117409483.zip
+	(10077 bytes in 7 files)
+
+	angular/appcambioplan.js
+	angular/controller/controllercambioplan.js
+	angular/service/servicescambioplan.js
+	angular/view/corporativo-residencial-cambiar-plan-internet.html
+	assets/css/stylos.css
+	assets/util.js
+	index.html
+
+2017-02-03 11:11:07 -- Response status: HTTP/1.1 200 OK
+
+2017-02-03 11:11:07 -- Content-Type: application/json
+
+2017-02-03 11:11:07 -- Effective charset of body: UTF-8
+
+2017-02-03 11:11:07 -- Body content:
+
+{
+
+   "results" : {
+
+      "status" : "success",
+      "importedFiles" : {
+
+         "file" : [
+            {
+
+               "filename" : "HTML\/index.html"
+            }
+            ,
+            {
+
+               "filename" : "HTML\/angular\/view\/corporativo-residencial-cambiar-plan-internet.html"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/assets\/util.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/service\/servicescambioplan.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/controller\/controllercambioplan.js"
+            }
+            ,
+            {
+
+               "filename" : "JavaScript\/angular\/appcambioplan.js"
+            }
+            ,
+            {
+
+               "filename" : "CSS\/assets\/css\/stylos.css"
+            }
+
+         ]
+      }
+      ,
+      "skippedFiles" : "",
+      "message" : "The file that you selected was imported successfully."
+   }
+}
+
+
+2017-02-03 11:11:07 -- Target authentication state: SUCCESS
+
+2017-02-03 11:11:07 -- Target authentication scheme: BASIC
+
+2017-02-03 11:11:07 -- Target authentication credentials: [principal: wpsadmin]
+
+2017-02-03 11:11:07 -- Content push was successful.
+
+2017-02-03 11:11:07 -- End content push to Portal.
+

@@ -1,0 +1,139 @@
+<div class="tabs-home tabs-clean">
+    <div class="tab-content noborder">
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Cambio de Chip</strong>
+        </div>
+        <h3>Cambio de Chip</h3>
+        <div id="show_panel_root" style="display: none;">
+            <p>Solicite chips o equipos de repuesto en caso de pérdida o extravío en su línea o equipo.
+                <br>&nbsp;</p>
+            <div class="detail clearfix step-chip-1">
+                <h4 class="tit-border">¿Cuál es el motivo del cambio?</h4>
+                <div class="col50">
+                    <div class="pull pulldate">
+                        <div>{{motivoSelect.nombre}}</div>
+                        <select ng-model="motivoSelect" ng-options="rsMotivo.nombre for rsMotivo in lsMotivo" ng-change="changeProduct()"></select>
+                    </div>
+                </div>
+                <br class="both">&nbsp;
+            </div>
+            <div id="show_panel" style="display: none;">
+                <div class="detail clearfix step-chip-2">
+                    <h4 class="tit-border">Seleccione la línea</h4>
+                    <form method="post" class="form-filter clearfix">
+                        <div class="col33">
+                            <div class="pull pulldate" ng-class="{disabled: disabledCombos}">
+                                <div>{{cuentaSelect.nombreCuenta}}</div>
+                                <select ng-model="cuentaSelect" ng-options="rsCuenta.nombreCuenta for rsCuenta in lsCuenta" ng-change="changeCuenta()"></select>
+                            </div>
+                        </div>
+                        <div class="col33">
+                            <div class="pull pulldate" ng-class="{disabled: disabledCombos}">
+                                <div>{{reciboSelect.nombreRecibo}}</div>
+                                <select ng-model="reciboSelect" ng-options="rsRecibo.nombreRecibo for rsRecibo in lsRecibo" ng-change="changeRecibo()"></select>
+                            </div>
+                        </div>
+                        <div class="col33 colsearch" id="filterlineamovil">
+                            <div class="pull pulldate" ng-show="show_directorio1">
+                                <div>{{servicioSelected.ProductoServicioResponse.nombreAlias}}</div>
+                                <select ng-model="servicioSelected" ng-options="rsServicio.ProductoServicioResponse.nombreAlias for rsServicio in lsServicio" ng-change="changeDirectorio()"></select>
+                            </div>
+                            <div class="input search" ng-show="show_directorio2" style="display: block;">
+                                <input type="text" id="autocomplete-movil" name="query" data-valid="required" data-holder="Celular">
+                                <button type="button" class="bt bt-search" ng-model="inputLineaMovil"></button>
+                            </div>
+                            <a href="" class="action action2" ng-click="actionDirectorio(1)" style="content: '' !important">{{wps_textAction}}</a>
+                        </div>
+                        <br class="both">&nbsp;
+                    </form>
+                </div>
+                <div class="detail clearfix step-chip-3" style="display: block;">
+                    <h4 class="tit-border">Seleccione el chip a utilizar</h4>
+                    <form method="post" class="form-filter">
+                        <div class="col25" style="line-height:45px;">Busca tu número de chip:</div>
+                        <div class="col33">
+                            <div class="input search">
+                                <input type="text" name="query" data-valid="required" data-holder="Chip" id="autocomplete-chip">
+                                <button type="button" class="bt bt-search" id="btsearchlinea"></button>
+                            </div>
+                        </div>
+                        <br class="both">&nbsp;
+                    </form>
+                    <table class="table-plan" ng-show="!chip_vacio">
+                        <tr>
+                            <th>Chips disponibles</th>
+                            <th width="100">&nbsp;</th>
+                        </tr>
+                        <tr ng-repeat="rsChip in lsChip">
+                            <td>{{rsChip.idChip}}</td>
+                            <td>
+                                <label class="radio" id="{{rsChip.idChip}}">
+                                    <input type="radio" name="ichip" value="{{rsChip.idChip}}" ng-click="seleccionarChip(rsChip)">
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <p class="error-server" colspan="2" style="text-align: center;" ng-show="chip_vacio">
+                            No cuenta con chips disponibles, comuníquese con su asesor para solicitarlos.
+                        </p>
+                        <p class="error-server" style="padding: 0px;" ng-show="chip_error">
+                            <strong>{{mensaje_upps_titulo}}</strong>
+                            <br> {{mensaje_upps_descripcion01}}
+                            <br>{{mensaje_upps_descripcion02}}
+                            <br>
+                            <a href="" ng-click="obtenerBuscarChipPackEmergencia()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                        </p>
+                    </div>
+                    <!--
+                    <div class="more">
+                        <a href="#" class="more-data">ver mas</a>
+                    </div>
+                    -->
+                    <div class="more">
+                    </div>
+                    <div class="div-bts">
+                        <button type="button" class="bt bt-red bt-disabled" id="btsavechip" ng-click="asignarChipPackEmergencia()">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="detail" id="show_panel_ups" style="display: none;">
+                <div class="col100 box">
+                    <p class="error-server">
+                        <strong>{{mensaje_upps_titulo}}</strong>
+                        <br> {{mensaje_upps_descripcion01}}
+                        <br>{{mensaje_upps_descripcion02}}
+                        <br>
+                        <a href="" ng-click="obtenerListadoMovilCorporativoCuentaController()"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="show_panel_root_error" class="resume box clearfix" style="text-align: center; display: none;">
+            <div class="col100">
+                <h3>{{mensaje_error_titulo}}</h3>
+                <p>
+                    {{mensaje_error_descripcion01}}
+                    <br /> {{mensaje_error_descripcion02}}
+                    <br />
+                    <br />
+                    <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                </p>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="cambiochip_modal">
+    <div class="bg"></div>
+    <div class="pop">
+        <button type="button" class="bt btclose" ng-click="close_popup()"></button>
+        <div class="content">
+            <h3>Listo</h3>
+            <p>Ha realizado el siguiente cambio de chip a la línea {{servicioSelect.ProductoServicioResponse.nombre}}
+                <br>El nuevo chip es {{wps_nuevo_chip}}
+                <br>&nbsp;</p>
+            <p><a href="/wps/myportal/miclaro/corporativo/solicitudes/cambiochip/" class="bt bt-red" id="btcambiochipaceptar">Aceptar</a></p>
+        </div>
+    </div>
+</div>

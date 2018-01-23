@@ -1,0 +1,10 @@
+
+
+http://192.168.5.165:10039/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/fijo
+http://192.168.5.165:10039/wps/myportal/miclaro/consumer/consultas/detalleconsumos/fijo
+
+
+
+http://9.6.109.196:10039/wps/myportal/miclaro/consumer/consultas/detalleconsumos/fijo
+
+http://9.6.109.196:10039/wps/myportal/miclaro/corporativo/consultas/detalleconsumos/fijo

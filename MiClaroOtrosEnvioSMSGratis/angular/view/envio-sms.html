@@ -1,0 +1,189 @@
+﻿<div class="tabs-home tabs-clean">
+    <div class="tab-content noborder">
+        <div class="change-type on-mobile-switch" ng-show="showSelectorMixto">
+            <br>
+            <br>
+            <label id="lblConsumer" for="itype1">Residencial</label>
+            <div class="switch">
+                <input type="checkbox" name="itype1" class="switch-checkbox" id="itype1" ng-model="switchSelect" ng-change="switchChange()" />
+                <label class="switch-label" for="itype1"></label>
+            </div>
+            <label id="lblCorporativo"><span>Corporativo</span></label>
+        </div>
+        <div class="breadcrumb">
+            Solicitudes <span class="arrow"></span> <strong>Envío de SMS</strong>
+        </div>
+        <h3>Envío de SMS a Claro</h3>
+        <div id="showVistaHome">
+            <p ng-show="showLabelSMSDia">Podrás enviar desde este servicio un máximo de {{SMSDiaResponse.cantidadSMSxDia}} SMS por día. Igualmente, el destinatario podrá recibir {{SMSDiaResponse.cantidadSMSxDia}} SMS por día.
+                <br>&nbsp;</p>
+            <div class="message-sms" id="showMensajeQuedan">
+                <p>Este es tu mensaje número {{cantSMSEnviados}} del día. Te quedan {{disponible}} por hoy.</p>
+            </div>
+            <p class="msg-error">Upps, los campos resaltados contienen errores</p>
+            <div ng-show="showSinFormulario" id='showSinFormulario' style="display:none">
+                <div class="box shadow">
+                    <p>&nbsp;</p>
+                    <p class="msg-confirm">Ya utilizaste todos tus mensajes del día hoy. Vuelve mañana y podrás enviar {{SMSDiaResponse.cantidadSMSxDia}} SMS más a Claro</p>
+                    <p>&nbsp;</p>
+                </div>
+                <p></p>
+                <div class="publicidad box">
+                    <div class="big-ad">
+                    </div>
+                </div>
+            </div>
+            <div class="box" ng-show="showFormulario">
+                <div class="form">
+                    <form method="post">
+                        <table class="table-sms">
+                            <tr>
+                                <td>
+                                    <p>Número de Destino:</p>
+                                </td>
+                                <td>
+                                    <div class="input">
+                                        <input type="text" id="inumero" name="inumero" maxlength="9" data-valid="required" ng-model="numeroDestino">
+                                    </div>
+                                </td>
+                                <td>
+                                    <p style="margin-left: 20px;">Su nombre o Seudónimo:</p>
+                                </td>
+                                <td>
+                                    <div class="input">
+                                        <input type="text" id="inombre" name="inombre" maxlength="30" data-valid="required" ng-model="seudonimo">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>Puedes elegir el motivo de tu mensaje:</p>
+                                </td>
+                                <td colspan="2">
+                                    <div class="pull">
+                                        <div>{{motivoSelecc.descripcion}}</div>
+                                        <select name="imotivo" id="imotivo" ng-model="motivoSelecc" ng-options="motivo as motivo.descripcion disable when motivo.disabled for motivo in listaMotivos" ng-change="miClaroEnvioSMSCtr.seleccionarMotivo();" >
+                                            <option value="0">Seleccionar</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p>Puedes elegir un mensaje predeterminado:</p>
+                                </td>
+                                <td colspan="2">
+                                    <div class="pull">
+                                        <div>{{mensajeSelecc.descripcion | limitTo:limiteMensajeOp}}...</div>
+                                        <select name="ipredeterminado" id="ipredeterminado" disabled ng-model="mensajeSelecc" ng-options="mensaje as mensaje.descripcion disable when mensaje.disabled for mensaje in listaMensajes" ng-click="miClaroEnvioSMSCtr.seleccionarMensaje()">
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <p>O escribe tu mensaje aquí:</p>
+                                    <p class="sep">&nbsp;</p>
+                                    <p>Recuerda que algunos de los caracteres como la “ñ” o las tildes pueden no ser reconocidos por el teléfono que recibirá el SMS.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="area">
+                                        <textarea id="imensaje" name="imensaje" maxlength="140" data-valid="required" data-holder="Empieza tu mensaje aquí"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="smscounter">
+                                    Máximo 140
+                                    <div class="input">
+                                        <input type="text" id="imaximo" name="imaximo" value="0" readonly>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <p class="sep">&nbsp;</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="divcaptcha">
+                                        <img src="" id="captcha_image" height="35" width="100">
+                                        <img src="/wps/PA_loginclaro/assets/img/iconos/refresh.png" ng-click="miClaroEnvioSMSCtr.recargarCaptcha()" alt="" class="refresh">
+                                    </div>
+                                </td>
+                                <td>
+                                    <p>Ingresa el código Captcha</p>
+                                </td>
+                                <td>
+                                    <div class="input">
+                                        <input type="text" id="icaptcha" name="icaptcha" data-valid="required" ng-model="codigoCaptcha">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <p class="legal">América Móvil ofrece este servicio de forma gratuita, para facilitar la comunicación de sus usuarios de servicio móvil. Por ello, se les recuerda, el uso adecuado que debe darse al mismo, evitando el envío de publicidad (spams), comunicaciones indebidas o ilegales, entre otros.</p>
+                                    <p class="legal">Desde aquí, podrás enviar mensajes de texto a cualquier persona que posea un equipo Claro. Sólo tienes que ingresar el número celular y el mensaje que quieras enviarle. Considera que el mensaje que deseas enviar no debe contener palabras indebidas. El servicio está momentáneamente activo sólo para enviar SMS a Celulares Claro.</p>
+                                    <p>&nbsp;</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="bts">
+                                    <button type="button" class="bt bt-red" id="btsendsms" ng-click="miClaroEnvioSMSCtr.enviarMensaje()">Enviar</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;" ng-show="flagServiciosFijo == -1">
+            <div class="resume box clearfix">
+                <div class="col100">
+                    <h3>{{error_titulo}}</h3>
+                    <p>
+                        {{error_descripcion01}}
+                        <br /> {{error_descripcion02}}
+                        <br />
+                        <br />
+                        <a href="/wps/myportal/miclaro/root"><img src="/wpstheme/miclaro/img/icon-actualizar.png" width="24"></a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div class="bg"></div>
+        <div class="pop">
+            <button type="button" class="bt btclose"></button>
+            <div style="display: block;" class="content">
+                <div class="confirm mensaje-exito">
+                    <h3>Listo</h3>
+                    <p>Tu mensaje fue enviado con éxito.
+                        <br>Puedes enviar {{enviarSMSClaroResponse.cantidadMensajesDisponibles}} mensajes más el día de hoy.
+                        <br>&nbsp;</p>
+                    <p><a href="javascript:void(0)" class="bt bt-red" id="btsmsaceptar">Volver</a></p>
+                </div>
+                <div class="confirm mensaje-error">
+                    <h3>{{upps}}</h3>
+                    <p>{{mensaje1}}{{mensaje2}}{{mensaje3}}{{mensaje5}}
+                        <br>&nbsp;</p>
+                    <p><a href="javascript:void(0)" class="bt bt-red btsmsaceptarError">Volver</a></p>
+                </div>
+                <div class="confirm mensaje-noclaro">
+                    <h3>{{ayCaramba}}</h3>
+                    <p>El número que ingresaste no pertenece a Claro.
+                        <br>Inténtalo de nuevo.
+                        <br>&nbsp;</p>
+                    <p><a href="javascript:void(0)" class="bt bt-red btsmsaceptarError">Volver</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+    </html>

@@ -1,0 +1,20 @@
+<h3>¡Upps!</h3>
+<p>Tuvimos un problema. Por favor vuelva a intentarlo.<br>&nbsp;</p>
+<p><a  class="bt bt-red" id="bttopeaceptar">Aceptar</a></p>
+<script>
+$(document).ready(function(e) {
+   
+	
+	$('#bttopeaceptar').click(function(e){
+         e.preventDefault();
+          hidePopUp();
+		 
+    });
+	
+	var $popup = $('.popup');
+	function hidePopUp() {
+		$popup.fadeOut(250); 
+	}
+	
+});
+</script>
