@@ -5,14 +5,10 @@ node {
     stage('build') {
         if (env.BRANCH_NAME == 'master') {
             
-            def gitEcho= bat returnStdout: true, script: 'git log --name-status -3'
-            echo 'I only execute on the master branch'
+           def gitEcho= bat returnStdout: true, script: 'git log --name-status -1'
            def workspace = pwd()
-           folderModified(workspace)
-           new File(workspace).eachDir() { dir ->  
-                    echo dir.getName()
-            }  
-            println gitEcho.tokenize('\n').findAll { it.startsWith('M') }
+           def changes= gitEcho.tokenize('\n').findAll { (it.startsWith('M') || it.startsWith('A'))}
+           folderModified(workspace,changes)
         } else {
             echo 'I execute elsewhere'
         }
@@ -20,9 +16,15 @@ node {
 }
 
 @NonCPS
-def folderModified(ws) {
+def folderModified(ws,lstChanges) {
+    def folder=''
    new File(ws).eachDir() { dir ->  
-                    echo dir.getName()
+       lstChanges.each{
+           if(${it}.contains(dir.getName())){
+                echo dir.getName()
+           }
+       }
+       
             }  
  
 }
