@@ -4,7 +4,7 @@ node {
             def gitEcho= bat returnStdout: true, script: 'git log --name-status -3'
             echo 'I only execute on the master branch'
             println gitEcho.split('\n')
-            println gitEcho.split('\n').findAll { it.startsWith('M') }
+            println gitEcho.tokenize('\n').findAll { it.startsWith('M') }
         } else {
             echo 'I execute elsewhere'
         }
