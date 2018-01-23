@@ -28,7 +28,7 @@ node {
 
 @NonCPS
 def folderModified(ws,lstChanges) {
-    def folder=''
+    def folder=null
    new File(ws).eachDir() { dir ->  
        lstChanges.each{
            if(it.contains(dir.getName())){
@@ -37,6 +37,5 @@ def folderModified(ws,lstChanges) {
        }
        
    }  
-    folder
- 
+   return folder 
 }
