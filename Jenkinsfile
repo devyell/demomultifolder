@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       environment {
-        commit = '${GIT_COMMIT}'
+        commit = '$(git show -s --pretty=%an)'
       }
       steps {
         bat 'echo env.commit'
