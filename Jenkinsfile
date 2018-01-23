@@ -6,7 +6,7 @@ pipeline {
         commit = '$(git show -s --pretty=%an)'
       }
       steps {
-        bat 'echo env.commit'
+        bat 'echo %commit%'
       }
     }
   }
