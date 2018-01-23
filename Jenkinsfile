@@ -10,7 +10,7 @@ node {
            def changes= gitEcho.tokenize('\n').findAll { (it.startsWith('M') || it.startsWith('A'))}
            def f=folderModified(workspace,changes)
             if(f){
-                command = "cp $f c://$f"
+                command = "copy $f c://$f"
             proc = command.execute()
             proc.consumeProcessOutput(sout, serr)
             proc.waitForOrKill(3000)
