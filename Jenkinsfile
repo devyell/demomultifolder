@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       environment {
-        commit = 'cmd git show -s --pretty=%an'
+        commit = bat 'git log --name-status -1 --oneline'
       }
       steps {
         bat 'echo %commit%'
