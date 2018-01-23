@@ -8,8 +8,7 @@ node {
             def gitEcho= bat returnStdout: true, script: 'git log --name-status -3'
             echo 'I only execute on the master branch'
            def workspace = pwd()
-            def listDir= bat returnStdout: true, script: 'ls -d */'
-            echo listDir.split("//")
+           folderModified(workspace)
            new File(workspace).eachDir() { dir ->  
                     echo dir.getName()
             }  
@@ -18,4 +17,12 @@ node {
             echo 'I execute elsewhere'
         }
     }
+}
+
+@NonCPS
+def folderModified(ws) {
+   new File(ws).eachDir() { dir ->  
+                    echo dir.getName()
+            }  
+ 
 }
