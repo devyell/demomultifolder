@@ -14,7 +14,8 @@ node {
             if(f){
             def sourceDir = "$workspace\\$f"
             def destinationDir = "c:\\$f"
-            folderCopyOperation(sourceDir, destinationDir)
+           fileOperations([folderCopyOperation(destinationFolderPath:sourceDir, sourceFolderPath:destinationDir)])
+
             }else{
                 echo "ningun scriptportlet se ha modificado"
             }
